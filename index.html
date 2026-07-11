@@ -344,7 +344,7 @@ document.querySelectorAll('a,button').forEach(el=>{
 });
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>60)});
-const vid=document.getElementById('heroVideo'),canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d',{alpha:false}),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track'),FRAMES=60,START=0.1;
+const vid=document.getElementById('heroVideo'),canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d',{alpha:false}),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track'),FRAMES=60,START=0.2;
 if(window.innerWidth>768){
   const frames=new Array(FRAMES).fill(null);
   let scrubReady=false,curIdx=-1;
