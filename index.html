@@ -344,59 +344,73 @@ document.querySelectorAll('a,button').forEach(el=>{
 });
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>60)});
-const vid=document.getElementById('heroVideo'),canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d',{alpha:false}),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track'),FRAMES=60,START=0.97;
+const vid=document.getElementById('heroVideo'),canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d',{alpha:false}),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track'),FRAMES=30,START=0.97;
 if(window.innerWidth>768){
   const frames=new Array(FRAMES).fill(null);
-  let scrubReady=false,curIdx=-1;
+  let scrubReady=false,curPct=0;
   const cap=document.createElement('canvas'),capCtx=cap.getContext('2d');
   function getProgress(){const h=track.offsetHeight-window.innerHeight;return Math.min(1,Math.max(0,-track.getBoundingClientRect().top)/h)}
-  // Video stays hidden — only used for frame capture in background
-  vid.style.display='none';
-  canvas.style.display='block';
-  function snapshotFrame(){
+  vid.style.display='none';canvas.style.display='block';
+  // Loading label on canvas
+  function drawLoading(){
+    if(scrubReady) return;
+    requestAnimationFrame(()=>{
+      if(scrubReady) return;
+      ctx.save();ctx.fillStyle='rgba(0,0,0,0.35)';ctx.fillRect(0,canvas.height-40,200,40);
+      ctx.fillStyle='rgba(255,255,255,0.6)';ctx.font='11px Helvetica Neue,sans-serif';
+      ctx.fillText('Loading scene…  '+Math.round(frames.filter(Boolean).length/FRAMES*100)+'%',16,canvas.height-16);
+      ctx.restore();
+      drawLoading();
+    });
+  }
+  function snapshot(){
     if(!vid.videoWidth||!vid.duration) return;
     const pct=(vid.currentTime-START)/(vid.duration-START);
-    if(pct<0||pct>1) return;
-    const idx=Math.min(FRAMES-1,Math.floor(pct*(FRAMES-0.001)));
-    if(!frames[idx]){
-      capCtx.drawImage(vid,0,0,cap.width,cap.height);
-      createImageBitmap(cap).then(bmp=>{
-        if(!frames[idx]){
-          frames[idx]=bmp;
-          if(idx===0){ctx.drawImage(bmp,0,0,canvas.width,canvas.height);}
-          if(!scrubReady&&frames.filter(Boolean).length>=12){fillGaps();scrubReady=true;}
-        }
-      });
-    }
+    if(pct<-0.01||pct>1.01) return;
+    const idx=Math.min(FRAMES-1,Math.max(0,Math.floor(pct*(FRAMES-0.001))));
+    if(frames[idx]) return;
+    capCtx.drawImage(vid,0,0,cap.width,cap.height);
+    createImageBitmap(cap).then(bmp=>{
+      if(frames[idx]) return;
+      frames[idx]=bmp;
+      if(idx===0){ctx.drawImage(bmp,0,0,canvas.width,canvas.height);drawLoading();}
+      const filled=frames.filter(Boolean).length;
+      if(!scrubReady&&filled>=8){fillGaps();scrubReady=true;}
+    });
   }
-  function captureLoop(now,meta){snapshotFrame();if(!vid.ended&&!vid.paused)vid.requestVideoFrameCallback(captureLoop);}
+  function rVFC(now,meta){snapshot();if(!vid.ended&&!vid.paused)vid.requestVideoFrameCallback(rVFC);}
   function fillGaps(){
     for(let i=1;i<FRAMES;i++) if(!frames[i]) frames[i]=frames[i-1];
     for(let i=FRAMES-2;i>=0;i--) if(!frames[i]) frames[i]=frames[i+1];
   }
-  function startCapture(){
+  function init(){
     const w=vid.videoWidth||1344,h=vid.videoHeight||768;
     canvas.width=w;canvas.height=h;cap.width=w;cap.height=h;
+    // Seek to start, show first frame, then play at speed to capture rest
     vid.currentTime=START;
     vid.addEventListener('seeked',()=>{
-      snapshotFrame(); // capture first frame for instant display
-      vid.playbackRate=16;
+      snapshot();
+      vid.playbackRate=4;
       vid.play().catch(()=>{});
-      if('requestVideoFrameCallback' in vid) vid.requestVideoFrameCallback(captureLoop);
-      else vid.addEventListener('timeupdate',snapshotFrame);
+      if('requestVideoFrameCallback' in vid) vid.requestVideoFrameCallback(rVFC);
+      else vid.addEventListener('timeupdate',snapshot);
     },{once:true});
   }
-  vid.addEventListener('ended',()=>{fillGaps();scrubReady=true;});
-  if(vid.readyState>=1) startCapture();
-  else vid.addEventListener('loadedmetadata',startCapture,{once:true});
+  vid.addEventListener('ended',()=>{fillGaps();scrubReady=true;vid.pause();});
+  if(vid.readyState>=1) init();
+  else vid.addEventListener('loadedmetadata',init,{once:true});
+  // Scroll scrub with crossfade interpolation between frames
   let raf=false;
   window.addEventListener('scroll',()=>{
-    if(!scrubReady||raf) return;
-    raf=true;requestAnimationFrame(()=>{
+    if(raf) return;raf=true;
+    requestAnimationFrame(()=>{
       raf=false;
       const p=getProgress();progFill.style.width=(p*100)+'%';
-      const idx=Math.min(FRAMES-1,Math.round(p*(FRAMES-1)));
-      if(idx!==curIdx){curIdx=idx;ctx.drawImage(frames[idx],0,0,canvas.width,canvas.height);}
+      if(!scrubReady) return;
+      const exact=p*(FRAMES-1),lo=Math.floor(exact),hi=Math.min(FRAMES-1,lo+1),alpha=exact-lo;
+      if(Math.abs(p-curPct)<0.001) return;curPct=p;
+      ctx.drawImage(frames[lo],0,0,canvas.width,canvas.height);
+      if(alpha>0.01&&frames[hi]){ctx.globalAlpha=alpha;ctx.drawImage(frames[hi],0,0,canvas.width,canvas.height);ctx.globalAlpha=1;}
     });
   },{passive:true});
 }
