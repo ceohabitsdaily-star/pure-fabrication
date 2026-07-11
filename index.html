@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure Fabrication</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;
+  --ac:#2B3A4A;--ach:#3D4F5F;--br:#D4D2CC;--ft:#555555;
+  --serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.8rem 5rem;background-color:transparent;border-bottom:1px solid transparent;transition:background-color 0.6s ease,border-color 0.6s ease;transform:translate3d(0,0,0)}
+#nav.scrolled{background-color:rgba(247,246,244,0.96);border-bottom-color:var(--br)}
+.nav-logo{font-size:0.7rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--tp)}
+.nav-links{display:flex;gap:3rem;list-style:none;opacity:0;pointer-events:none;transition:opacity 0.5s ease}
+.nav-links a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts);transition:color 0.25s}
+.nav-links a:hover{color:var(--tp)}
+#nav.scrolled .nav-links{opacity:1;pointer-events:auto}
+.nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
+.nav-cta:hover{background:var(--ac);color:#fff}
+.hero-scroll-track{position:relative;height:200vh}
+.hero-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5rem 7rem}
+.hero-mobile-bg{display:none;position:absolute;inset:0;z-index:0;background:#1a1a1a}
+.hero-video-wrap{position:absolute;inset:0;z-index:0}
+.hero-video-wrap canvas{width:100%;height:100%;object-fit:cover;display:block}
+.hero-loader{display:none!important}
+.hero-loader-bar,.hero-loader-fill,.hero-loader-label{display:none}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.18) 0%,rgba(10,10,10,0.45) 60%,rgba(10,10,10,0.72) 100%);z-index:1}
+.hero-content{position:relative;z-index:2}
+.hero-vline{position:absolute;top:0;bottom:0;left:60%;width:1px;background:rgba(255,255,255,0.15);z-index:2;transform:scaleY(0);transform-origin:top;animation:growY 1.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards}
+@keyframes growY{to{transform:scaleY(1)}}
+.hero-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.1);z-index:3}
+.hero-progress-fill{height:100%;width:0%;background:var(--ac);transition:width 0.05s linear}
+.hero-eyebrow{font-size:0.62rem;letter-spacing:0.42em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2rem;opacity:0;transform:translateY(10px);animation:fadeUp 0.8s ease 1.3s forwards}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.hero-title{font-family:var(--serif);font-weight:400;line-height:0.87;letter-spacing:-0.025em;color:#fff}
+.hw{display:block;overflow:hidden}
+.hw span{display:block;font-size:clamp(5rem,11vw,10rem);transform:translateY(108%);animation:slideUp 1.4s cubic-bezier(0.16,1,0.3,1) forwards}
+.hw:nth-child(1) span{animation-delay:0.35s}
+.hw:nth-child(2) span{animation-delay:0.55s}
+@keyframes slideUp{to{transform:translateY(0)}}
+.hero-rule{width:0;height:1px;background:rgba(255,255,255,0.4);margin:2.5rem 0;animation:growX 1s ease 1.5s forwards}
+@keyframes growX{to{width:80px}}
+.hero-sub{font-size:0.72rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.55);opacity:0;animation:fadeUp 0.8s ease 1.7s forwards}
+.hero-btns{display:flex;gap:1.4rem;margin-top:3rem;opacity:0;animation:fadeUp 0.8s ease 1.9s forwards}
+.btn-fill{display:inline-block;padding:1rem 2.6rem;background:#fff;color:var(--ac);font-size:0.64rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-fill:hover{background:var(--ac);color:#fff}
+.btn-ghost{display:inline-block;padding:1rem 2.6rem;border:1px solid rgba(255,255,255,0.5);color:#fff;font-size:0.64rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-ghost:hover{background:rgba(255,255,255,0.12);border-color:#fff}
+.scroll-hint{position:absolute;bottom:3rem;right:5rem;z-index:3;display:flex;align-items:center;gap:1rem;opacity:0;animation:fadeUp 0.8s ease 2.2s forwards}
+.scroll-hint span{font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.45)}
+.scroll-bar{width:40px;height:1px;background:rgba(255,255,255,0.2);position:relative;overflow:hidden}
+.scroll-bar::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:#fff;animation:pulse 2.5s ease 2.5s infinite}
+@keyframes pulse{0%{left:-100%}50%{left:0}100%{left:100%}}
+.marquee{border-top:1px solid var(--br);border-bottom:1px solid var(--br);padding:1.4rem 0;overflow:hidden;background:var(--surf)}
+.mtrack{display:flex;gap:4rem;animation:marq 24s linear infinite;white-space:nowrap}
+.mtrack span{font-size:0.62rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--ts);flex-shrink:0}
+.mdot{display:inline-block;width:3px;height:3px;background:var(--ac);border-radius:50%;vertical-align:middle;flex-shrink:0}
+@keyframes marq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.95s ease,transform 0.95s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.statement{max-width:900px;margin:0 auto;text-align:center;padding:10rem 5rem}
+.stmt-rule{width:1px;height:60px;background:var(--ac);margin:3rem auto}
+.stmt-text{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:400;line-height:1.45;color:var(--tp)}
+.services{background:var(--surf);padding:8rem 5rem}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--br);padding-bottom:2.5rem;margin-bottom:5rem}
+.sec-label{font-size:0.6rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.svc-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;line-height:1.1}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.svc{padding:3rem;border-right:1px solid var(--br);position:relative}
+.svc:first-child{padding-left:0}
+.svc:last-child{border-right:none;padding-right:0}
+.svc-num{font-size:0.6rem;letter-spacing:0.32em;color:var(--ts);display:block;margin-bottom:2rem}
+.svc-name{font-family:var(--serif);font-size:1.55rem;font-weight:400;margin-bottom:1.3rem}
+.svc-desc{font-size:0.78rem;line-height:1.9;color:var(--ts)}
+.svc-line{position:absolute;bottom:0;left:3rem;right:3rem;height:1px;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease}
+.svc:first-child .svc-line{left:0}
+.svc:last-child .svc-line{right:0}
+.svc:hover .svc-line{transform:scaleX(1)}
+.gallery{padding:8rem 0}
+.gal-head{padding:0 5rem;margin-bottom:4rem}
+.gal-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;margin-top:0.5rem}
+.gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3px;background:var(--br)}
+.gal-item{background:var(--surf);overflow:hidden;position:relative}
+.gal-item:first-child{aspect-ratio:3/2}
+.gal-item:not(:first-child){aspect-ratio:4/3}
+.gal-item:hover img{transform:scale(1.04)}
+.gal-caption{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.5rem;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);opacity:0;transition:opacity 0.4s ease}
+.gal-caption span{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.85)}
+.gal-item:hover .gal-caption{opacity:1}
+.process{background:var(--tp);padding:8rem 5rem}
+.process .sec-label{color:#3a3a3a}
+.proc-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;color:var(--bg);margin:0.5rem 0 5rem}
+.proc-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #252525}
+.proc-step{padding:3rem 2.5rem 3rem 0;border-right:1px solid #252525}
+.proc-step:last-child{border-right:none;padding-right:0}
+.proc-step:not(:first-child){padding-left:2.5rem}
+.proc-n{font-size:0.6rem;letter-spacing:0.32em;color:#3a3a3a;display:block;margin-bottom:2rem}
+.proc-name{font-family:var(--serif);font-size:1.15rem;color:var(--bg);margin-bottom:0.9rem;font-weight:400}
+.proc-desc{font-size:0.74rem;line-height:1.9;color:#5a5a5a}
+.cta-band{padding:8rem 5rem;text-align:center;border-top:1px solid var(--br)}
+.cta-text{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:400;color:var(--tp);margin-bottom:3rem;line-height:1.3}
+.cta-text em{font-style:italic;color:var(--ts)}
+.gal-head{display:flex;justify-content:space-between;align-items:flex-end}
+.btn-show-more{display:inline-block;padding:0.85rem 2.4rem;background:var(--tp);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:background 0.25s;cursor:crosshair;white-space:nowrap}
+.btn-show-more:hover{background:var(--ac)}
+.contact-form{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:1rem}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cf-input{width:100%;padding:0.9rem 1.2rem;background:transparent;border:1px solid var(--br);font-size:0.72rem;letter-spacing:0.08em;color:var(--tp);font-family:var(--sans);outline:none;transition:border-color 0.25s}
+.cf-input::placeholder{color:var(--ts)}
+.cf-input:focus{border-color:var(--ac)}
+.cf-full{width:100%}
+.contact-form .btn-fill{align-self:flex-start;cursor:crosshair}
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ft);transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+@media(max-width:768px){
+  #nav{padding:1rem 1.4rem}
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-logo{font-size:0.65rem;white-space:nowrap}
+  .hero-scroll-track{height:100vh}
+  .hero-sticky{padding:0 1.4rem 4rem;position:relative}
+  .hero-video-wrap{display:none}
+  .hero-loader{display:none}
+  .hero-mobile-bg{display:block;background:url('mobile-hero.jpg') center/cover no-repeat}
+  .hero-progress{display:none}
+  .scroll-hint{display:none}
+  .hw span{font-size:clamp(3rem,16vw,5rem)}
+  .hero-eyebrow{font-size:0.55rem;letter-spacing:0.28em;margin-bottom:1.2rem}
+  .hero-btns{flex-direction:column;gap:0.8rem}
+  .btn-fill,.btn-ghost{text-align:center;padding:0.9rem 2rem;font-size:0.6rem}
+  .scroll-hint{right:1.6rem}
+  .marquee{padding:1rem 0}
+  .statement{padding:5rem 1.6rem}
+  .services{padding:5rem 1.6rem}
+  .svc-head{flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .svc-grid{grid-template-columns:1fr}
+  .svc{border-right:none;border-bottom:1px solid var(--br);padding:2rem 0}
+  .svc:last-child{border-bottom:none}
+  .svc-line{left:0;right:0}
+  .gallery{padding:5rem 0}
+  .gal-head{padding:0 1.6rem;flex-direction:column;align-items:flex-start;gap:1rem}
+  .gal-grid{grid-template-columns:1fr}
+  .gal-item:first-child{aspect-ratio:4/3}
+  .process{padding:4rem 0 4rem 1.6rem}
+  .proc-grid{display:flex;overflow-x:auto;border-top:1px solid #252525;-webkit-overflow-scrolling:touch}
+  .proc-step{flex:0 0 70vw;border-right:1px solid #252525;border-top:none;padding:1.8rem 1.4rem 1.8rem 0}
+  .proc-step:not(:first-child){padding-left:1.4rem}
+  .proc-step:last-child{border-right:none;padding-right:1.6rem}
+  .cta-band{padding:5rem 1.6rem}
+  .cf-row{grid-template-columns:1fr}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+<div class="hero-scroll-track">
+  <div class="hero-sticky">
+    <div class="hero-mobile-bg"></div>
+    <div class="hero-video-wrap">
+      <canvas id="heroCanvas"></canvas>
+      <video id="heroVideo" crossorigin="anonymous" src="https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260709_162154_1529e16e-2c2c-42d1-968c-f94fa3a0a85b.mp4" muted playsinline preload="auto" disablePictureInPicture style="display:none"></video>
+    </div>
+    <div class="hero-loader" id="heroLoader"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Aluminum Panel Cladding &nbsp;·&nbsp; Facade Systems &nbsp;·&nbsp; Toronto</p>
+      <h1 class="hero-title">
+        <span class="hw"><span>Pure</span></span>
+        <span class="hw"><span>Fabrication.</span></span>
+      </h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">Precision cladding. Lasting facades.</p>
+      <div class="hero-btns">
+        <a href="#work" class="btn-fill">View Our Work</a>
+        <a href="#contact" class="btn-ghost">Start a Project</a>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-bar"></div>
+    </div>
+    <div class="hero-progress"><div class="hero-progress-fill" id="progFill"></div></div>
+  </div>
+</div>
+<nav id="nav">
+  <a href="#" class="nav-logo">Pure Fabrication</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="cabinetry.html">Cabinetry</a></li>
+    <li><a href="#studio">Studio</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contact</a>
+</nav>
+<div class="marquee">
+  <div class="mtrack">
+    <span>Aluminum Panel Cladding</span><span class="mdot"></span>
+    <span>Facade Systems</span><span class="mdot"></span>
+    <span>ACM Panels</span><span class="mdot"></span>
+    <span>Precision Installation</span><span class="mdot"></span>
+    <span>Residential &amp; Commercial</span><span class="mdot"></span>
+    <span>Toronto, Ontario</span><span class="mdot"></span>
+    <span>Aluminum Panel Cladding</span><span class="mdot"></span>
+    <span>Facade Systems</span><span class="mdot"></span>
+    <span>ACM Panels</span><span class="mdot"></span>
+    <span>Precision Installation</span><span class="mdot"></span>
+    <span>Residential &amp; Commercial</span><span class="mdot"></span>
+    <span>Toronto, Ontario</span><span class="mdot"></span>
+  </div>
+</div>
+<div id="studio" class="statement reveal">
+  <div class="stmt-rule"></div>
+  <p class="stmt-text">"We don't just clad buildings.<br>We define how they meet the world."</p>
+  <div class="stmt-rule"></div>
+  <p style="font-size:0.62rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--ts);margin-top:1.8rem">Toronto, Ontario</p>
+</div>
+<section id="services" class="services">
+  <div class="svc-head reveal">
+    <div>
+      <p class="sec-label">What We Do</p>
+      <h2 class="svc-title">Three specialties.<br>One standard.</h2>
+    </div>
+    <a href="#services" class="btn-ghost">All Services</a>
+  </div>
+  <div class="svc-grid">
+    <div class="svc reveal">
+      <span class="svc-num">01</span>
+      <h3 class="svc-name">Aluminum Panel Cladding</h3>
+      <p class="svc-desc">Our core specialty. We supply and install aluminum composite panels (ACM) for residential and commercial facades. Matte, gloss, brushed, and custom finishes. Panels are precision-cut, folded, and installed with concealed fixing systems for a seamless, flush result.</p>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal" style="transition-delay:0.12s">
+      <span class="svc-num">02</span>
+      <h3 class="svc-name">Facade Systems & Design</h3>
+      <p class="svc-desc">Full facade envelope design and installation — from substructure and thermal breaks to the final panel face. We work directly with architects, general contractors, and developers from shop drawings through site completion.</p>
+      <div class="svc-line"></div>
+    </div>
+    <div class="svc reveal" style="transition-delay:0.24s">
+      <span class="svc-num">03</span>
+      <h3 class="svc-name">Custom Fabrication</h3>
+      <p class="svc-desc">Bespoke panel shapes, reveal joints, corner details, and feature cladding elements. If it involves aluminum, we fabricate it in-house — signage panels, canopies, soffits, column wraps, and architectural accent elements.</p>
+      <div class="svc-line"></div>
+    </div>
+  </div>
+</section>
+<section id="work" class="gallery">
+  <div class="gal-head reveal">
+    <div>
+      <p class="sec-label">Selected Work</p>
+      <h2 class="gal-title">The work speaks.</h2>
+    </div>
+    <a href="gallery.html" class="btn-show-more">Show More</a>
+  </div>
+  <div class="gal-grid" id="homeGalGrid"></div>
+</section>
+<section id="process" class="process reveal">
+  <p class="sec-label">How We Work</p>
+  <h2 class="proc-title">Precision at<br>every stage.</h2>
+  <div class="proc-grid">
+    <div class="proc-step">
+      <span class="proc-n">01</span>
+      <h3 class="proc-name">Site Assessment</h3>
+      <p class="proc-desc">We visit the site before anything else. Measurements, substrate conditions, wind load requirements, and drainage details are all documented before a single panel is specified.</p>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">02</span>
+      <h3 class="proc-name">Shop Drawings & Approval</h3>
+      <p class="proc-desc">We produce detailed fabrication and installation drawings for every project — panel layout, reveal joints, corner conditions, substructure layout. Nothing is cut until drawings are approved.</p>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">03</span>
+      <h3 class="proc-name">Panel Fabrication</h3>
+      <p class="proc-desc">Panels are precision-cut and folded in our facility using CNC routing and hydraulic press brakes. Every corner, return, and reveal is fabricated to exact tolerance before leaving the shop.</p>
+    </div>
+    <div class="proc-step">
+      <span class="proc-n">04</span>
+      <h3 class="proc-name">Installation & Handover</h3>
+      <p class="proc-desc">Our installation crews handle the complete envelope — substructure, thermal spacers, panel fixing, sealants, and final inspection. We don't leave until the facade is perfect.</p>
+    </div>
+  </div>
+</section>
+<div id="contact" class="cta-band reveal">
+  <p class="cta-text">Ready to clad something<br><em>that lasts?</em></p>
+  <form class="contact-form" id="contactForm">
+    <div class="cf-row">
+      <input type="text" id="cf-name" placeholder="Your Name" class="cf-input" required>
+      <input type="email" id="cf-email" placeholder="Email Address" class="cf-input" required>
+    </div>
+    <input type="text" id="cf-brief" placeholder="Project Brief — building type, size, finish preference?" class="cf-input cf-full" required>
+    <button type="submit" class="btn-fill">Send Enquiry</button>
+    <p id="cf-success" style="display:none;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);margin-top:0.5rem">Enquiry sent — we'll be in touch.</p>
+  </form>
+</div>
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Built with absolute intention.</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
+      <a href="#process">Process</a>
+      <a href="#studio">Studio</a>
+      <a href="cabinetry.html">Cabinetry</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Pure Fabrication. All rights reserved.</span>
+    <span class="foot-copy">Aluminum Panel Cladding · Facade Systems · Custom Fabrication</span>
+  </div>
+</footer>
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>60)});
+const vid=document.getElementById('heroVideo'),canvas=document.getElementById('heroCanvas'),ctx=canvas.getContext('2d',{alpha:false}),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track'),START=0,FRAMES=30;
+if(window.innerWidth>768){
+  const frames=[];let scrubReady=false;
+  function getProgress(){const h=track.offsetHeight-window.innerHeight;return Math.min(1,Math.max(0,-track.getBoundingClientRect().top)/h)}
+  async function extractFrames(){
+    const w=vid.videoWidth||1344,h=vid.videoHeight||768;
+    canvas.width=w;canvas.height=h;
+    for(let i=0;i<FRAMES;i++){
+      const t=START+(i/(FRAMES-1))*(vid.duration-START);
+      vid.currentTime=t;
+      await new Promise(r=>vid.addEventListener('seeked',r,{once:true}));
+      ctx.drawImage(vid,0,0,w,h);
+      frames.push(await createImageBitmap(canvas));
+    }
+    ctx.drawImage(frames[0],0,0);
+    scrubReady=true;
+  }
+  vid.style.cssText='display:block;width:100%;height:100%;object-fit:cover;position:absolute;inset:0;';
+  canvas.style.display='none';
+  vid.playbackRate=2.0;
+  vid.play().catch(()=>{
+    document.addEventListener('click',()=>{vid.play().catch(()=>{})},{once:true});
+    document.addEventListener('scroll',()=>{vid.play().catch(()=>{})},{once:true,passive:true});
+  });
+  vid.addEventListener('ended',()=>{
+    vid.pause();
+    canvas.width=vid.videoWidth||1344;canvas.height=vid.videoHeight||768;
+    ctx.drawImage(vid,0,0,canvas.width,canvas.height);
+    vid.style.display='none';canvas.style.display='block';
+    // Extract frames first, then auto-scroll — no lag when user scrubs back up
+    extractFrames().then(()=>{
+      setTimeout(()=>{const scrollTarget=track.offsetTop+track.offsetHeight-window.innerHeight;window.scrollTo({top:scrollTarget,behavior:'smooth'})},400);
+    });
+  },{once:true});
+  let raf=false,curIdx=-1;
+  window.addEventListener('scroll',()=>{
+    if(!raf){raf=true;requestAnimationFrame(()=>{
+      raf=false;const p=getProgress();progFill.style.width=(p*100)+'%';
+      // If frames not ready yet, canvas shows frozen last frame — no jank
+      if(scrubReady){const idx=Math.min(FRAMES-1,Math.round(p*(FRAMES-1)));if(idx!==curIdx){curIdx=idx;ctx.drawImage(frames[idx],0,0,canvas.width,canvas.height)}}
+    })}
+  },{passive:true});
+}
+fetch('pf_gallery.json?v='+Date.now()).then(r=>r.json()).then(items=>{
+  const grid=document.getElementById('homeGalGrid');if(!grid)return;
+  grid.innerHTML=items.slice(0,3).map((x,i)=>`<div class="gal-item reveal" style="transition-delay:${i*0.1}s"><img src="${x.url}" alt="${x.title}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease"><div class="gal-caption"><span>${x.subtitle}</span></div></div>`).join('');
+  document.querySelectorAll('#homeGalGrid .reveal').forEach(el=>obs.observe(el));
+}).catch(()=>{});
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.getElementById('contactForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),brief=document.getElementById('cf-brief').value.trim();
+  const enquiries=JSON.parse(localStorage.getItem('pf_enquiries')||'[]');
+  enquiries.unshift({id:Date.now(),name,email,brief,date:new Date().toLocaleString(),status:'new'});
+  localStorage.setItem('pf_enquiries',JSON.stringify(enquiries));
+  this.reset();document.getElementById('cf-success').style.display='block';
+  setTimeout(()=>document.getElementById('cf-success').style.display='none',4000);
+});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    const id=a.getAttribute('href');if(!id||id==='#')return;
+    const target=document.querySelector(id);if(!target)return;
+    e.preventDefault();const navH=document.getElementById('nav').offsetHeight;
+    const top=target.getBoundingClientRect().top+window.scrollY-navH;
+    window.scrollTo({top,behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>

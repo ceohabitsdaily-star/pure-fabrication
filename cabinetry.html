@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cabinetry &amp; Millwork — Pure Fabrication</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--ach:#3D4F5F;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5rem;background-color:rgba(247,246,244,0.96);border-bottom:1px solid var(--br)}
+.nav-logo{font-size:0.7rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--tp)}
+.nav-links{display:flex;gap:3rem;list-style:none}
+.nav-links a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts);transition:color 0.25s}
+.nav-links a:hover,.nav-links a.active{color:var(--tp)}
+.nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
+.nav-cta:hover{background:var(--ac);color:#fff}
+.page-header{padding:10rem 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end;gap:4rem}
+.sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.95}
+.page-title em{font-style:italic}
+.page-desc{font-size:0.8rem;line-height:1.9;color:var(--ts);max-width:380px}
+.filter-bar{display:flex;padding:0 5rem;border-bottom:1px solid var(--br)}
+.filter-btn{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ts);padding:1.2rem 2rem;border-right:1px solid var(--br);background:none;border-top:none;border-left:none;border-bottom:none;cursor:crosshair;transition:color 0.25s;position:relative}
+.filter-btn:first-child{padding-left:0}
+.filter-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--ac);transform:scaleX(0);transition:transform 0.3s ease}
+.filter-btn.active,.filter-btn:hover{color:var(--tp)}
+.filter-btn.active::after{transform:scaleX(1)}
+.cab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--br);margin-bottom:2px}
+.cab-item{position:relative;overflow:hidden;cursor:crosshair;aspect-ratio:4/3;background:var(--surf)}
+.cab-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease}
+.cab-item:hover img{transform:scale(1.05)}
+.cab-caption{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.8rem;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 100%);opacity:0;transition:opacity 0.4s}
+.cab-item:hover .cab-caption{opacity:1}
+.cab-caption h3{font-family:var(--serif);font-size:1rem;font-weight:400;color:#fff;margin-bottom:0.25rem}
+.cab-caption p{font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.65)}
+.cab-item.wide{aspect-ratio:16/9}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+.cta-strip{padding:6rem 5rem;background:var(--tp);color:var(--bg);display:flex;justify-content:space-between;align-items:center}
+.cta-strip h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,3rem);font-weight:400}
+.cta-strip h2 em{font-style:italic}
+.btn-light{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.9rem 2.5rem;border:1px solid var(--bg);color:var(--bg);transition:all 0.25s;cursor:crosshair;white-space:nowrap}
+.btn-light:hover{background:var(--bg);color:var(--tp)}
+footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #222}
+.foot-brand{font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-nav{display:flex;gap:2.5rem}
+.foot-nav a{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-copy{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:#333}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+@media(max-width:768px){
+  #nav{padding:1.2rem 1.6rem}
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .page-header{padding:7rem 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-desc{max-width:100%}
+  .filter-bar{padding:0 1.6rem;overflow-x:auto;flex-wrap:nowrap}
+  .filter-btn{white-space:nowrap;padding:1rem 1.2rem}
+  .cab-grid{grid-template-columns:1fr}
+  .cab-item.wide{aspect-ratio:4/3}
+  .cta-strip{padding:4rem 1.6rem;flex-direction:column;gap:2rem;text-align:center}
+  footer{padding:2rem 1.6rem;flex-direction:column;gap:1.2rem;text-align:center}
+  .foot-nav{flex-wrap:wrap;justify-content:center;gap:1rem}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+<nav id="nav">
+  <a href="index.html" class="nav-logo">Pure Fabrication</a>
+  <ul class="nav-links">
+    <li><a href="gallery.html">Work</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#process">Process</a></li>
+    <li><a href="cabinetry.html" class="active">Cabinetry</a></li>
+    <li><a href="index.html#studio">Studio</a></li>
+  </ul>
+  <a href="index.html#contact" class="nav-cta">Contact</a>
+</nav>
+<div class="page-header reveal">
+  <div>
+    <p class="sec-label">Cabinetry &amp; Millwork</p>
+    <h1 class="page-title">Crafted to<br><em>the last detail.</em></h1>
+  </div>
+  <p class="page-desc">Before aluminum cladding became our signature, Pure Fabrication built its reputation on precision custom cabinetry and millwork. Every joint, every drawer, every reveal — hand-crafted in our Toronto shop to stand the test of time.</p>
+</div>
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All Work</button>
+  <button class="filter-btn" data-filter="kitchen">Kitchens</button>
+  <button class="filter-btn" data-filter="wardrobe">Wardrobes</button>
+  <button class="filter-btn" data-filter="millwork">Millwork</button>
+</div>
+<div class="cab-grid" id="grid">
+  <div class="cab-item reveal" data-cat="kitchen"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=900&q=85" alt="Shaker Kitchen"><div class="cab-caption"><h3>Shaker Kitchen</h3><p>Custom Cabinetry — Residential</p></div></div>
+  <div class="cab-item reveal" data-cat="wardrobe" style="transition-delay:0.07s"><img src="https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=900&q=85" alt="Built-in Wardrobe"><div class="cab-caption"><h3>Floor-to-Ceiling Wardrobe</h3><p>Custom Millwork — Master Suite</p></div></div>
+  <div class="cab-item reveal" data-cat="kitchen" style="transition-delay:0.14s"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=900&q=85" alt="Handleless Kitchen"><div class="cab-caption"><h3>Handleless Kitchen</h3><p>Custom Cabinetry — Modern Renovation</p></div></div>
+  <div class="cab-item reveal" data-cat="millwork" style="transition-delay:0.05s"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=900&q=85" alt="Entertainment Unit"><div class="cab-caption"><h3>Entertainment Unit</h3><p>Millwork — Living Room</p></div></div>
+  <div class="cab-item reveal" data-cat="kitchen" style="transition-delay:0.12s"><img src="https://images.unsplash.com/photo-1556909212-d5b604d0c90d?w=900&q=85" alt="Custom Vanity"><div class="cab-caption"><h3>Custom Vanity</h3><p>Cabinetry — Primary Bathroom</p></div></div>
+  <div class="cab-item reveal" data-cat="millwork" style="transition-delay:0.19s"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=900&q=85" alt="Home Library"><div class="cab-caption"><h3>Home Library</h3><p>Millwork — Private Residence</p></div></div>
+  <div class="cab-item wide reveal" data-cat="kitchen" style="transition-delay:0.09s"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200&q=85" alt="Open Plan Kitchen"><div class="cab-caption"><h3>Open Plan Kitchen</h3><p>Custom Cabinetry — Full Renovation</p></div></div>
+  <div class="cab-item reveal" data-cat="wardrobe" style="transition-delay:0.16s"><img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=900&q=85" alt="Walk-in Closet"><div class="cab-caption"><h3>Walk-in Closet System</h3><p>Custom Millwork — Luxury Home</p></div></div>
+  <div class="cab-item reveal" data-cat="millwork" style="transition-delay:0.23s"><img src="https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=900&q=85" alt="Home Office"><div class="cab-caption"><h3>Home Office Built-ins</h3><p>Millwork — Private Residence</p></div></div>
+</div>
+<div class="cta-strip">
+  <h2>Have a project<br><em>in mind?</em></h2>
+  <a href="index.html#contact" class="btn-light">Start a Conversation</a>
+</div>
+<footer>
+  <div class="foot-brand">Pure Fabrication</div>
+  <nav class="foot-nav">
+    <a href="gallery.html">Work</a>
+    <a href="cabinetry.html">Cabinetry</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+  <span class="foot-copy">© 2026 Pure Fabrication</span>
+</footer>
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+const btns=document.querySelectorAll('.filter-btn'),items=document.querySelectorAll('.cab-item');
+btns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    btns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    const f=btn.dataset.filter;
+    items.forEach(item=>{item.style.display=(f==='all'||item.dataset.cat===f)?'block':'none'});
+  });
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
