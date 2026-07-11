@@ -31,9 +31,10 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 .hero-mobile-bg{display:none;position:absolute;inset:0;z-index:0;background:#1a1a1a}
 .hero-video-wrap{position:absolute;inset:0;z-index:0}
 .hero-video-wrap canvas{width:100%;height:100%;object-fit:cover;display:block}
-.hero-img-dark,.hero-img-lit{position:absolute;inset:0;background:url('hero-building.jpg') center/cover no-repeat}
-.hero-img-dark{filter:brightness(0.18)}
-.hero-img-lit{-webkit-mask-image:radial-gradient(circle 320px at var(--mx,50%) var(--my,50%),black 0%,transparent 100%);mask-image:radial-gradient(circle 320px at var(--mx,50%) var(--my,50%),black 0%,transparent 100%)}
+.hero-img-dark,.hero-img-lit,.hero-img-glow{position:absolute;inset:0}
+.hero-img-dark{background:url('hero-building.jpg') center/cover no-repeat;filter:brightness(0.12) saturate(0.6)}
+.hero-img-lit{background:url('hero-building.jpg') center/cover no-repeat;filter:brightness(1.05) sepia(0.45) saturate(1.6);-webkit-mask-image:radial-gradient(ellipse 900px 650px at var(--mx,50%) var(--my,50%),black 0%,black 20%,transparent 100%);mask-image:radial-gradient(ellipse 900px 650px at var(--mx,50%) var(--my,50%),black 0%,black 20%,transparent 100%)}
+.hero-img-glow{background:radial-gradient(ellipse 700px 500px at var(--mx,50%) var(--my,50%),rgba(255,160,50,0.18) 0%,transparent 70%);pointer-events:none}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.18) 0%,rgba(10,10,10,0.45) 60%,rgba(10,10,10,0.72) 100%);z-index:1}
 .hero-content{position:relative;z-index:2}
 .hero-vline{position:absolute;top:0;bottom:0;left:60%;width:1px;background:rgba(255,255,255,0.15);z-index:2;transform:scaleY(0);transform-origin:top;animation:growY 1.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards}
@@ -181,6 +182,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
     <div class="hero-video-wrap" id="heroWrap">
       <div class="hero-img-dark"></div>
       <div class="hero-img-lit" id="heroLit"></div>
+      <div class="hero-img-glow" id="heroGlow"></div>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -345,7 +347,7 @@ document.querySelectorAll('a,button').forEach(el=>{
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>60)});
 // Cursor spotlight hero
-const heroLit=document.getElementById('heroLit'),heroWrap=document.getElementById('heroWrap');
+const heroLit=document.getElementById('heroLit'),heroGlow=document.getElementById('heroGlow'),heroWrap=document.getElementById('heroWrap');
 if(heroLit&&window.innerWidth>768){
   let tx=50,ty=50,cx=50,cy=50,raf=false;
   document.addEventListener('mousemove',e=>{
@@ -353,9 +355,9 @@ if(heroLit&&window.innerWidth>768){
     tx=((e.clientX-r.left)/r.width)*100;
     ty=((e.clientY-r.top)/r.height)*100;
     if(!raf){raf=true;requestAnimationFrame(function loop(){
-      cx+=(tx-cx)*0.08;cy+=(ty-cy)*0.08;
-      heroLit.style.setProperty('--mx',cx+'%');
-      heroLit.style.setProperty('--my',cy+'%');
+      cx+=(tx-cx)*0.05;cy+=(ty-cy)*0.05;
+      heroLit.style.setProperty('--mx',cx+'%');heroLit.style.setProperty('--my',cy+'%');
+      heroGlow.style.setProperty('--mx',cx+'%');heroGlow.style.setProperty('--my',cy+'%');
       if(Math.abs(tx-cx)>0.05||Math.abs(ty-cy)>0.05) requestAnimationFrame(loop);
       else raf=false;
     });}
