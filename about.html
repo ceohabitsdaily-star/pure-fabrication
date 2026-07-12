@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Pure Fabrication</title>
+<meta name="description" content="Learn about aluminum panel cladding, facade systems, and custom fabrication — and why Pure Fabrication is Toronto's choice for architectural exterior work.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Page header */
+.page-header{padding:0 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
+.page-header-right{font-size:0.74rem;color:var(--ts);max-width:340px;line-height:1.9}
+
+/* What is ACM */
+.intro{padding:8rem 5rem;border-bottom:1px solid var(--br);display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start}
+.intro-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1.5rem}
+.intro-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.1;margin-bottom:2.5rem}
+.intro-body{font-size:0.76rem;line-height:2.1;color:var(--ts)}
+.intro-body p+p{margin-top:1.4rem}
+.intro-facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--br)}
+.intro-fact{padding:2rem 0;border-bottom:1px solid var(--br)}
+.intro-fact-title{font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tp);margin-bottom:0.5rem;font-weight:500}
+.intro-fact-desc{font-size:0.72rem;line-height:1.8;color:var(--ts)}
+
+/* Panel types */
+.panels{padding:7rem 5rem;background:var(--surf);border-bottom:1px solid var(--br)}
+.panels-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.panels-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.1;margin-bottom:4rem}
+.panels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
+.panel-card{background:var(--surf);padding:3rem 2.5rem;transition:background 0.25s}
+.panel-card:hover{background:var(--bg)}
+.panel-card-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);display:block;margin-bottom:1.8rem}
+.panel-card-name{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--tp);margin-bottom:0.9rem}
+.panel-card-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+
+/* Why cladding */
+.why{padding:7rem 5rem;border-bottom:1px solid var(--br)}
+.why-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.why-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.1;margin-bottom:4rem}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--br)}
+.why-item{background:var(--bg);padding:3rem;display:flex;gap:2rem;align-items:flex-start;transition:background 0.25s}
+.why-item:hover{background:var(--surf)}
+.why-icon{width:38px;height:38px;border:1px solid var(--br);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:0.15rem}
+.why-icon svg{width:15px;height:15px;stroke:var(--ac)}
+.why-item-title{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--tp);margin-bottom:0.5rem;font-weight:500}
+.why-item-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+
+/* Our fabrication */
+.fabrication{padding:8rem 5rem;background:var(--tp);border-bottom:1px solid #1a1a1a}
+.fab-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#3a3a3a;margin-bottom:1rem}
+.fab-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--bg);margin-bottom:1.5rem;line-height:1.1}
+.fab-sub{font-size:0.74rem;line-height:1.9;color:#5a5a5a;max-width:580px;margin-bottom:5rem}
+.fab-steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #252525}
+.fab-step{padding:2.5rem 2rem 2.5rem 0;border-right:1px solid #252525}
+.fab-step:last-child{border-right:none}
+.fab-step:not(:first-child){padding-left:2rem}
+.fab-step-n{font-size:0.58rem;letter-spacing:0.3em;color:#2e2e2e;display:block;margin-bottom:1.2rem}
+.fab-step-name{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--bg);margin-bottom:0.5rem}
+.fab-step-desc{font-size:0.68rem;line-height:1.8;color:#5a5a5a}
+
+/* Services overview */
+.services-overview{padding:7rem 5rem;border-bottom:1px solid var(--br)}
+.sov-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.sov-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.1;margin-bottom:4rem}
+.sov-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--br)}
+.sov-item{display:flex;justify-content:space-between;align-items:center;padding:2rem 0;border-bottom:1px solid var(--br);transition:padding 0.25s}
+.sov-item:hover{padding-left:0.8rem}
+.sov-item-left{display:flex;align-items:baseline;gap:1.8rem}
+.sov-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts)}
+.sov-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;color:var(--tp)}
+.sov-arrow{font-size:0.7rem;color:var(--ts);transition:transform 0.25s,color 0.25s}
+.sov-item:hover .sov-arrow{transform:translateX(4px);color:var(--ac)}
+
+/* About us blurb */
+.about-blurb{padding:7rem 5rem;border-bottom:1px solid var(--br);display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:center}
+.blurb-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1.5rem}
+.blurb-heading{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:400;line-height:1.2}
+.blurb-body{font-size:0.76rem;line-height:2.1;color:var(--ts)}
+
+/* CTA */
+.cta{padding:8rem 5rem;text-align:center}
+.cta-text{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--tp);margin-bottom:0.8rem;line-height:1.3}
+.cta-sub{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ts);margin-bottom:3rem}
+.cta-btns{display:flex;gap:1.2rem;justify-content:center}
+.btn-fill{display:inline-block;padding:1rem 2.8rem;background:var(--ac);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-fill:hover{background:#3D4F5F}
+.btn-ghost{display:inline-block;padding:1rem 2.8rem;border:1px solid var(--ac);color:var(--ac);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-ghost:hover{background:var(--ac);color:#fff}
+
+/* Footer */
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+.foot-ig{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-ig:hover{color:var(--bg)}
+
+/* Mobile */
+@media(max-width:768px){
+  .back-btn{padding:2rem 1.6rem 1rem}
+  .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-header-right{max-width:100%}
+  .intro{padding:5rem 1.6rem;grid-template-columns:1fr;gap:3rem}
+  .panels{padding:4rem 1.6rem}
+  .panels-grid{grid-template-columns:1fr}
+  .why{padding:4rem 1.6rem}
+  .why-grid{grid-template-columns:1fr}
+  .fabrication{padding:5rem 1.6rem}
+  .fab-steps{grid-template-columns:1fr;border-top:none}
+  .fab-step{border-right:none;border-top:1px solid #252525;padding:1.5rem 0}
+  .fab-step:not(:first-child){padding-left:0}
+  .services-overview{padding:4rem 1.6rem}
+  .about-blurb{padding:5rem 1.6rem;grid-template-columns:1fr;gap:2.5rem}
+  .cta{padding:5rem 1.6rem}
+  .cta-btns{flex-direction:column;align-items:center}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
+
+<!-- Page Header -->
+<div class="page-header reveal">
+  <div class="page-header-left">
+    <p class="sec-label">About</p>
+    <h1 class="page-title">Aluminum cladding.<br>What it is.</h1>
+  </div>
+  <p class="page-header-right">Everything you need to know about aluminum panel cladding, facade systems, and how Pure Fabrication delivers them from concept to completion.</p>
+</div>
+
+<!-- What is ACM -->
+<section class="intro">
+  <div class="intro-left reveal">
+    <p class="intro-label">What Is Aluminum Panel Cladding</p>
+    <h2 class="intro-heading">The material that defines modern buildings.</h2>
+    <div class="intro-body">
+      <p>Aluminum panel cladding — commonly known as ACM (Aluminum Composite Material) — is an exterior wall covering system made from two thin aluminum sheets bonded to a solid core. The result is a panel that is lightweight, rigid, weather-resistant, and available in virtually any colour or finish.</p>
+      <p>It is the material behind most modern building facades you see in Toronto today: the clean flat surfaces, the sharp reveals between panels, the matte charcoal or brushed silver finishes on custom homes and commercial buildings. If a building looks architectural, there is a good chance ACM is involved.</p>
+      <p>Beyond aesthetics, aluminum cladding protects the building envelope from moisture, wind, and temperature changes — making it one of the most practical and durable exterior systems available for Canadian climates.</p>
+    </div>
+  </div>
+  <div class="intro-right reveal">
+    <div class="intro-facts">
+      <div class="intro-fact">
+        <p class="intro-fact-title">Lightweight & Strong</p>
+        <p class="intro-fact-desc">ACM panels weigh a fraction of solid metal or stone, reducing structural load while maintaining rigidity across large facade surfaces.</p>
+      </div>
+      <div class="intro-fact">
+        <p class="intro-fact-title">Weather & UV Resistant</p>
+        <p class="intro-fact-desc">Designed for harsh Canadian climates — freeze-thaw cycles, heavy rain, UV exposure. The finish holds colour and gloss for decades without fading.</p>
+      </div>
+      <div class="intro-fact">
+        <p class="intro-fact-title">Fully Customizable</p>
+        <p class="intro-fact-desc">Flat, perforated, brushed, matte, gloss, wood-grain, stone-effect — panels can be fabricated in nearly any size, shape, and finish.</p>
+      </div>
+      <div class="intro-fact">
+        <p class="intro-fact-title">Low Maintenance</p>
+        <p class="intro-fact-desc">Once installed, aluminum panels require minimal upkeep. No painting, no sealing. A periodic wash keeps the facade looking new for 20–30 years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Panel types -->
+<section class="panels">
+  <p class="panels-label reveal">Types of Panels</p>
+  <h2 class="panels-heading reveal">What we fabricate.</h2>
+  <div class="panels-grid">
+    <div class="panel-card reveal">
+      <span class="panel-card-num">01</span>
+      <h3 class="panel-card-name">ACM / ACP Panels</h3>
+      <p class="panel-card-desc">The most widely used exterior cladding system. Two aluminum skins bonded to a polyethylene or fire-resistant core. Available in matte, gloss, metallic, brushed, and custom finishes. Used on residential facades, commercial buildings, and high-rises.</p>
+    </div>
+    <div class="panel-card reveal">
+      <span class="panel-card-num">02</span>
+      <h3 class="panel-card-name">Solid Aluminum Plate</h3>
+      <p class="panel-card-desc">Thicker, heavier, and more architecturally assertive than composite panels. Used when the design calls for a stronger material presence — feature walls, canopies, soffits, and bold accent elements. Non-combustible and extremely durable.</p>
+    </div>
+    <div class="panel-card reveal">
+      <span class="panel-card-num">03</span>
+      <h3 class="panel-card-name">Custom Fabricated Panels</h3>
+      <p class="panel-card-desc">Not every facade fits a standard panel. We fabricate custom shapes, angles, returns, corners, and reveals to match any architectural drawing. Complex geometry, unusual dimensions, or site-specific conditions — we cut and form it to spec.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Why cladding -->
+<section class="why">
+  <p class="why-label reveal">Why Aluminum Cladding</p>
+  <h2 class="why-heading reveal">The reasons architects<br>and builders choose it.</h2>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div>
+        <p class="why-item-title">Building Envelope Protection</p>
+        <p class="why-item-desc">A properly installed cladding system acts as a rainscreen — keeping water, wind, and cold away from the building structure. This protects the wall assembly, prevents moisture damage, and improves insulation performance.</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <div>
+        <p class="why-item-title">Design Flexibility</p>
+        <p class="why-item-desc">Aluminum cladding is one of the few exterior systems that gives architects true freedom — precise panel sizing, flush joints, deep reveals, colour-matched trims. The result is a facade that looks intentional, not assembled.</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div>
+        <p class="why-item-title">Long-Term Value</p>
+        <p class="why-item-desc">Compared to brick, stone, or wood siding, aluminum panels hold their appearance and structural integrity far longer with far less maintenance. For both residential and commercial properties, cladding adds lasting curb value.</p>
+      </div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+      <div>
+        <p class="why-item-title">Residential & Commercial</p>
+        <p class="why-item-desc">Aluminum cladding works across project types — custom homes, infill builds, mid-rise developments, retail facades, office buildings. The system scales from a single feature wall to a full multi-storey envelope.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our fabrication process -->
+<section class="fabrication">
+  <p class="fab-label reveal">How We Make Panels</p>
+  <h2 class="fab-heading reveal">We fabricate every panel<br>ourselves — in-house.</h2>
+  <p class="fab-sub reveal">We don't source pre-cut panels from a third party and install them. Every panel that goes onto a building is cut, folded, and finished by our own team, to the exact dimensions of your project. That's how we control quality from start to finish.</p>
+  <div class="fab-steps">
+    <div class="fab-step reveal">
+      <span class="fab-step-n">01</span>
+      <h3 class="fab-step-name">Site Measurement</h3>
+      <p class="fab-step-desc">We take precise field measurements before anything is cut. Every dimension is verified against the architectural drawings.</p>
+    </div>
+    <div class="fab-step reveal">
+      <span class="fab-step-n">02</span>
+      <h3 class="fab-step-name">Panel Fabrication</h3>
+      <p class="fab-step-desc">We cut, route, fold, and finish each panel in-house. Complex shapes, returns, and custom reveals are all handled internally.</p>
+    </div>
+    <div class="fab-step reveal">
+      <span class="fab-step-n">03</span>
+      <h3 class="fab-step-name">Subframe & Layout</h3>
+      <p class="fab-step-desc">The aluminum subframe is installed and levelled on site before panels arrive. Clean layout means clean installation.</p>
+    </div>
+    <div class="fab-step reveal">
+      <span class="fab-step-n">04</span>
+      <h3 class="fab-step-name">Installation</h3>
+      <p class="fab-step-desc">Our team installs every panel. Concealed fixing, tight reveals, aligned joints — the finished facade matches the drawing exactly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Services overview -->
+<section class="services-overview">
+  <p class="sov-label reveal">What We Offer</p>
+  <h2 class="sov-heading reveal">Five ways we can<br>help your project.</h2>
+  <div class="sov-list">
+    <a href="services.html" class="sov-item reveal">
+      <div class="sov-item-left"><span class="sov-num">01</span><span class="sov-name">Aluminum Panel Cladding</span></div>
+      <span class="sov-arrow">→</span>
+    </a>
+    <a href="services.html" class="sov-item reveal">
+      <div class="sov-item-left"><span class="sov-num">02</span><span class="sov-name">Facade Systems & Design</span></div>
+      <span class="sov-arrow">→</span>
+    </a>
+    <a href="services.html" class="sov-item reveal">
+      <div class="sov-item-left"><span class="sov-num">03</span><span class="sov-name">Custom Fabrication</span></div>
+      <span class="sov-arrow">→</span>
+    </a>
+    <a href="services.html" class="sov-item reveal">
+      <div class="sov-item-left"><span class="sov-num">04</span><span class="sov-name">Design Assist</span></div>
+      <span class="sov-arrow">→</span>
+    </a>
+    <a href="services.html" class="sov-item reveal">
+      <div class="sov-item-left"><span class="sov-num">05</span><span class="sov-name">Material Supply</span></div>
+      <span class="sov-arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- About us — brief -->
+<section class="about-blurb">
+  <div class="reveal">
+    <p class="blurb-label">Who We Are</p>
+    <h2 class="blurb-heading">The Pure Team.</h2>
+  </div>
+  <p class="blurb-body reveal">Pure Fabrication is a Toronto-based aluminum cladding company built by a team with over 10 years of fabrication experience in the Middle East. We came here to do something simple: make this city's buildings look better than they do. Toronto is growing fast — we think it deserves facades that match that ambition. We fabricate every panel ourselves, handle every project in-house, and don't stop until the building looks the way it should.</p>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <p class="cta-text reveal">Have a project<br>in mind?</p>
+  <p class="cta-sub reveal">Let's talk about your facade.</p>
+  <div class="cta-btns reveal">
+    <a href="index.html#contact" class="btn-fill">Start a Project</a>
+    <a href="gallery.html" class="btn-ghost">View Our Work</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Built with absolute intention.</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="gallery.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Pure Fabrication. All rights reserved.</span>
+    <a href="https://www.instagram.com/purefabrication.ca" target="_blank" rel="noopener" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@purefabrication.ca</a>
+    <a href="mailto:purefabricationsupport@gmail.com" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>purefabricationsupport@gmail.com</a>
+    <span class="foot-copy">Aluminum Panel Cladding · Toronto</span>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
