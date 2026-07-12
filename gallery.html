@@ -19,7 +19,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .nav-links a:hover,.nav-links a.active{color:var(--tp)}
 .nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
 .nav-cta:hover{background:var(--ac);color:#fff}
-.page-header{padding:10rem 5rem 4rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:5rem 5rem 0;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.page-header{padding:2rem 5rem 4rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
 .page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
 .page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
 .page-header-right{font-size:0.72rem;letter-spacing:0.05em;color:var(--ts);max-width:320px;line-height:1.8}
@@ -50,7 +54,8 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
 @media(max-width:768px){
   nav{padding:1.2rem 1.6rem}
   .nav-links{display:none}
-  .page-header{padding:7rem 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .back-btn{padding:5rem 1.6rem 0}
+  .page-header{padding:1.5rem 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
   .page-header-right{max-width:100%}
   .filter-bar{padding:0 1.6rem;overflow-x:auto;flex-wrap:nowrap}
   .filter-btn{white-space:nowrap;padding:1rem 1.2rem}
@@ -74,6 +79,7 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
   </ul>
   <a href="index.html#contact" class="nav-cta">Contact</a>
 </nav>
+<a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
 <div class="page-header">
   <div class="page-header-left">
     <p class="sec-label">Selected Work</p>
