@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Pure Fabrication</title>
+<meta name="description" content="Pure Fabrication offers aluminum panel cladding, facade systems, custom fabrication, design assist, and material supply across Toronto and the GTA.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.page-header{padding:0 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
+.page-header-right{font-size:0.72rem;letter-spacing:0.05em;color:var(--ts);max-width:320px;line-height:1.8}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Services */
+.services-section{padding:7rem 5rem}
+.services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
+.svc-card{background:var(--bg);padding:4rem;position:relative;overflow:hidden}
+.svc-card:hover{background:var(--surf)}
+.svc-num{font-size:0.58rem;letter-spacing:0.35em;color:var(--ts);display:block;margin-bottom:2rem}
+.svc-name{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:1.2rem;line-height:1.1}
+.svc-desc{font-size:0.76rem;line-height:2;color:var(--ts);margin-bottom:2rem}
+.svc-includes{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.svc-includes li{font-size:0.62rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ts);display:flex;align-items:center;gap:0.8rem}
+.svc-includes li::before{content:'';width:20px;height:1px;background:var(--ac);flex-shrink:0}
+.svc-accent{position:absolute;bottom:0;left:4rem;right:4rem;height:1px;background:var(--ac);transform:scaleX(0);transform-origin:left;transition:transform 0.5s ease}
+.svc-card:hover .svc-accent{transform:scaleX(1)}
+.svc-card.full{grid-column:1/-1}
+
+/* Who We Work With */
+.audience{background:var(--tp);padding:7rem 5rem}
+.audience-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#3a3a3a;margin-bottom:1rem}
+.audience-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;color:var(--bg);margin-bottom:5rem;line-height:1.1}
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#252525}
+.audience-card{background:var(--tp);padding:3rem 2.5rem}
+.audience-card-title{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--bg);margin-bottom:1rem}
+.audience-card-desc{font-size:0.74rem;line-height:1.9;color:#5a5a5a;margin-bottom:1.8rem}
+.audience-tags{display:flex;flex-direction:column;gap:0.4rem}
+.audience-tag{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#3a3a3a}
+
+/* Standards */
+.standards{padding:7rem 5rem;border-top:1px solid var(--br);border-bottom:1px solid var(--br)}
+.standards-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;margin-top:4rem}
+.standards-left{}
+.std-item{padding:2rem 0;border-bottom:1px solid var(--br)}
+.std-item:first-child{padding-top:0}
+.std-item:last-child{border-bottom:none}
+.std-title{font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--tp);margin-bottom:0.6rem}
+.std-desc{font-size:0.74rem;line-height:1.9;color:var(--ts)}
+.cert-badges{display:flex;flex-direction:column;gap:1rem}
+.cert-badge{background:var(--surf);border:1px solid var(--br);padding:1.4rem 2rem;display:flex;align-items:center;gap:1.2rem}
+.cert-badge-icon{width:36px;height:36px;border:1px solid var(--br);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cert-badge-icon svg{width:16px;height:16px;stroke:var(--ac)}
+.cert-badge-text p:first-child{font-size:0.68rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--tp);margin-bottom:0.2rem}
+.cert-badge-text p:last-child{font-size:0.62rem;color:var(--ts)}
+
+/* Partners */
+.partners{padding:5rem 5rem;background:var(--surf);border-bottom:1px solid var(--br)}
+.partners-label{font-size:0.58rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--ts);margin-bottom:2.5rem;text-align:center}
+.partners-grid{display:flex;justify-content:center;align-items:center;gap:4rem;flex-wrap:wrap}
+.partner-name{font-size:0.68rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--ts);font-weight:500;transition:color 0.25s}
+.partner-name:hover{color:var(--tp)}
+
+/* Process strip */
+.process-strip{padding:7rem 5rem}
+.process-strip-grid{display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--br);margin-top:4rem}
+.ps-step{padding:2rem 2rem 2rem 0;border-right:1px solid var(--br)}
+.ps-step:last-child{border-right:none;padding-right:0}
+.ps-step:not(:first-child){padding-left:2rem}
+.ps-n{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);display:block;margin-bottom:1.2rem}
+.ps-name{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--tp);margin-bottom:0.6rem}
+.ps-desc{font-size:0.68rem;line-height:1.8;color:var(--ts)}
+
+/* CTA */
+.cta{padding:8rem 5rem;text-align:center;border-top:1px solid var(--br)}
+.cta-text{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--tp);margin-bottom:0.8rem;line-height:1.3}
+.cta-sub{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ts);margin-bottom:3rem}
+.cta-btns{display:flex;gap:1.2rem;justify-content:center}
+.btn-fill{display:inline-block;padding:1rem 2.8rem;background:var(--ac);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-fill:hover{background:#3D4F5F}
+.btn-ghost{display:inline-block;padding:1rem 2.8rem;border:1px solid var(--ac);color:var(--ac);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-ghost:hover{background:var(--ac);color:#fff}
+
+/* Footer */
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+
+/* Mobile */
+@media(max-width:768px){
+  .back-btn{padding:2rem 1.6rem 1rem}
+  .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-header-right{max-width:100%}
+  .services-section{padding:4rem 1.6rem}
+  .services-grid{grid-template-columns:1fr}
+  .svc-card{padding:2.5rem 1.6rem}
+  .svc-card.full{grid-column:1}
+  .svc-accent{left:1.6rem;right:1.6rem}
+  .audience{padding:4rem 1.6rem}
+  .audience-grid{grid-template-columns:1fr}
+  .standards{padding:4rem 1.6rem}
+  .standards-grid{grid-template-columns:1fr;gap:3rem}
+  .partners{padding:3rem 1.6rem}
+  .partners-grid{gap:2rem}
+  .process-strip{padding:4rem 1.6rem}
+  .process-strip-grid{grid-template-columns:1fr;border-top:none}
+  .ps-step{border-right:none;border-top:1px solid var(--br);padding:1.5rem 0}
+  .ps-step:not(:first-child){padding-left:0}
+  .cta{padding:5rem 1.6rem}
+  .cta-btns{flex-direction:column;align-items:center}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
+
+<div class="page-header reveal">
+  <div class="page-header-left">
+    <p class="sec-label">What We Do</p>
+    <h1 class="page-title">Five specialties.<br>One standard.</h1>
+  </div>
+  <p class="page-header-right">From raw panel to finished facade — we handle every stage in-house. Supply, design, fabrication, and installation under one roof, with one standard of precision throughout.</p>
+</div>
+
+<!-- Services Grid -->
+<section class="services-section">
+  <div class="services-grid">
+
+    <div class="svc-card reveal">
+      <span class="svc-num">01</span>
+      <h2 class="svc-name">Aluminum Panel<br>Cladding</h2>
+      <p class="svc-desc">Our core specialty. We supply and install aluminum composite panels (ACM/ACP) for residential and commercial facades across Toronto and the GTA. Every panel is precision-cut, folded, and installed with concealed fixing systems for a seamless, flush result in matte, gloss, brushed, and custom finishes.</p>
+      <ul class="svc-includes">
+        <li>Residential & commercial facades</li>
+        <li>ACM / ACP panel systems</li>
+        <li>Concealed fixing & reveal joints</li>
+        <li>Matte, gloss, brushed & custom finishes</li>
+        <li>OBC-compliant FR-rated cores</li>
+      </ul>
+      <div class="svc-accent"></div>
+    </div>
+
+    <div class="svc-card reveal" style="transition-delay:0.1s">
+      <span class="svc-num">02</span>
+      <h2 class="svc-name">Facade Systems<br>& Design</h2>
+      <p class="svc-desc">Full facade envelope design and installation — from substructure and thermal breaks to the final panel face. We work directly with architects, general contractors, and developers from shop drawings through site completion, ensuring every condition is resolved before fabrication begins.</p>
+      <ul class="svc-includes">
+        <li>Full envelope design & coordination</li>
+        <li>Substructure & thermal break systems</li>
+        <li>Shop drawings & panel layout</li>
+        <li>Corner, soffit & reveal detailing</li>
+        <li>Site-verified measurements</li>
+      </ul>
+      <div class="svc-accent"></div>
+    </div>
+
+    <div class="svc-card reveal" style="transition-delay:0.05s">
+      <span class="svc-num">03</span>
+      <h2 class="svc-name">Custom<br>Fabrication</h2>
+      <p class="svc-desc">Bespoke panel shapes, reveal joints, corner details, and feature cladding elements fabricated in-house using CNC routing and hydraulic press brakes. Every corner, return, and reveal is cut to exact tolerance. If it involves aluminum, we fabricate it — signage panels, canopies, soffits, column wraps, and architectural accent elements.</p>
+      <ul class="svc-includes">
+        <li>CNC routing & hydraulic press brake</li>
+        <li>±0.5mm fabrication tolerance</li>
+        <li>Canopies, soffits & column wraps</li>
+        <li>Signage panels & accent elements</li>
+        <li>Complex geometry & curved panels</li>
+      </ul>
+      <div class="svc-accent"></div>
+    </div>
+
+    <div class="svc-card reveal" style="transition-delay:0.15s">
+      <span class="svc-num">04</span>
+      <h2 class="svc-name">Design<br>Assist</h2>
+      <p class="svc-desc">We engage early — before fabrication — to coordinate facade geometry, resolve joint conditions, and translate architectural intent into buildable shop drawings. Working alongside architects and GCs during design development prevents costly changes on site and delivers facades that read exactly as intended.</p>
+      <ul class="svc-includes">
+        <li>Early-stage facade coordination</li>
+        <li>Architectural shop drawings</li>
+        <li>Panel layout & joint resolution</li>
+        <li>3D facade layout preview</li>
+        <li>Specification & finish guidance</li>
+      </ul>
+      <div class="svc-accent"></div>
+    </div>
+
+    <div class="svc-card full reveal" style="transition-delay:0.1s">
+      <span class="svc-num">05</span>
+      <h2 class="svc-name">Material Supply</h2>
+      <p class="svc-desc">Need panels only? We supply project-specified ACM/ACP materials from leading manufacturers including Alpolic, Alubond, Alfrex, and Alucobond — cut-to-size and ready for your installation team. Whether you're an architect specifying a finish, a builder sourcing panels, or a contractor needing a reliable supply partner across Ontario, we deliver with precision and speed.</p>
+      <ul class="svc-includes" style="flex-direction:row;flex-wrap:wrap;gap:1.2rem 2.5rem">
+        <li>Alpolic · Alubond · Alfrex · Alucobond</li>
+        <li>Cut-to-size panel supply</li>
+        <li>Project-specified finishes</li>
+        <li>GTA & Ontario-wide delivery</li>
+        <li>Architect & contractor accounts</li>
+      </ul>
+      <div class="svc-accent"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Who We Work With -->
+<section class="audience reveal">
+  <p class="audience-label">Who We Work With</p>
+  <h2 class="audience-title">Built for the people<br>who build.</h2>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <h3 class="audience-card-title">Architects</h3>
+      <p class="audience-card-desc">We collaborate during design development and detailing to ensure ACM panel layouts, joint conditions, and finish selections translate accurately from drawings through fabrication. Early engagement keeps your intent intact from concept to completion.</p>
+      <div class="audience-tags">
+        <span class="audience-tag">— Design coordination</span>
+        <span class="audience-tag">— Panel layout accuracy</span>
+        <span class="audience-tag">— Intent preservation</span>
+        <span class="audience-tag">— Shop drawing support</span>
+      </div>
+    </div>
+    <div class="audience-card">
+      <h3 class="audience-card-title">Developers</h3>
+      <p class="audience-card-desc">Our systems are built for consistency, scalability, and long-term performance. We support developers with reliable scheduling, repeatable fabrication standards, and facade systems that hold up visually and structurally across multiple properties.</p>
+      <div class="audience-tags">
+        <span class="audience-tag">— Schedule reliability</span>
+        <span class="audience-tag">— Budget clarity</span>
+        <span class="audience-tag">— Scalable systems</span>
+        <span class="audience-tag">— Multi-property experience</span>
+      </div>
+    </div>
+    <div class="audience-card">
+      <h3 class="audience-card-title">Builders & GCs</h3>
+      <p class="audience-card-desc">We integrate cleanly into builder- and GC-led projects with clear sequencing, documented tolerances, and alignment-first execution. Our crews work efficiently on site and communicate clearly — so the facade scope never holds up the schedule.</p>
+      <div class="audience-tags">
+        <span class="audience-tag">— Installation sequencing</span>
+        <span class="audience-tag">— Site coordination</span>
+        <span class="audience-tag">— Clean execution</span>
+        <span class="audience-tag">— Transparent timelines</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Standards & Certifications -->
+<section class="standards reveal">
+  <p class="sec-label" style="font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem">Standards & Compliance</p>
+  <h2 style="font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.1">Built to code.<br>Built to last.</h2>
+  <div class="standards-grid">
+    <div class="standards-left">
+      <div class="std-item">
+        <p class="std-title">Ontario Building Code (OBC) Compliance</p>
+        <p class="std-desc">All facade systems are engineered to meet OBC requirements. We specify FR-rated (Fire-Retardant) cores and materials tested to ASTM E84 and CAN/ULC-S134 standards for non-combustible construction.</p>
+      </div>
+      <div class="std-item">
+        <p class="std-title">±0.5mm Fabrication Tolerance</p>
+        <p class="std-desc">In-house CNC fabrication maintains sub-millimeter precision on all panel folds and cuts. Mitered corners and complex transitions align perfectly with site-verified layouts — every time.</p>
+      </div>
+      <div class="std-item">
+        <p class="std-title">Site-Verified Layouts</p>
+        <p class="std-desc">We visit the site before anything is cut. Measurements, substrate conditions, wind load requirements, and drainage details are documented and confirmed before a single panel is specified.</p>
+      </div>
+    </div>
+    <div class="cert-badges">
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" stroke="currentColor"/></svg></div>
+        <div class="cert-badge-text"><p>Fully Insured</p><p>Commercial general liability coverage on all projects</p></div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375" stroke="currentColor"/></svg></div>
+        <div class="cert-badge-text"><p>WSIB Compliant</p><p>Workplace Safety & Insurance Board registered and current</p></div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" stroke="currentColor"/></svg></div>
+        <div class="cert-badge-text"><p>OBC Compliant Systems</p><p>FR-rated cores, ASTM E84 & CAN/ULC-S134 certified materials</p></div>
+      </div>
+      <div class="cert-badge">
+        <div class="cert-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" stroke="currentColor"/><path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" stroke="currentColor"/></svg></div>
+        <div class="cert-badge-text"><p>Toronto & GTA Based</p><p>Serving residential & commercial projects across Ontario</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Partner Manufacturers -->
+<section class="partners reveal">
+  <p class="partners-label">Compatible with project-specified ACM products from</p>
+  <div class="partners-grid">
+    <span class="partner-name">Alpolic</span>
+    <span class="partner-name">Alubond</span>
+    <span class="partner-name">Alfrex</span>
+    <span class="partner-name">Alucobond</span>
+    <span class="partner-name">Reynobond</span>
+  </div>
+</section>
+
+<!-- Process Strip -->
+<section class="process-strip reveal">
+  <p class="sec-label" style="font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem">Our Process</p>
+  <h2 style="font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:400;line-height:1.1">Precision at<br>every stage.</h2>
+  <div class="process-strip-grid">
+    <div class="ps-step">
+      <span class="ps-n">01</span>
+      <h3 class="ps-name">Site Assessment</h3>
+      <p class="ps-desc">Verified measurements, substrate review, and layout mapping before anything is specified.</p>
+    </div>
+    <div class="ps-step">
+      <span class="ps-n">02</span>
+      <h3 class="ps-name">Design & Shop Drawings</h3>
+      <p class="ps-desc">Panel layout, reveal joints, corner conditions — all drawn and approved before fabrication starts.</p>
+    </div>
+    <div class="ps-step">
+      <span class="ps-n">03</span>
+      <h3 class="ps-name">Material Selection</h3>
+      <p class="ps-desc">Finish, core, and system selection coordinated with project specs and OBC requirements.</p>
+    </div>
+    <div class="ps-step">
+      <span class="ps-n">04</span>
+      <h3 class="ps-name">Panel Fabrication</h3>
+      <p class="ps-desc">CNC-cut and press-braked in-house to ±0.5mm tolerance. Every panel leaves the shop ready to install.</p>
+    </div>
+    <div class="ps-step">
+      <span class="ps-n">05</span>
+      <h3 class="ps-name">Installation & Handover</h3>
+      <p class="ps-desc">Alignment-driven installation, final inspection, and a facade that reads exactly as intended.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta reveal">
+  <h2 class="cta-text">Ready to start<br>your project?</h2>
+  <p class="cta-sub">Let's talk scope, timeline, and finish — no obligation.</p>
+  <div class="cta-btns">
+    <a href="index.html#contact" class="btn-fill">Start a Project</a>
+    <a href="gallery.html" class="btn-ghost">View Our Work</a>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Built with absolute intention.</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="gallery.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="index.html#process">Process</a>
+      <a href="index.html#studio">Studio</a>
+      <a href="cabinetry.html">Cabinetry</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Pure Fabrication. All rights reserved.</span>
+    <span class="foot-copy">Aluminum Panel Cladding · Facade Systems · Toronto</span>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
