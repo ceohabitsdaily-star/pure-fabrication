@@ -19,7 +19,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .nav-links a:hover,.nav-links a.active{color:var(--tp)}
 .nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
 .nav-cta:hover{background:var(--ac);color:#fff}
-.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:8rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
 .back-btn:hover{color:var(--tp)}
 .back-btn svg{transition:transform 0.25s}
 .back-btn:hover svg{transform:translateX(-3px)}
@@ -54,7 +54,7 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
 @media(max-width:768px){
   nav{padding:1.2rem 1.6rem}
   .nav-links{display:none}
-  .back-btn{padding:6rem 1.6rem 1rem}
+  .back-btn{padding:2rem 1.6rem 1rem}
   .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
   .page-header-right{max-width:100%}
   .filter-bar{padding:0 1.6rem;overflow-x:auto;flex-wrap:nowrap}
@@ -69,16 +69,6 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
 <body>
 <div class="cur" id="cur"></div>
 <div class="cur-ring" id="ring"></div>
-<nav>
-  <a href="index.html" class="nav-logo">Pure Fabrication</a>
-  <ul class="nav-links">
-    <li><a href="gallery.html" class="active">Work</a></li>
-    <li><a href="index.html#services">Services</a></li>
-    <li><a href="index.html#process">Process</a></li>
-    <li><a href="index.html#studio">Studio</a></li>
-  </ul>
-  <a href="index.html#contact" class="nav-cta">Contact</a>
-</nav>
 <a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
 <div class="page-header">
   <div class="page-header-left">
