@@ -39,8 +39,6 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 .hero-content{position:relative;z-index:2}
 .hero-vline{position:absolute;top:0;bottom:0;left:60%;width:1px;background:rgba(255,255,255,0.15);z-index:2;transform:scaleY(0);transform-origin:top;animation:growY 1.8s cubic-bezier(0.16,1,0.3,1) 0.5s forwards}
 @keyframes growY{to{transform:scaleY(1)}}
-.hero-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(255,255,255,0.1);z-index:3}
-.hero-progress-fill{height:100%;width:0%;background:var(--ac);transition:width 0.05s linear}
 .hero-eyebrow{font-size:0.62rem;letter-spacing:0.42em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:2rem;opacity:0;transform:translateY(10px);animation:fadeUp 0.8s ease 1.3s forwards}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 .hero-title{font-family:var(--serif);font-weight:400;line-height:0.87;letter-spacing:-0.025em;color:#fff}
@@ -202,7 +200,6 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <span>Scroll</span>
       <div class="scroll-bar"></div>
     </div>
-    <div class="hero-progress"><div class="hero-progress-fill" id="progFill"></div></div>
   </div>
 </div>
 <nav id="nav">
@@ -347,7 +344,7 @@ document.querySelectorAll('a,button').forEach(el=>{
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',scrollY>60)});
 // Cursor spotlight hero
-const heroLit=document.getElementById('heroLit'),heroGlow=document.getElementById('heroGlow'),heroWrap=document.getElementById('heroWrap'),progFill=document.getElementById('progFill'),track=document.querySelector('.hero-scroll-track');
+const heroLit=document.getElementById('heroLit'),heroGlow=document.getElementById('heroGlow'),heroWrap=document.getElementById('heroWrap'),track=document.querySelector('.hero-scroll-track');
 if(heroLit&&window.innerWidth>768){
   // Cursor spotlight
   let tx=50,ty=50,cx=50,cy=50,mraf=false;
@@ -368,7 +365,7 @@ if(heroLit&&window.innerWidth>768){
   let sraf=false;
   window.addEventListener('scroll',()=>{
     if(sraf) return;sraf=true;
-    requestAnimationFrame(()=>{sraf=false;if(progFill) progFill.style.width=(getProgress()*100)+'%';});
+    requestAnimationFrame(()=>{sraf=false;});
   },{passive:true});
 }
 fetch('pf_gallery.json?v='+Date.now()).then(r=>r.json()).then(items=>{
