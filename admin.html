@@ -122,6 +122,14 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .toast{position:fixed;bottom:2rem;right:2rem;background:var(--tp);color:#111;padding:0.75rem 1.5rem;font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0;transform:translateY(8px);transition:all 0.3s ease;pointer-events:none;z-index:9999;max-width:400px}
 .toast.show{opacity:1;transform:translateY(0)}
 .toast.error{background:#6B2A2A;color:#ffaaaa}
+.src-toggle{display:flex;margin-bottom:1rem;border:1px solid var(--border);width:fit-content}
+.src-btn{padding:0.45rem 1.1rem;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;background:none;border:none;color:var(--ts);cursor:pointer;transition:all 0.2s;font-family:var(--sans)}
+.src-btn.active{background:var(--tp);color:#111}
+.file-drop{border:1px dashed var(--border);padding:2rem;text-align:center;cursor:pointer;transition:border-color 0.2s;background:var(--surf)}
+.file-drop:hover{border-color:#666}
+.file-drop p{font-size:0.72rem;color:var(--ts);pointer-events:none}
+.file-drop .file-hint{font-size:0.6rem;margin-top:0.3rem;color:#555;pointer-events:none}
+.upload-prog{font-size:0.62rem;letter-spacing:0.12em;color:var(--ts);margin-top:0.5rem;min-height:1.2rem}
 </style>
 </head>
 <body>
@@ -175,7 +183,19 @@ tr:hover td{background:rgba(255,255,255,0.02)}
         <div class="sec-hd"><h2>Gallery Images</h2><button class="btn btn-ghost" id="addToggleBtn" onclick="toggleAddForm()">+ Add Image</button></div>
         <div class="add-form" id="addForm">
           <p class="add-form-title">Add New Image</p>
-          <div class="form-row one"><div class="form-field"><label>Image URL</label><input type="url" id="newUrl" placeholder="https://..." oninput="previewUrl(this.value)"></div></div>
+          <div class="src-toggle">
+            <button class="src-btn active" id="srcBtnUrl" onclick="setImgSource('url')">Paste URL</button>
+            <button class="src-btn" id="srcBtnFile" onclick="setImgSource('file')">Upload File</button>
+          </div>
+          <div id="srcUrlWrap" class="form-row one"><div class="form-field"><label>Image URL</label><input type="url" id="newUrl" placeholder="https://..." oninput="previewUrl(this.value)"></div></div>
+          <div id="srcFileWrap" style="display:none">
+            <div class="file-drop" id="fileDrop" onclick="document.getElementById('fileInput').click()" ondragover="event.preventDefault();this.style.borderColor='#aaa'" ondragleave="this.style.borderColor=''" ondrop="event.preventDefault();this.style.borderColor='';handleFiles(event.dataTransfer.files)">
+              <p>Click to browse or drag & drop image here</p>
+              <p class="file-hint">JPG, PNG, WebP · max 10 MB</p>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFiles(this.files)">
+            <p class="upload-prog" id="uploadProg"></p>
+          </div>
           <div class="url-preview" id="urlPreview"><img id="urlPreviewImg" src="" alt="Preview"></div>
           <div class="form-row three" style="margin-top:0.75rem">
             <div class="form-field"><label>Title</label><input type="text" id="newTitle" placeholder="e.g. Dark Panel Commercial Tower"></div>
@@ -253,6 +273,30 @@ function deleteEnquiry(i){const eq=JSON.parse(localStorage.getItem('pf_enquiries
 function clearAllEnquiries(){if(!confirm('Delete all enquiries?'))return;localStorage.removeItem('pf_enquiries');loadEnquiries();updateDashboard();showToast('Cleared')}
 function updateDashboard(){const si=document.getElementById('stat-imgs'),se=document.getElementById('stat-enquiries');if(si)si.textContent=getGallery().length;if(se)se.textContent=JSON.parse(localStorage.getItem('pf_enquiries')||'[]').filter(e=>e.status==='new').length}
 function showToast(msg,isError){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(isError?' error':'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500)}
+function setImgSource(type){document.getElementById('srcBtnUrl').classList.toggle('active',type==='url');document.getElementById('srcBtnFile').classList.toggle('active',type==='file');document.getElementById('srcUrlWrap').style.display=type==='url'?'':'none';document.getElementById('srcFileWrap').style.display=type==='file'?'':'none'}
+function fileToBase64(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+async function handleFiles(files){
+  const file=files[0];if(!file)return;
+  if(file.size>10*1024*1024){showToast('File too large (max 10 MB)',true);return}
+  const token=getToken();
+  if(!token){showToast('Add your GitHub token in Settings first',true);switchPanelById('settings');return}
+  const prog=document.getElementById('uploadProg');
+  prog.textContent='Uploading...';
+  try{
+    const b64=await fileToBase64(file);
+    const content=b64.split(',')[1];
+    const safeName=file.name.replace(/[^a-z0-9._-]/gi,'-').toLowerCase();
+    const path='gallery-images/'+Date.now()+'-'+safeName;
+    const res=await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+path,{method:'PUT',headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify({message:'Upload gallery image',content,branch:GH_BRANCH})});
+    if(!res.ok){const e=await res.json();throw new Error(e.message||'Upload failed')}
+    const data=await res.json();
+    const url=data.content.download_url;
+    document.getElementById('newUrl').value=url;
+    previewUrl(url);
+    prog.textContent='✓ Uploaded — preview below';
+    setImgSource('url');
+  }catch(e){prog.textContent='Error: '+e.message;showToast('Upload failed: '+e.message,true)}
+}
 </script>
 </body>
 </html>
