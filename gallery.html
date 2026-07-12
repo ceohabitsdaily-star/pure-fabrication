@@ -12,13 +12,6 @@ body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hid
 a{text-decoration:none;color:inherit;cursor:crosshair}
 .cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
 .cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5rem;background-color:rgba(247,246,244,0.96);border-bottom:1px solid var(--br);transform:translate3d(0,0,0)}
-.nav-logo{font-size:0.7rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--tp)}
-.nav-links{display:flex;gap:3rem;list-style:none}
-.nav-links a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts);transition:color 0.25s}
-.nav-links a:hover,.nav-links a.active{color:var(--tp)}
-.nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
-.nav-cta:hover{background:var(--ac);color:#fff}
 .back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
 .back-btn:hover{color:var(--tp)}
 .back-btn svg{transition:transform 0.25s}
@@ -52,8 +45,6 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
 .foot-copy{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:#333}
 @media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
 @media(max-width:768px){
-  nav{padding:1.2rem 1.6rem}
-  .nav-links{display:none}
   .back-btn{padding:2rem 1.6rem 1rem}
   .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
   .page-header-right{max-width:100%}
