@@ -32,13 +32,17 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 .nav-toggle.open span:nth-child(2){opacity:0}
 .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;z-index:2000;background:var(--ac);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2rem;gap:0;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);visibility:hidden}
+.mobile-menu{position:fixed;inset:0;z-index:2000;background:var(--bg);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:0 2rem;gap:0;transform:translateX(100%);transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);visibility:hidden}
 .mobile-menu.open{transform:translateX(0);visibility:visible}
+.mobile-menu-close{position:absolute;top:1.2rem;right:1.4rem;width:40px;height:40px;background:none;border:none;cursor:pointer;z-index:2101}
+.mobile-menu-close span{position:absolute;top:50%;left:50%;width:22px;height:2px;background:var(--tp)}
+.mobile-menu-close span:nth-child(1){transform:translate(-50%,-50%) rotate(45deg)}
+.mobile-menu-close span:nth-child(2){transform:translate(-50%,-50%) rotate(-45deg)}
 .mobile-menu ul{list-style:none;width:100%}
-.mobile-menu li{border-bottom:1px solid rgba(255,255,255,0.15)}
-.mobile-menu a{display:block;padding:1.1rem 0;font-family:var(--serif);font-size:1.6rem;color:#fff;text-transform:none;letter-spacing:0}
-.mobile-menu .nav-cta{display:inline-block;margin-top:2rem;border-color:#fff;color:#fff}
-.mobile-menu .nav-cta:hover{background:#fff;color:var(--ac)}
+.mobile-menu li{border-bottom:1px solid var(--br)}
+.mobile-menu a{display:block;padding:1.1rem 0;font-family:var(--sans);font-size:0.95rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--tp)}
+.mobile-menu .nav-cta{display:inline-block;margin-top:2rem;border-color:var(--ac);color:var(--ac)}
+.mobile-menu .nav-cta:hover{background:var(--ac);color:#fff}
 body.menu-open{overflow:hidden}
 .hero-scroll-track{position:relative;height:200vh}
 .hero-sticky{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 5rem 7rem;overflow:hidden}
@@ -235,6 +239,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
   <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose" aria-label="Close menu"><span></span><span></span></button>
   <ul>
     <li><a href="#work">Work</a></li>
     <li><a href="services.html">Services</a></li>
@@ -435,13 +440,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     window.scrollTo({top,behavior:'smooth'});
   });
 });
-const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu');
+const navToggle=document.getElementById('navToggle'),mobileMenu=document.getElementById('mobileMenu'),menuClose=document.getElementById('menuClose');
 function closeMenu(){navToggle.classList.remove('open');mobileMenu.classList.remove('open');document.body.classList.remove('menu-open')}
 navToggle.addEventListener('click',()=>{
   const isOpen=mobileMenu.classList.toggle('open');
   navToggle.classList.toggle('open',isOpen);
   document.body.classList.toggle('menu-open',isOpen);
 });
+menuClose.addEventListener('click',closeMenu);
 mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 </script>
 </body>
