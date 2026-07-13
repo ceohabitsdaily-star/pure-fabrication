@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Pure Fabrication</title>
+<meta name="description" content="Frequently asked questions about aluminum panel cladding, ACM facade systems, installation, cost, and working with Pure Fabrication in Toronto and the GTA.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Page header */
+.page-header{padding:0 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
+.page-header-right{font-size:0.74rem;color:var(--ts);max-width:340px;line-height:1.9}
+
+/* Category tabs */
+.faq-nav{display:flex;gap:0;padding:0 5rem;border-bottom:1px solid var(--br);overflow-x:auto}
+.faq-tab{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ts);padding:1.2rem 2rem;border:none;background:none;cursor:crosshair;transition:color 0.25s;position:relative;white-space:nowrap}
+.faq-tab::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--ac);transform:scaleX(0);transition:transform 0.3s}
+.faq-tab.active,.faq-tab:hover{color:var(--tp)}
+.faq-tab.active::after{transform:scaleX(1)}
+
+/* FAQ sections */
+.faq-body{padding:0 5rem 8rem}
+.faq-section{padding-top:6rem;display:none}
+.faq-section.active{display:block}
+.faq-section-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:4rem}
+
+/* Accordion */
+.faq-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--br)}
+.faq-item{border-bottom:1px solid var(--br)}
+.faq-question{width:100%;display:flex;justify-content:space-between;align-items:center;padding:2rem 0;background:none;border:none;cursor:crosshair;text-align:left;gap:2rem}
+.faq-q-text{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--tp);line-height:1.3;transition:color 0.25s}
+.faq-item.open .faq-q-text{color:var(--ac)}
+.faq-icon{width:28px;height:28px;border:1px solid var(--br);border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+.faq-item.open .faq-icon{background:var(--ac);border-color:var(--ac)}
+.faq-icon svg{width:10px;height:10px;stroke:var(--ts);transition:transform 0.3s,stroke 0.3s}
+.faq-item.open .faq-icon svg{transform:rotate(45deg);stroke:#fff}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height 0.45s ease,padding 0.3s}
+.faq-item.open .faq-answer{max-height:600px;padding-bottom:2rem}
+.faq-answer-inner{font-size:0.76rem;line-height:2.1;color:var(--ts);max-width:680px}
+.faq-answer-inner p+p{margin-top:1rem}
+
+/* CTA strip */
+.faq-cta{background:var(--tp);padding:6rem 5rem;display:flex;justify-content:space-between;align-items:center;gap:3rem}
+.faq-cta-text{font-family:var(--serif);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:400;color:var(--bg);line-height:1.3}
+.faq-cta-sub{font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;color:#555;margin-top:0.6rem}
+.btn-fill{display:inline-block;padding:1rem 2.8rem;background:var(--bg);color:var(--tp);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair;white-space:nowrap}
+.btn-fill:hover{background:var(--surf)}
+
+/* Footer */
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+.foot-ig{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-ig:hover{color:var(--bg)}
+
+/* Mobile */
+@media(max-width:768px){
+  .back-btn{padding:2rem 1.6rem 1rem}
+  .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-header-right{max-width:100%}
+  .faq-nav{padding:0 1.6rem}
+  .faq-tab{padding:1rem 1.2rem}
+  .faq-body{padding:0 1.6rem 5rem}
+  .faq-cta{padding:4rem 1.6rem;flex-direction:column;align-items:flex-start;gap:2rem}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
+
+<!-- Page Header -->
+<div class="page-header reveal">
+  <div class="page-header-left">
+    <p class="sec-label">FAQ</p>
+    <h1 class="page-title">Questions<br>answered.</h1>
+  </div>
+  <p class="page-header-right">Everything you've wondered about aluminum panel cladding, our process, pricing, and working with Pure Fabrication.</p>
+</div>
+
+<!-- Category tabs -->
+<div class="faq-nav">
+  <button class="faq-tab active" data-tab="general">General</button>
+  <button class="faq-tab" data-tab="materials">Materials</button>
+  <button class="faq-tab" data-tab="process">Process & Timeline</button>
+  <button class="faq-tab" data-tab="pricing">Pricing</button>
+  <button class="faq-tab" data-tab="maintenance">Maintenance</button>
+</div>
+
+<!-- FAQ Body -->
+<div class="faq-body">
+
+  <!-- General -->
+  <div class="faq-section active" id="tab-general">
+    <p class="faq-section-label">General Questions</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">What is aluminum panel cladding?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Aluminum panel cladding is an exterior wall covering system installed over a building's structure. The most common type is ACM — Aluminum Composite Material — which consists of two thin aluminum sheets bonded to a rigid core. The result is a lightweight, durable panel that can be cut, folded, and finished in almost any shape or colour.</p>
+          <p>It's the material behind most modern building facades you see in the GTA today — the clean flat surfaces, sharp reveals, and architectural finishes on custom homes and commercial buildings.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Do you work on residential and commercial projects?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes. We work on both. On the residential side we handle custom homes, infill builds, and renovation exteriors. On the commercial side we work with retail, office, and mid-rise projects. The material and systems are the same — the scale and coordination requirements differ.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Do you fabricate the panels yourselves or source them pre-made?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>We fabricate every panel ourselves, in-house. We don't buy pre-cut panels from a third party and install them. Every panel that goes onto a building is cut, routed, folded, and finished by our own team, to the exact dimensions of your project.</p>
+          <p>This is how we control quality from start to finish — and why the finished result looks the way it should.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">What areas do you serve?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>We serve Toronto and the Greater Toronto Area, including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, North York, Scarborough, Etobicoke, Pickering, and Ajax. For larger commercial projects, contact us to discuss scope and location.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Who do you typically work with?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Our clients are typically architects and design firms looking for a fabrication partner who can deliver on their drawings, developers and builders who need a reliable cladding contractor from design through installation, and general contractors who need a specialist subcontractor for the facade scope of a project.</p>
+          <p>We also work directly with homeowners on custom residential projects.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Materials -->
+  <div class="faq-section" id="tab-materials">
+    <p class="faq-section-label">Materials</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">What's the difference between ACM and solid aluminum plate?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>ACM (Aluminum Composite Material) is two thin aluminum sheets bonded to a core — lightweight, cost-effective, and ideal for large facade surfaces. It bends and forms easily, which is why it's the most common choice for residential and commercial cladding.</p>
+          <p>Solid aluminum plate is a single piece of aluminum with no core — heavier, thicker, and more structurally rigid. It's used where the design calls for a bolder material presence, or in areas that take more impact like canopies, soffits, and ground-level feature walls.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">What colours and finishes are available?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>The range is very wide. Standard finishes include matte, gloss, brushed, and metallic in hundreds of colours. Specialty finishes include wood-grain, stone-effect, mirror, perforated, and anodized aluminum. Custom RAL colour matching is also available for projects that need an exact colour specification.</p>
+          <p>We can provide samples for review before any material is committed to fabrication.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">How long do aluminum panels last?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>A properly installed aluminum cladding system will last 20–40 years in Canadian conditions. The finish is UV-resistant and engineered to hold colour through freeze-thaw cycles, heavy rain, and sun exposure. Aluminum does not rust, rot, warp, or require repainting — which is a significant advantage over wood, vinyl, or steel cladding systems.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Are aluminum panels fire resistant?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Solid aluminum plate is non-combustible. ACM panels come in standard (polyethylene core) and fire-resistant (FR core) versions. For most residential projects, standard ACM is acceptable. For mid-rise and commercial buildings, FR-core panels are required under the Ontario Building Code.</p>
+          <p>We will specify the correct panel type for your project based on building type and applicable code requirements.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Can cladding be installed in winter?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes, with the right planning. Aluminum panels themselves are not affected by cold temperatures. The main considerations are the subframe installation and any sealants used, which require minimum temperature conditions to cure properly. We plan seasonal projects accordingly and can work through most of the Ontario winter with appropriate site conditions.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="faq-section" id="tab-process">
+    <p class="faq-section-label">Process & Timeline</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">What is your process from first contact to installation?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>It starts with a consultation — we review your drawings or design intent and ask the right questions about your project. From there we provide a quote with material, fabrication, and installation pricing. Once approved, we conduct a site survey to take precise measurements, fabricate all panels in-house, and schedule installation. The final step is a site walkthrough to confirm everything looks correct before we close out the project.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">How long does a cladding project take?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Timeline depends on project size. For a typical custom home facade, fabrication takes 2–3 weeks after site measurements are confirmed, and installation takes 3–7 days on site. Larger commercial projects have longer fabrication and installation schedules that we plan with the general contractor. We always confirm a realistic timeline before committing to a project start date.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Do you help with design, or do I need drawings before contacting you?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Both. If you have full architectural drawings, we work directly from them. If you're still in the design phase, we offer Design Assist — we work alongside your architect or designer to help resolve panel layout, joint sizes, reveals, and constructability questions before the design is finalized. This is one of the most valuable things we do and it prevents a lot of problems during fabrication and installation.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Do I need a permit for aluminum cladding?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>In most cases, yes. Exterior cladding work in Ontario typically requires a building permit, especially when it involves changes to the building envelope. The permit is usually the homeowner's or general contractor's responsibility to obtain. We can advise on the documentation required and confirm material specifications that align with permit requirements.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Can you supply materials only, without installation?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes. If you have your own installation crew and need fabricated panels delivered to site, we can handle the material supply and fabrication only. We'll still take measurements or work from your drawings to ensure every panel is cut to spec. Contact us to discuss your project requirements.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="faq-section" id="tab-pricing">
+    <p class="faq-section-label">Pricing</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">How much does aluminum cladding cost?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Cost depends on the panel type, finish, total area, design complexity, and whether you need supply only or full design, fabrication, and installation. Every project is quoted individually — there is no one-size-fits-all number we can give without seeing your drawings or site.</p>
+          <p>To get an accurate quote, contact us with your project details and we'll respond quickly with a clear breakdown.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Is a deposit required to start a project?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes. Once a quote is approved and a project is confirmed, we require a deposit before material is ordered and fabrication begins. The deposit amount and payment schedule are outlined clearly in our project agreement. We'll walk you through this before anything is signed.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Do you provide written quotes?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes, always. Every quote we send is a written document that breaks down material, fabrication, and installation costs clearly. We don't do verbal-only pricing — if it's not in writing, it's not confirmed. This protects both parties and eliminates surprises during the project.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Maintenance -->
+  <div class="faq-section" id="tab-maintenance">
+    <p class="faq-section-label">Maintenance</p>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">How do I clean aluminum panel cladding?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Aluminum panels are easy to maintain. A periodic wash with mild soap and water is all that's needed in most cases. Avoid abrasive cleaners or brushes that could scratch the finish. For stubborn marks or industrial buildup, a diluted neutral cleaner works well. Most residential cladding only needs cleaning once or twice a year.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Can a damaged panel be replaced without redoing the whole facade?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>Yes, in most cases. One of the advantages of panel cladding systems is that individual panels can be removed and replaced without disturbing the surrounding facade. If a panel is dented, scratched, or damaged, we can fabricate a matching replacement and swap it out. This is much easier than repairing brick, stucco, or poured concrete.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          <span class="faq-q-text">Does aluminum cladding require painting or sealing over time?</span>
+          <span class="faq-icon"><svg viewBox="0 0 12 12" fill="none" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></span>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">
+          <p>No. The colour on aluminum panels is a PVDF (polyvinylidene fluoride) or polyester coating applied to the aluminum surface at the factory — it is not paint in the conventional sense. It does not peel, chip, or need to be reapplied. There is no ongoing sealing required. Once it's on the building, it stays as it is for the life of the panel.</p>
+        </div></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end faq-body -->
+
+<!-- CTA Strip -->
+<div class="faq-cta">
+  <div>
+    <p class="faq-cta-text">Still have a question?</p>
+    <p class="faq-cta-sub">Send us your project details and we'll get back to you.</p>
+  </div>
+  <a href="index.html#contact" class="btn-fill">Contact Us</a>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Built with absolute intention.</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="gallery.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Pure Fabrication. All rights reserved.</span>
+    <a href="https://www.instagram.com/purefabrication.ca" target="_blank" rel="noopener" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@purefabrication.ca</a>
+    <a href="mailto:purefabricationsupport@gmail.com" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>purefabricationsupport@gmail.com</a>
+    <span class="foot-copy">Aluminum Panel Cladding · Toronto</span>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+
+// Tabs
+document.querySelectorAll('.faq-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.faq-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.faq-section').forEach(s=>s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Accordion
+document.querySelectorAll('.faq-question').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const item=btn.closest('.faq-item');
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+    if(!isOpen) item.classList.add('open');
+  });
+});
+
+// Reveal
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.05});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
