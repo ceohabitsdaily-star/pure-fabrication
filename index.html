@@ -118,6 +118,7 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 .cf-input::placeholder{color:var(--ts)}
 .cf-input:focus{border-color:var(--ac)}
 .cf-full{width:100%}
+.cf-textarea{resize:vertical;min-height:110px;font-family:var(--sans)}
 .contact-form .btn-fill{align-self:flex-start;cursor:crosshair}
 footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 .foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
@@ -311,7 +312,12 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <input type="text" id="cf-name" placeholder="Your Name" class="cf-input" required>
       <input type="email" id="cf-email" placeholder="Email Address" class="cf-input" required>
     </div>
-    <input type="text" id="cf-brief" placeholder="Project Brief — building type, size, finish preference?" class="cf-input cf-full" required>
+    <div class="cf-row">
+      <input type="tel" id="cf-phone" placeholder="Phone Number" class="cf-input" required>
+      <input type="text" id="cf-company" placeholder="Company / Organization (optional)" class="cf-input">
+    </div>
+    <input type="text" id="cf-location" placeholder="Project Location — city or site address" class="cf-input cf-full" required>
+    <textarea id="cf-brief" placeholder="Project Details — building type, size, scope, finish preference" class="cf-input cf-full cf-textarea" required></textarea>
     <button type="submit" class="btn-fill">Send Enquiry</button>
     <p id="cf-success" style="display:none;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);margin-top:0.5rem">Enquiry sent — we'll be in touch.</p>
   </form>
@@ -385,9 +391,9 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 if(window.location.hash){window.addEventListener('load',()=>{setTimeout(()=>{const t=document.querySelector(window.location.hash);if(t)t.scrollIntoView({behavior:'auto'});},120);});}
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
-  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),brief=document.getElementById('cf-brief').value.trim();
+  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),phone=document.getElementById('cf-phone').value.trim(),company=document.getElementById('cf-company').value.trim(),location=document.getElementById('cf-location').value.trim(),brief=document.getElementById('cf-brief').value.trim();
   const enquiries=JSON.parse(localStorage.getItem('pf_enquiries')||'[]');
-  enquiries.unshift({id:Date.now(),name,email,brief,date:new Date().toLocaleString(),status:'new'});
+  enquiries.unshift({id:Date.now(),name,email,phone,company,location,brief,date:new Date().toLocaleString(),status:'new'});
   localStorage.setItem('pf_enquiries',JSON.stringify(enquiries));
   this.reset();document.getElementById('cf-success').style.display='block';
   setTimeout(()=>document.getElementById('cf-success').style.display='none',4000);
