@@ -381,6 +381,8 @@ fetch('pf_gallery.json?v='+Date.now()).then(r=>r.json()).then(items=>{
 }).catch(()=>{});
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:0.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+// Fix hash navigation from other pages (reveal transform offsets scroll position)
+if(window.location.hash){window.addEventListener('load',()=>{setTimeout(()=>{const t=document.querySelector(window.location.hash);if(t)t.scrollIntoView({behavior:'auto'});},120);});}
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
   const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),brief=document.getElementById('cf-brief').value.trim();
