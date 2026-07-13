@@ -28,7 +28,7 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 /* Services */
 .services-section{padding:7rem 5rem}
 .services-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--br)}
-.svc-card{background:var(--bg);padding:4rem;position:relative;overflow:hidden}
+.svc-card{background:var(--bg);padding:4rem;position:relative;overflow:hidden;scroll-margin-top:2rem}
 .svc-card:hover{background:var(--surf)}
 .svc-num{font-size:0.58rem;letter-spacing:0.35em;color:var(--ts);display:block;margin-bottom:2rem}
 .svc-name{font-family:var(--serif);font-size:1.8rem;font-weight:400;margin-bottom:1.2rem;line-height:1.1}
@@ -154,7 +154,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 <section class="services-section">
   <div class="services-grid">
 
-    <div class="svc-card reveal">
+    <div class="svc-card reveal" id="aluminum-panel-cladding">
       <span class="svc-num">01</span>
       <h2 class="svc-name">Aluminum Panel<br>Cladding</h2>
       <p class="svc-desc">Our core specialty. We supply and install aluminum composite panels (ACM/ACP) for residential and commercial facades across Toronto and the GTA. Every panel is precision-cut, folded, and installed with concealed fixing systems for a seamless, flush result in matte, gloss, brushed, and custom finishes.</p>
@@ -168,7 +168,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <div class="svc-accent"></div>
     </div>
 
-    <div class="svc-card reveal" style="transition-delay:0.1s">
+    <div class="svc-card reveal" id="facade-systems-design" style="transition-delay:0.1s">
       <span class="svc-num">02</span>
       <h2 class="svc-name">Facade Systems<br>& Design</h2>
       <p class="svc-desc">Full facade envelope design and installation — from substructure and thermal breaks to the final panel face. We work directly with architects, general contractors, and developers from shop drawings through site completion, ensuring every condition is resolved before fabrication begins.</p>
@@ -182,7 +182,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <div class="svc-accent"></div>
     </div>
 
-    <div class="svc-card reveal" style="transition-delay:0.05s">
+    <div class="svc-card reveal" id="custom-fabrication" style="transition-delay:0.05s">
       <span class="svc-num">03</span>
       <h2 class="svc-name">Custom<br>Fabrication</h2>
       <p class="svc-desc">Bespoke panel shapes, reveal joints, corner details, and feature cladding elements fabricated in-house using CNC routing and hydraulic press brakes. Every corner, return, and reveal is cut to exact tolerance. If it involves aluminum, we fabricate it — signage panels, canopies, soffits, column wraps, and architectural accent elements.</p>
@@ -196,7 +196,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <div class="svc-accent"></div>
     </div>
 
-    <div class="svc-card reveal" style="transition-delay:0.15s">
+    <div class="svc-card reveal" id="design-assist" style="transition-delay:0.15s">
       <span class="svc-num">04</span>
       <h2 class="svc-name">Design<br>Assist</h2>
       <p class="svc-desc">We engage early — before fabrication — to coordinate facade geometry, resolve joint conditions, and translate architectural intent into buildable shop drawings. Working alongside architects and GCs during design development prevents costly changes on site and delivers facades that read exactly as intended.</p>
@@ -210,7 +210,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <div class="svc-accent"></div>
     </div>
 
-    <div class="svc-card full reveal" style="transition-delay:0.1s">
+    <div class="svc-card full reveal" id="material-supply" style="transition-delay:0.1s">
       <span class="svc-num">05</span>
       <h2 class="svc-name">Material Supply</h2>
       <p class="svc-desc">Need panels fabricated and delivered without full installation? We start from raw aluminum sheet, cut and form every panel in-house to your exact specifications, and supply them ready to install. Whether you're an architect specifying a finish, a builder sourcing panels, or a contractor who has their own crew on site — we fabricate it, you install it.</p>
