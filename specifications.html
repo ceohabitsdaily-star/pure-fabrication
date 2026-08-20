@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Specifications — Pure Fabrication</title>
+<meta name="description" content="Technical specifications for Pure Fabrication's aluminum composite panel systems — FR PVDF Kynar 500, fire-rated, CAN/ULC-S134 compliant, fabricated in Toronto.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+
+/* Back btn */
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+
+/* Page header */
+.page-header{padding:0 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
+.page-header-right{font-size:0.72rem;letter-spacing:0.05em;color:var(--ts);max-width:320px;line-height:1.8}
+
+/* Spec table section */
+.spec-section{padding:7rem 5rem;border-bottom:1px solid var(--br)}
+.sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.sec-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;margin-bottom:4rem;line-height:1.1}
+.spec-table{width:100%;border-top:1px solid var(--br)}
+.spec-row{display:grid;grid-template-columns:260px 1fr;border-bottom:1px solid var(--br);padding:1.8rem 0;gap:3rem;align-items:start}
+.spec-key{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts)}
+.spec-val{font-size:0.82rem;line-height:1.8;color:var(--tp)}
+.spec-val strong{font-weight:600}
+.spec-val .note{display:block;font-size:0.66rem;color:var(--ts);margin-top:0.3rem;letter-spacing:0.05em}
+
+/* Core types section — dark */
+.core-section{background:var(--tp);padding:7rem 5rem}
+.core-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#3a3a3a;margin-bottom:1rem}
+.core-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:400;color:var(--bg);margin-bottom:5rem;line-height:1.1}
+.core-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#252525}
+.core-card{background:var(--tp);padding:3rem 2.5rem}
+.core-card-label{font-size:0.58rem;letter-spacing:0.28em;text-transform:uppercase;color:#3a3a3a;margin-bottom:1.2rem}
+.core-card-name{font-family:var(--serif);font-size:1.5rem;font-weight:400;color:var(--bg);margin-bottom:1rem}
+.core-card-desc{font-size:0.72rem;line-height:1.9;color:#5a5a5a;margin-bottom:1.5rem}
+.core-tags{display:flex;flex-direction:column;gap:0.4rem}
+.core-tag{font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;color:#3a3a3a;display:flex;align-items:center;gap:0.6rem}
+.core-tag::before{content:'';width:16px;height:1px;background:#3a3a3a;flex-shrink:0}
+.core-card.recommended .core-card-label{color:#7a9a5a}
+.core-card.recommended .core-tag{color:#7a9a5a}
+.core-card.recommended .core-tag::before{background:#7a9a5a}
+
+/* Finishes section */
+.finishes-section{padding:7rem 5rem;border-bottom:1px solid var(--br)}
+.finishes-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--br);margin-top:4rem}
+.finish-cell{background:var(--bg);padding:2.5rem 1.5rem;text-align:center}
+.finish-cell:hover{background:var(--surf)}
+.finish-icon{width:48px;height:48px;border:1px solid var(--br);margin:0 auto 1.2rem;display:flex;align-items:center;justify-content:center}
+.finish-name{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts);display:block}
+
+/* Standards strip */
+.standards-strip{background:var(--surf);padding:5rem 5rem;border-bottom:1px solid var(--br)}
+.standards-inner{display:grid;grid-template-columns:1fr 2fr;gap:6rem;align-items:start}
+.standards-list{display:flex;flex-direction:column;gap:0}
+.std-row{padding:1.6rem 0;border-bottom:1px solid var(--br);display:grid;grid-template-columns:180px 1fr;gap:2rem;align-items:start}
+.std-row:first-child{padding-top:0}
+.std-row:last-child{border-bottom:none}
+.std-code{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tp);font-weight:600}
+.std-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+
+/* Applications */
+.applications{padding:7rem 5rem;border-bottom:1px solid var(--br)}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--br);margin-top:4rem}
+.app-card{background:var(--bg);padding:2.5rem 2rem}
+.app-card:hover{background:var(--surf)}
+.app-num{font-size:0.55rem;letter-spacing:0.3em;color:var(--ts);display:block;margin-bottom:1.2rem}
+.app-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--tp);margin-bottom:0.6rem}
+.app-desc{font-size:0.68rem;line-height:1.8;color:var(--ts)}
+
+/* CTA */
+.cta{padding:8rem 5rem;text-align:center;border-top:1px solid var(--br)}
+.cta-text{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--tp);margin-bottom:0.8rem;line-height:1.3}
+.cta-sub{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ts);margin-bottom:3rem}
+.cta-btns{display:flex;gap:1.2rem;justify-content:center}
+.btn-fill{display:inline-block;padding:1rem 2.8rem;background:var(--tp);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-fill:hover{background:#333}
+.btn-ghost{display:inline-block;padding:1rem 2.8rem;border:1px solid var(--tp);color:var(--tp);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-ghost:hover{background:var(--tp);color:#fff}
+
+/* Footer */
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+.foot-ig{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-ig:hover{color:var(--bg)}
+
+/* Mobile */
+@media(max-width:768px){
+  .back-btn{padding:2rem 1.6rem 1rem}
+  .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-header-right{max-width:100%}
+  .spec-section{padding:4rem 1.6rem}
+  .spec-row{grid-template-columns:1fr;gap:0.5rem;padding:1.4rem 0}
+  .core-section{padding:4rem 1.6rem}
+  .core-grid{grid-template-columns:1fr}
+  .finishes-section{padding:4rem 1.6rem}
+  .finishes-grid{grid-template-columns:repeat(3,1fr)}
+  .standards-strip{padding:4rem 1.6rem}
+  .standards-inner{grid-template-columns:1fr;gap:3rem}
+  .std-row{grid-template-columns:1fr;gap:0.3rem}
+  .applications{padding:4rem 1.6rem}
+  .app-grid{grid-template-columns:1fr 1fr}
+  .cta{padding:5rem 1.6rem}
+  .cta-btns{flex-direction:column;align-items:center}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<a href="services.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Services</a>
+
+<div class="page-header">
+  <div class="page-header-left">
+    <p class="sec-label">Technical Data</p>
+    <h1 class="page-title">Panel system<br>specifications.</h1>
+  </div>
+  <p class="page-header-right">Our standard panel system is specified for performance, not just appearance. Every dimension, coating, and fire rating is documented here — because your engineer and your architect both need the numbers.</p>
+</div>
+
+<!-- Core Specification Table -->
+<section class="spec-section">
+  <p class="sec-label">Standard System</p>
+  <h2 class="sec-title">4mm FR PVDF Aluminum Composite Panel</h2>
+  <div class="spec-table">
+    <div class="spec-row">
+      <span class="spec-key">Construction</span>
+      <span class="spec-val"><strong>4mm total thickness</strong> — 0.5mm aluminum alloy skin each side, FR mineral-filled core centre.<span class="note">Aluminum alloy: 1100-H14 or 3003-H14. No PE (polyethylene) core. Available in 3mm for interior applications.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Coating System</span>
+      <span class="spec-val"><strong>PVDF Kynar 500® — 70% polyvinylidene fluoride</span>, exterior-grade fluorocarbon finish.<span class="note">Factory-applied by coil coating. 25–30 µm dry film thickness. Colour-stable to 20–30 years under direct UV. Passes AAMA 2605 weathering standard.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Fire Rating</span>
+      <span class="spec-val"><strong>FR core — flame spread index ≤ 25</strong>, smoke developed index ≤ 50.<span class="note">Compliant with CAN/ULC-S134 (exterior wall assembly). Suitable for residential and commercial facade applications under the Ontario Building Code. B1 classification per European EN 13501-1.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Standard Sheet Sizes</span>
+      <span class="spec-val"><strong>1220 × 2440 mm (4 × 8 ft)</strong> standard stock.<span class="note">Custom lengths to 6000mm available on order. All sheets cut and folded in-house to any panel dimension. Minimum order applies for non-standard sizes.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Panel Weight</span>
+      <span class="spec-val"><strong>Approx. 5.5 kg/m² (1.13 lb/ft²)</strong><span class="note">Lightweight relative to solid aluminum or steel — reduces structural load and simplifies subframe design.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Fabrication Tolerance</span>
+      <span class="spec-val"><strong>±0.5mm</strong> on all cuts, folds, and routed returns.<span class="note">CNC router and precision brake press. All panels templated from site measurements where required.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Warranty</span>
+      <span class="spec-val"><strong>10-year PVDF coating warranty</strong> against fade, chalk, and delamination.<span class="note">20–30 year expected service life under normal Canadian climate conditions. Warranty void if panels are installed without approved sealant and drainage provisions.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Thermal Expansion</span>
+      <span class="spec-val"><strong>2.4 mm per metre per 100°C ΔT</strong><span class="note">Panel joints and attachment points must account for thermal movement. Our fabrication drawings include appropriate clearances.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Wind Load Resistance</span>
+      <span class="spec-val">Designed to project-specific wind load per NBC 2020 calculations.<span class="note">Subframe spacing and anchor point design varies by building height, location, and exposure category. Engineering drawings available on request.</span></span>
+    </div>
+    <div class="spec-row">
+      <span class="spec-key">Colour</span>
+      <span class="spec-val">Hundreds of standard colours in stock. <strong>Custom RAL or Pantone matching</strong> available on order.<span class="note">Colour matching lead time: 6–10 weeks from approval. Minimum quantity applies. Gloss level options: matte, satin, semi-gloss, high gloss.</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- Core Types -->
+<section class="core-section">
+  <p class="core-label">Core Options</p>
+  <h2 class="core-title">Choose the right core<br>for your project.</h2>
+  <div class="core-grid">
+    <div class="core-card recommended">
+      <p class="core-card-label">Recommended — Our Standard</p>
+      <h3 class="core-card-name">FR Core</h3>
+      <p class="core-card-desc">Mineral-filled fire-retardant core. The right choice for nearly all residential and commercial facade work in Ontario. Meets OBC requirements and CAN/ULC-S134. Also designated B1 under European classification.</p>
+      <div class="core-tags">
+        <span class="core-tag">Residential facades</span>
+        <span class="core-tag">Low &amp; mid-rise commercial</span>
+        <span class="core-tag">Retail storefronts</span>
+        <span class="core-tag">Soffits &amp; canopies</span>
+        <span class="core-tag">Interior feature walls</span>
+      </div>
+    </div>
+    <div class="core-card">
+      <p class="core-card-label">High-Rise &amp; Institutional</p>
+      <h3 class="core-card-name">A2 Core</h3>
+      <p class="core-card-desc">Near non-combustible mineral core, classified A2 per EN 13501-1. Required for high-rise residential, hospitals, schools, and buildings above 18m where OBC mandates non-combustible cladding. Higher cost and longer lead time.</p>
+      <div class="core-tags">
+        <span class="core-tag">High-rise residential (18m+)</span>
+        <span class="core-tag">Hospitals &amp; healthcare</span>
+        <span class="core-tag">Schools &amp; institutions</span>
+        <span class="core-tag">Sprinklered high-rise commercial</span>
+      </div>
+    </div>
+    <div class="core-card">
+      <p class="core-card-label">Interior Use Only</p>
+      <h3 class="core-card-name">PE Core</h3>
+      <p class="core-card-desc">Standard polyethylene core. Excellent formability and the lowest cost option, but carries no fire rating. Not suitable for any exterior or code-governed application. Acceptable for interior signage, display, and furniture.</p>
+      <div class="core-tags">
+        <span class="core-tag">Interior signage</span>
+        <span class="core-tag">Display &amp; exhibition</span>
+        <span class="core-tag">Furniture &amp; cabinetry</span>
+        <span class="core-tag">Not for exterior use</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Finishes -->
+<section class="finishes-section">
+  <p class="sec-label">Coating &amp; Finish</p>
+  <h2 class="sec-title">Standard finishes available.</h2>
+  <div class="finishes-grid">
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><circle cx="10" cy="10" r="8"/></svg>
+      </div>
+      <span class="finish-name">Matte</span>
+    </div>
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><circle cx="10" cy="10" r="8"/><circle cx="10" cy="10" r="4"/></svg>
+      </div>
+      <span class="finish-name">Gloss</span>
+    </div>
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><line x1="4" y1="6" x2="16" y2="6"/><line x1="4" y1="10" x2="16" y2="10"/><line x1="4" y1="14" x2="16" y2="14"/></svg>
+      </div>
+      <span class="finish-name">Brushed</span>
+    </div>
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><polygon points="10,3 17,7 17,13 10,17 3,13 3,7"/></svg>
+      </div>
+      <span class="finish-name">Metallic</span>
+    </div>
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><path d="M4 4 Q8 6 12 4 Q16 6 16 10 Q16 16 10 16 Q4 16 4 10 Z"/></svg>
+      </div>
+      <span class="finish-name">Wood Grain</span>
+    </div>
+    <div class="finish-cell">
+      <div class="finish-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="var(--ts)" stroke-width="1.2"><rect x="4" y="4" width="5" height="5"/><rect x="11" y="4" width="5" height="5"/><rect x="4" y="11" width="5" height="5"/><rect x="11" y="11" width="5" height="5"/></svg>
+      </div>
+      <span class="finish-name">Stone Effect</span>
+    </div>
+  </div>
+  <p style="margin-top:2rem;font-size:0.68rem;color:var(--ts);line-height:1.8;">All PVDF Kynar 500® coatings. Custom colours available on request — submit a RAL or Pantone reference for a quote. Sample panels available for approved projects.</p>
+</section>
+
+<!-- Standards -->
+<section class="standards-strip">
+  <div class="standards-inner">
+    <div>
+      <p class="sec-label">Compliance</p>
+      <h2 class="sec-title" style="font-size:clamp(1.4rem,2.5vw,2rem);">Tested and<br>documented.</h2>
+      <p style="font-size:0.72rem;line-height:1.9;color:var(--ts);margin-top:1.5rem;">We provide full product data sheets, test reports, and compliance documentation for permit submissions. Ask your project manager for the spec package.</p>
+    </div>
+    <div class="standards-list">
+      <div class="std-row">
+        <span class="std-code">CAN/ULC-S134</span>
+        <span class="std-desc">Canadian fire test for exterior wall assemblies. Our FR core system passes. Required documentation for Ontario building permit submissions involving ACM cladding.</span>
+      </div>
+      <div class="std-row">
+        <span class="std-code">AAMA 2605</span>
+        <span class="std-desc">American Architectural Manufacturers Association standard for high-performance exterior coatings. PVDF Kynar 500® coatings are certified to this specification — the highest rating for architectural coatings.</span>
+      </div>
+      <div class="std-row">
+        <span class="std-code">EN 13501-1 (B1)</span>
+        <span class="std-desc">European fire classification. FR core is B1 — flame retardant. A2 core is A2 — near non-combustible. Referenced in Canadian technical submissions for equivalency.</span>
+      </div>
+      <div class="std-row">
+        <span class="std-code">ASTM D4145</span>
+        <span class="std-desc">Standard for coating flexibility of prepainted sheet metal. All panels pass for field fabrication and forming without coating failure at standard panel brake angles.</span>
+      </div>
+      <div class="std-row">
+        <span class="std-code">Ontario Building Code</span>
+        <span class="std-desc">FR core panels are compliant for most low and mid-rise construction under OBC Div. B. A2 core is required for combustibility-restricted occupancies and buildings over 18m.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Applications -->
+<section class="applications">
+  <p class="sec-label">Where It's Used</p>
+  <h2 class="sec-title">Built for every<br>facade type.</h2>
+  <div class="app-grid">
+    <div class="app-card">
+      <span class="app-num">01</span>
+      <h3 class="app-name">Residential Facades</h3>
+      <p class="app-desc">Single and multi-unit residential exteriors. Rainscreen systems, feature cladding, garage and entrance accents. FR core standard.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">02</span>
+      <h3 class="app-name">Commercial Envelopes</h3>
+      <p class="app-desc">Office buildings, industrial facilities, and mixed-use developments. Full envelope systems with engineered subframe and drainage.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">03</span>
+      <h3 class="app-name">Retail Storefronts</h3>
+      <p class="app-desc">Brand-aligned signage panels, column wraps, and feature fascias. Fast fabrication turnaround for tenant fit-out timelines.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">04</span>
+      <h3 class="app-name">Soffits &amp; Canopies</h3>
+      <p class="app-desc">Concealed-fix soffit panels and canopy cladding. Clean shadow lines and hidden fasteners — no exposed screws.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">05</span>
+      <h3 class="app-name">Column Wraps</h3>
+      <p class="app-desc">Structural column cladding in flat, angled, or curved panels. Common in parking structures, lobbies, and commercial podiums.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">06</span>
+      <h3 class="app-name">Interior Feature Walls</h3>
+      <p class="app-desc">Reception areas, elevator lobbies, and high-traffic interior surfaces. PE core acceptable for interior — FR recommended for any egress-adjacent location.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">07</span>
+      <h3 class="app-name">Signage Panels</h3>
+      <p class="app-desc">Flat-cut and router-formed sign faces, building ID panels, and wayfinding systems. Precision routing with 0.5mm tolerance.</p>
+    </div>
+    <div class="app-card">
+      <span class="app-num">08</span>
+      <h3 class="app-name">Renovation &amp; Reclad</h3>
+      <p class="app-desc">Overcladding existing facades to improve performance and appearance. Panel systems are lightweight enough to mount over existing substrate without major structural upgrades.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <h2 class="cta-text">Need a spec package<br>for your permit submission?</h2>
+  <p class="cta-sub">Full product data sheets and test reports available on request</p>
+  <div class="cta-btns">
+    <a href="index.html#contact" class="btn-fill">Request Spec Package</a>
+    <a href="services.html" class="btn-ghost">View Services</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Aluminum panel specialists — Toronto</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="gallery.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="faq.html">FAQ</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2025 Pure Fabrication Inc.</span>
+    <a href="https://instagram.com" class="foot-ig">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+if(cur&&ring){
+  document.addEventListener('mousemove',e=>{
+    cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+    setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'},80);
+  });
+}
+
+// Reveal on scroll
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
