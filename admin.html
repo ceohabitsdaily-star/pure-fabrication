@@ -236,7 +236,7 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 <script>
 const GH_OWNER='ceohabitsdaily-star',GH_REPO='pure-fabrication',GH_BRANCH='main',GH_FILE='pf_gallery.json';
 function getCreds(){return JSON.parse(localStorage.getItem('pf_admin_creds')||'{"u":"admin","p":"purefab2026"}')}
-function doLogin(){const c=getCreds(),u=document.getElementById('loginUser').value,p=document.getElementById('loginPass').value;if(u===c.u&&p===c.p){sessionStorage.setItem('pf_auth','1');document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}else{document.getElementById('loginErr').textContent='Incorrect username or password.'}}
+async function doLogin(){const c=getCreds(),u=document.getElementById('loginUser').value,p=document.getElementById('loginPass').value;if(u===c.u&&p===c.p){sessionStorage.setItem('pf_auth','1');try{const r=await fetch('/api/token?pass='+encodeURIComponent(p));if(r.ok){const d=await r.json();if(d.token)localStorage.setItem('gh_token',d.token)}}catch(e){}document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}else{document.getElementById('loginErr').textContent='Incorrect username or password.'}}
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 document.getElementById('loginUser').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 if(sessionStorage.getItem('pf_auth')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}
