@@ -46,7 +46,11 @@ module.exports = async function handler(req, res) {
   if (sha) body.sha = sha;
 
   const putRes = await fetch(API, { method: 'PUT', headers, body: JSON.stringify(body) });
-  if (!putRes.ok) return res.status(500).json({ error: 'Failed to save' });
+  if (!putRes.ok) {
+    const errData = await putRes.json().catch(()=>({}));
+    console.error('GitHub PUT failed:', putRes.status, JSON.stringify(errData));
+    return res.status(500).json({ error: 'Failed to save', detail: errData.message });
+  }
 
   res.status(200).json({ success: true });
 };
