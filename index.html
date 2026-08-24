@@ -479,14 +479,17 @@ const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersect
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 // Fix hash navigation from other pages (reveal transform offsets scroll position)
 if(window.location.hash){window.addEventListener('load',()=>{setTimeout(()=>{const t=document.querySelector(window.location.hash);if(t)t.scrollIntoView({behavior:'auto'});},120);});}
-document.getElementById('contactForm').addEventListener('submit',function(e){
+document.getElementById('contactForm').addEventListener('submit',async function(e){
   e.preventDefault();
-  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),phone=document.getElementById('cf-phone').value.trim(),company=document.getElementById('cf-company').value.trim(),location=document.getElementById('cf-location').value.trim(),brief=document.getElementById('cf-brief').value.trim();
-  const enquiries=JSON.parse(localStorage.getItem('pf_enquiries')||'[]');
-  enquiries.unshift({id:Date.now(),name,email,phone,company,location,brief,date:new Date().toLocaleString(),status:'new'});
-  localStorage.setItem('pf_enquiries',JSON.stringify(enquiries));
-  this.reset();document.getElementById('cf-success').style.display='block';
-  setTimeout(()=>document.getElementById('cf-success').style.display='none',4000);
+  const btn=this.querySelector('button[type=submit]');
+  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),phone=document.getElementById('cf-phone').value.trim(),company=document.getElementById('cf-company').value.trim(),location=document.getElementById('cf-location').value.trim(),message=document.getElementById('cf-brief').value.trim();
+  btn.textContent='Sending…';btn.disabled=true;
+  try{
+    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,company,location,message})});
+    if(r.ok){this.reset();document.getElementById('cf-success').style.display='block';setTimeout(()=>document.getElementById('cf-success').style.display='none',5000);}
+    else{alert('Something went wrong. Please email us directly.');}
+  }catch(err){alert('Something went wrong. Please email us directly.');}
+  btn.textContent='Send Enquiry';btn.disabled=false;
 });
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
