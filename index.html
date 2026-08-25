@@ -168,6 +168,13 @@ body.menu-open{overflow:hidden}
 .cf-input:focus{border-color:var(--ac)}
 .cf-full{width:100%}
 .cf-textarea{resize:vertical;min-height:110px;font-family:var(--sans)}
+.cf-select{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238C8C8C' stroke-width='1.2'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1.2rem center;cursor:crosshair}
+.cf-select option{background:var(--bg);color:var(--tp)}
+.cf-check-section{border:1px solid var(--br);padding:1.2rem 1.4rem}
+.cf-check-title{font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.cf-check-group{display:flex;flex-wrap:wrap;gap:0.6rem 1.4rem}
+.cf-check-label{display:flex;align-items:center;gap:0.5rem;font-size:0.68rem;letter-spacing:0.06em;color:var(--tp);cursor:crosshair}
+.cf-check-label input[type=checkbox]{width:13px;height:13px;accent-color:var(--ac);cursor:crosshair;flex-shrink:0}
 .contact-form .btn-fill{align-self:flex-start;cursor:crosshair;background:var(--tp);color:#fff}
 .contact-form .btn-fill:hover{background:#333}
 .svc-head .btn-ghost{border-color:var(--tp);color:var(--tp)}
@@ -475,8 +482,38 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <input type="tel" id="cf-phone" placeholder="Phone Number" class="cf-input" required>
       <input type="text" id="cf-company" placeholder="Company / Organization (optional)" class="cf-input">
     </div>
-    <input type="text" id="cf-location" placeholder="Project Location — city or site address" class="cf-input cf-full" required>
-    <textarea id="cf-brief" placeholder="Project Details — building type, size, scope, finish preference" class="cf-input cf-full cf-textarea" required></textarea>
+    <div class="cf-row">
+      <input type="text" id="cf-location" placeholder="Project Location — city or address" class="cf-input" required>
+      <select id="cf-type" class="cf-input cf-select" required>
+        <option value="" disabled selected>Project Type</option>
+        <option>Residential</option>
+        <option>Commercial</option>
+        <option>Industrial</option>
+        <option>Institutional</option>
+      </select>
+    </div>
+    <select id="cf-stage" class="cf-input cf-full cf-select">
+      <option value="" disabled selected>Project Stage / Timeline</option>
+      <option>Early planning / pricing</option>
+      <option>Design stage — need shop drawings</option>
+      <option>Ready to fabricate</option>
+      <option>Ready to install</option>
+      <option>Urgent timeline</option>
+    </select>
+    <div class="cf-check-section">
+      <p class="cf-check-title">Project Scope</p>
+      <div class="cf-check-group">
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Design Assist"> Design Assist</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Material Supply"> Material Supply</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="CNC Fabrication"> CNC Fabrication</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Installation"> Installation</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Supply & Installation"> Supply &amp; Installation</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Full Scope"> Full Scope</label>
+        <label class="cf-check-label"><input type="checkbox" name="scope" value="Not sure yet"> Not sure yet</label>
+      </div>
+    </div>
+    <input type="text" id="cf-area" placeholder="Approximate Facade Area — sq ft (optional)" class="cf-input cf-full">
+    <textarea id="cf-brief" placeholder="Project Details — finish preference, drawings available, any other details" class="cf-input cf-full cf-textarea"></textarea>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
       <button type="submit" class="btn-fill">Send Enquiry</button>
       <a href="specifications.html" class="btn-ghost cf-btn-dark">Panel Specifications</a>
@@ -553,7 +590,17 @@ if(window.location.hash){window.addEventListener('load',()=>{setTimeout(()=>{con
 document.getElementById('contactForm').addEventListener('submit',async function(e){
   e.preventDefault();
   const btn=this.querySelector('button[type=submit]');
-  const name=document.getElementById('cf-name').value.trim(),email=document.getElementById('cf-email').value.trim(),phone=document.getElementById('cf-phone').value.trim(),company=document.getElementById('cf-company').value.trim(),location=document.getElementById('cf-location').value.trim(),message=document.getElementById('cf-brief').value.trim();
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const phone=document.getElementById('cf-phone').value.trim();
+  const company=document.getElementById('cf-company').value.trim();
+  const location=document.getElementById('cf-location').value.trim();
+  const type=document.getElementById('cf-type').value||'Not specified';
+  const stage=document.getElementById('cf-stage').value||'Not specified';
+  const scope=[...document.querySelectorAll('input[name="scope"]:checked')].map(c=>c.value).join(', ')||'Not specified';
+  const area=document.getElementById('cf-area').value.trim()||'Not provided';
+  const brief=document.getElementById('cf-brief').value.trim();
+  const message=`Project Type: ${type}\nStage: ${stage}\nScope: ${scope}\nApprox. Area: ${area}\n\n${brief}`;
   btn.textContent='Sending…';btn.disabled=true;
   try{
     const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,company,location,message})});
