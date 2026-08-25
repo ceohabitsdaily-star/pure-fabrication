@@ -239,7 +239,6 @@ function getCreds(){return JSON.parse(localStorage.getItem('pf_admin_creds')||'{
 async function doLogin(){const c=getCreds(),u=document.getElementById('loginUser').value,p=document.getElementById('loginPass').value;if(u===c.u&&p===c.p){sessionStorage.setItem('pf_auth','1');try{const r=await fetch('/api/token?pass='+encodeURIComponent(p));if(r.ok){const d=await r.json();if(d.token)localStorage.setItem('gh_token',d.token)}}catch(e){}document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}else{document.getElementById('loginErr').textContent='Incorrect username or password.'}}
 document.getElementById('loginPass').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
 document.getElementById('loginUser').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin()});
-if(sessionStorage.getItem('pf_auth')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}
 function logout(){sessionStorage.removeItem('pf_auth');location.reload()}
 function changePassword(){const np=document.getElementById('newPass').value,cp=document.getElementById('confirmPass').value;if(!np){showToast('Enter a new password');return}if(np!==cp){showToast('Passwords do not match',true);return}const c=getCreds();c.p=np;localStorage.setItem('pf_admin_creds',JSON.stringify(c));document.getElementById('newPass').value='';document.getElementById('confirmPass').value='';showToast('Password updated')}
 function getToken(){return localStorage.getItem('gh_token')||''}
@@ -301,6 +300,7 @@ async function handleFiles(files){
     setImgSource('url');
   }catch(e){prog.textContent='Error: '+e.message;showToast('Upload failed: '+e.message,true)}
 }
+if(sessionStorage.getItem('pf_auth')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}
 </script>
 </body>
 </html>
