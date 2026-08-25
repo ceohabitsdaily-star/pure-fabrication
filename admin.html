@@ -130,6 +130,28 @@ tr:hover td{background:rgba(255,255,255,0.02)}
 .file-drop p{font-size:0.72rem;color:var(--ts);pointer-events:none}
 .file-drop .file-hint{font-size:0.6rem;margin-top:0.3rem;color:#555;pointer-events:none}
 .upload-prog{font-size:0.62rem;letter-spacing:0.12em;color:var(--ts);margin-top:0.5rem;min-height:1.2rem}
+.enq-drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:199;opacity:0;pointer-events:none;transition:opacity 0.3s}
+.enq-drawer-overlay.open{opacity:1;pointer-events:auto}
+.enq-drawer{position:fixed;right:0;top:0;bottom:0;width:500px;max-width:100vw;background:var(--surf);border-left:1px solid var(--border);z-index:200;transform:translateX(100%);transition:transform 0.32s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.enq-drawer.open{transform:translateX(0)}
+.enq-drawer-head{padding:1.4rem 1.6rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--surf);z-index:1}
+.enq-drawer-name{font-size:1rem;font-weight:500;margin-top:0.25rem}
+.enq-drawer-close{background:none;border:none;color:var(--ts);cursor:pointer;font-size:1.4rem;line-height:1;padding:0;margin-top:-2px;transition:color 0.2s}
+.enq-drawer-close:hover{color:var(--tp)}
+.enq-drawer-nav{display:flex;gap:0.3rem;margin-top:0.5rem}
+.enq-nav-btn{width:26px;height:26px;background:none;border:1px solid var(--border);color:var(--ts);cursor:pointer;font-size:11px;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+.enq-nav-btn:hover:not(:disabled){border-color:#555;color:var(--tp)}
+.enq-nav-btn:disabled{opacity:0.25;cursor:default}
+.enq-drawer-body{padding:1.6rem;flex:1}
+.enq-dl{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem 1.4rem}
+.enq-dl.one{grid-template-columns:1fr}
+.enq-dt{font-size:0.54rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ts);margin-bottom:0.28rem}
+.enq-dd{font-size:0.8rem;color:var(--tp);line-height:1.6;word-break:break-word}
+.enq-section{border-top:1px solid var(--border);margin-top:1.6rem;padding-top:1.4rem}
+.enq-section-title{font-size:0.56rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.enq-drawer-foot{padding:1.1rem 1.6rem;border-top:1px solid var(--border);display:flex;gap:0.6rem;justify-content:flex-end;position:sticky;bottom:0;background:var(--surf)}
+.enq-row-click{cursor:pointer}
+.enq-row-click:hover td{background:rgba(255,255,255,0.04)!important}
 </style>
 </head>
 <body>
@@ -233,6 +255,23 @@ tr:hover td{background:rgba(255,255,255,0.02)}
   </div>
 </div>
 <div class="toast" id="toast"></div>
+<div class="enq-drawer-overlay" id="enqOverlay" onclick="closeEnqDrawer()"></div>
+<div class="enq-drawer" id="enqDrawer">
+  <div class="enq-drawer-head">
+    <div style="flex:1;min-width:0">
+      <p style="font-size:0.54rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--ts)">Enquiry Detail</p>
+      <p class="enq-drawer-name" id="drawerName">—</p>
+      <div class="enq-drawer-nav">
+        <button class="enq-nav-btn" id="drawerPrev" onclick="navigateDrawer(-1)" title="Previous enquiry">&#8593;</button>
+        <button class="enq-nav-btn" id="drawerNext" onclick="navigateDrawer(1)" title="Next enquiry">&#8595;</button>
+        <span style="font-size:0.6rem;color:var(--ts);line-height:26px;margin-left:0.4rem" id="drawerCounter"></span>
+      </div>
+    </div>
+    <button class="enq-drawer-close" onclick="closeEnqDrawer()">&#215;</button>
+  </div>
+  <div class="enq-drawer-body" id="enqDrawerBody"></div>
+  <div class="enq-drawer-foot" id="enqDrawerFoot"></div>
+</div>
 <script>
 const GH_OWNER='ceohabitsdaily-star',GH_REPO='pure-fabrication',GH_BRANCH='main',GH_FILE='pf_gallery.json';
 function getCreds(){return JSON.parse(localStorage.getItem('pf_admin_creds')||'{"u":"admin","p":"purefab2026"}')}
@@ -270,9 +309,9 @@ const ENQ_FILE='data/enquiries.json';
 let _enquiries=null;
 async function fetchEnquiries(){const token=getToken();if(!token)return[];try{const r=await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+ENQ_FILE,{headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json'}});if(!r.ok)return[];const d=await r.json();return JSON.parse(atob(d.content.replace(/\n/g,'')))}catch(e){return[]}}
 async function saveEnquiries(eq){const token=getToken();if(!token)return;try{const getR=await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+ENQ_FILE,{headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json'}});const body={message:'Update enquiries',content:btoa(unescape(encodeURIComponent(JSON.stringify(eq,null,2)))),branch:'main'};if(getR.ok){const d=await getR.json();body.sha=d.sha}await fetch('https://api.github.com/repos/'+GH_OWNER+'/'+GH_REPO+'/contents/'+ENQ_FILE,{method:'PUT',headers:{Authorization:'token '+token,Accept:'application/vnd.github.v3+json','Content-Type':'application/json'},body:JSON.stringify(body)})}catch(e){showToast('Error saving',true)}}
-async function loadEnquiries(){const body=document.getElementById('enquiriesBody');body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:2rem">Loading…</td></tr>';_enquiries=await fetchEnquiries();document.getElementById('enq-count').textContent=_enquiries.length+' enquir'+(_enquiries.length===1?'y':'ies');if(!_enquiries.length){body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:3rem">No enquiries yet.</td></tr>';updateDashboard();return}body.innerHTML=_enquiries.map((e,i)=>`<tr><td><strong>${e.name}</strong></td><td>${e.company||'—'}</td><td>${e.phone?'<a href="tel:'+e.phone+'" style="color:#7aafff">'+e.phone+'</a>':'—'}</td><td><a href="mailto:${e.email}" style="color:#7aafff">${e.email}</a></td><td>${e.location||'—'}</td><td style="white-space:nowrap">${e.type||'—'}</td><td style="white-space:nowrap;font-size:0.65rem">${e.stage||'—'}</td><td style="max-width:180px;white-space:normal;font-size:0.65rem">${e.scope||'—'}</td><td style="max-width:240px;white-space:normal">${e.area?'<span style="font-size:0.6rem;color:var(--ts)">'+e.area+' sq ft</span><br>':''} ${e.message||e.brief||''}</td><td style="white-space:nowrap;color:var(--ts)">${new Date(e.date).toLocaleString()}</td><td><span style="font-size:0.6rem;padding:0.3rem 0.8rem;border:1px solid ${e.status==='new'?'#4a7a4a':'var(--border)'};color:${e.status==='new'?'#7aba7a':'var(--ts)'}">${e.status==='new'?'New':'Read'}</span></td><td><div style="display:flex;gap:0.4rem">${e.status==='new'?'<button class="btn btn-sm btn-ghost" onclick="markRead('+i+')">Mark Read</button>':''}<button class="btn btn-danger btn-sm" onclick="deleteEnquiry('+i+')">Delete</button></div></td></tr>`).join('');updateDashboard()}
-async function markRead(i){if(!_enquiries)return;_enquiries[i].status='read';await saveEnquiries(_enquiries);loadEnquiries()}
-async function deleteEnquiry(i){if(!_enquiries||!confirm('Delete this enquiry?'))return;_enquiries.splice(i,1);await saveEnquiries(_enquiries);loadEnquiries();showToast('Deleted')}
+async function loadEnquiries(){const body=document.getElementById('enquiriesBody');body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:2rem">Loading…</td></tr>';_enquiries=await fetchEnquiries();document.getElementById('enq-count').textContent=_enquiries.length+' enquir'+(_enquiries.length===1?'y':'ies');if(!_enquiries.length){body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:3rem">No enquiries yet.</td></tr>';updateDashboard();return}body.innerHTML=_enquiries.map((e,i)=>`<tr class="enq-row-click" onclick="openEnqDrawer(${i})"><td><strong>${e.name}</strong></td><td>${e.company||'—'}</td><td onclick="event.stopPropagation()">${e.phone?'<a href="tel:'+e.phone+'" style="color:#7aafff">'+e.phone+'</a>':'—'}</td><td onclick="event.stopPropagation()"><a href="mailto:${e.email}" style="color:#7aafff">${e.email}</a></td><td>${e.location||'—'}</td><td style="white-space:nowrap">${e.type||'—'}</td><td style="white-space:nowrap;font-size:0.65rem">${e.stage||'—'}</td><td style="max-width:160px;white-space:normal;font-size:0.65rem">${e.scope||'—'}</td><td style="max-width:200px;white-space:normal;color:var(--ts);font-size:0.7rem">${(e.message||e.brief||'').substring(0,80)}${(e.message||e.brief||'').length>80?'…':''}</td><td style="white-space:nowrap;color:var(--ts)">${new Date(e.date).toLocaleDateString()}</td><td><span style="font-size:0.6rem;padding:0.3rem 0.8rem;border:1px solid ${e.status==='new'?'#4a7a4a':'var(--border)'};color:${e.status==='new'?'#7aba7a':'var(--ts)'}">${e.status==='new'?'New':'Read'}</span></td><td onclick="event.stopPropagation()"><div style="display:flex;gap:0.4rem">${e.status==='new'?'<button class="btn btn-sm btn-ghost" onclick="markRead('+i+')">Mark Read</button>':''}<button class="btn btn-danger btn-sm" onclick="deleteEnquiry('+i+')">Delete</button></div></td></tr>`).join('');updateDashboard()}
+async function markRead(i){if(!_enquiries)return;_enquiries[i].status='read';await saveEnquiries(_enquiries);await loadEnquiries();if(_drawerIdx===i)renderEnqDrawer()}
+async function deleteEnquiry(i){if(!_enquiries||!confirm('Delete this enquiry?'))return;if(_drawerIdx===i)closeEnqDrawer();_enquiries.splice(i,1);await saveEnquiries(_enquiries);loadEnquiries();showToast('Deleted')}
 async function clearAllEnquiries(){if(!confirm('Delete all enquiries?'))return;_enquiries=[];await saveEnquiries([]);loadEnquiries();showToast('Cleared')}
 function updateDashboard(){const si=document.getElementById('stat-imgs'),se=document.getElementById('stat-enquiries');if(si)si.textContent=getGallery().length;if(se)se.textContent=(_enquiries||[]).filter(e=>e.status==='new').length}
 function showToast(msg,isError){const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(isError?' error':'');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500)}
@@ -300,6 +339,48 @@ async function handleFiles(files){
     setImgSource('url');
   }catch(e){prog.textContent='Error: '+e.message;showToast('Upload failed: '+e.message,true)}
 }
+let _drawerIdx=null;
+function openEnqDrawer(i){_drawerIdx=i;renderEnqDrawer();document.getElementById('enqDrawer').classList.add('open');document.getElementById('enqOverlay').classList.add('open');document.body.style.overflow='hidden'}
+function closeEnqDrawer(){document.getElementById('enqDrawer').classList.remove('open');document.getElementById('enqOverlay').classList.remove('open');document.body.style.overflow='';_drawerIdx=null}
+function navigateDrawer(dir){if(_drawerIdx===null||!_enquiries)return;const n=_drawerIdx+dir;if(n>=0&&n<_enquiries.length){_drawerIdx=n;renderEnqDrawer()}}
+function renderEnqDrawer(){
+  if(_drawerIdx===null||!_enquiries)return;
+  const e=_enquiries[_drawerIdx],i=_drawerIdx,total=_enquiries.length,isNew=e.status==='new';
+  document.getElementById('drawerName').textContent=e.name;
+  document.getElementById('drawerCounter').textContent=(i+1)+' / '+total;
+  document.getElementById('drawerPrev').disabled=i===0;
+  document.getElementById('drawerNext').disabled=i===total-1;
+  const statusBadge=`<span style="font-size:0.6rem;padding:0.3rem 0.9rem;border:1px solid ${isNew?'#4a7a4a':'var(--border)'};color:${isNew?'#7aba7a':'var(--ts)'}">${isNew?'New':'Read'}</span>`;
+  document.getElementById('enqDrawerBody').innerHTML=`
+    <div style="margin-bottom:1.4rem">${statusBadge}<span style="font-size:0.6rem;color:var(--ts);margin-left:0.8rem">${new Date(e.date).toLocaleString()}</span></div>
+    <div>
+      <p class="enq-section-title">Contact</p>
+      <div class="enq-dl">
+        <div><p class="enq-dt">Name</p><p class="enq-dd">${e.name}</p></div>
+        <div><p class="enq-dt">Company</p><p class="enq-dd">${e.company||'—'}</p></div>
+        <div><p class="enq-dt">Email</p><p class="enq-dd"><a href="mailto:${e.email}" style="color:#7aafff">${e.email}</a></p></div>
+        <div><p class="enq-dt">Phone</p><p class="enq-dd">${e.phone?'<a href="tel:'+e.phone+'" style="color:#7aafff">'+e.phone+'</a>':'—'}</p></div>
+        <div><p class="enq-dt">Location</p><p class="enq-dd">${e.location||'—'}</p></div>
+      </div>
+    </div>
+    <div class="enq-section">
+      <p class="enq-section-title">Project</p>
+      <div class="enq-dl" style="margin-bottom:1rem">
+        <div><p class="enq-dt">Project Type</p><p class="enq-dd">${e.type||'—'}</p></div>
+        <div><p class="enq-dt">Project Stage</p><p class="enq-dd">${e.stage||'—'}</p></div>
+      </div>
+      <div style="margin-bottom:1rem"><p class="enq-dt">Scope of Work</p><p class="enq-dd">${e.scope||'—'}</p></div>
+      <div><p class="enq-dt">Approximate Facade Area</p><p class="enq-dd">${e.area?e.area+' sq ft':'—'}</p></div>
+    </div>
+    <div class="enq-section">
+      <p class="enq-section-title">Message</p>
+      <p class="enq-dd" style="line-height:1.85;color:var(--ts);white-space:pre-wrap">${e.message||e.brief||'—'}</p>
+    </div>`;
+  document.getElementById('enqDrawerFoot').innerHTML=`${isNew?'<button class="btn btn-ghost btn-sm" onclick="markReadDrawer()">Mark as Read</button>':''}<button class="btn btn-danger btn-sm" onclick="deleteDrawer()">Delete</button>`;
+}
+async function markReadDrawer(){if(_drawerIdx===null||!_enquiries)return;_enquiries[_drawerIdx].status='read';await saveEnquiries(_enquiries);await loadEnquiries();if(_drawerIdx!==null)renderEnqDrawer()}
+async function deleteDrawer(){if(_drawerIdx===null||!confirm('Delete this enquiry?'))return;const i=_drawerIdx;closeEnqDrawer();_enquiries.splice(i,1);await saveEnquiries(_enquiries);loadEnquiries();showToast('Deleted')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('enqDrawer').classList.contains('open'))closeEnqDrawer()});
 if(sessionStorage.getItem('pf_auth')==='1'){document.getElementById('loginScreen').style.display='none';document.getElementById('adminWrap').classList.add('active');onAdminReady()}
 </script>
 </body>
