@@ -289,9 +289,8 @@ function updateTokenStatus(){const t=getToken(),el=document.getElementById('toke
 const LABELS={dashboard:'Dashboard',gallery:'Gallery',enquiries:'Enquiries',settings:'Settings'};
 function switchPanel(el){switchPanelById(el.dataset.panel)}
 function switchPanelById(id){document.querySelectorAll('.sidebar-nav a').forEach(a=>a.classList.remove('active'));document.querySelector('[data-panel="'+id+'"]').classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById('panel-'+id).classList.add('active');document.getElementById('topbarTitle').textContent=LABELS[id]||id;if(id==='enquiries')loadEnquiries();if(id==='gallery'){updateTokenStatus();renderGalleryAdmin()}if(id==='settings')updateTokenStatus()}
-async function onAdminReady(){updateTokenStatus();loadGalleryFromFile();await loadEnquiriesSilent();updateDashboard();startAutoRefresh()}
-async function loadEnquiriesSilent(){_enquiries=await fetchEnquiries();updateDashboard();setLastUpdated()}
-async function refreshAll(){const activePanel=document.querySelector('.sidebar-nav a.active');const panelId=activePanel?activePanel.dataset.panel:'dashboard';loadGalleryFromFile();_enquiries=await fetchEnquiries();updateDashboard();setLastUpdated();if(panelId==='enquiries'){const body=document.getElementById('enquiriesBody');body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:2rem">Loading…</td></tr>';if(!_enquiries.length){body.innerHTML='<tr><td colspan="12" style="text-align:center;color:var(--ts);padding:3rem">No enquiries yet.</td></tr>';return}loadEnquiries()}}
+async function onAdminReady(){updateTokenStatus();loadGalleryFromFile();await loadEnquiries();startAutoRefresh()}
+async function refreshAll(){loadGalleryFromFile();await loadEnquiries()}
 function setLastUpdated(){const el=document.getElementById('lastUpdated');if(el)el.textContent='Updated '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}
 let _refreshTimer=null;
 function startAutoRefresh(){if(_refreshTimer)clearInterval(_refreshTimer);_refreshTimer=setInterval(refreshAll,60000)}
