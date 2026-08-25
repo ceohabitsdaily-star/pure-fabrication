@@ -600,10 +600,9 @@ document.getElementById('contactForm').addEventListener('submit',async function(
   const scope=[...document.querySelectorAll('input[name="scope"]:checked')].map(c=>c.value).join(', ')||'Not specified';
   const area=document.getElementById('cf-area').value.trim()||'Not provided';
   const brief=document.getElementById('cf-brief').value.trim();
-  const message=`Project Type: ${type}\nStage: ${stage}\nScope: ${scope}\nApprox. Area: ${area}\n\n${brief}`;
   btn.textContent='Sending…';btn.disabled=true;
   try{
-    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,company,location,message})});
+    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,company,location,type,stage,scope,area,message:brief})});
     if(r.ok){this.reset();document.getElementById('cf-success').style.display='block';setTimeout(()=>document.getElementById('cf-success').style.display='none',5000);}
     else{alert('Something went wrong. Please email us directly.');}
   }catch(err){alert('Something went wrong. Please email us directly.');}

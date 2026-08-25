@@ -6,7 +6,7 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, company, phone, email, location, message } = req.body || {};
+  const { name, company, phone, email, location, type, stage, scope, area, message } = req.body || {};
   if (!name || !email) return res.status(400).json({ error: 'Name and email required' });
 
   const token = process.env.GH_TOKEN;
@@ -36,7 +36,9 @@ module.exports = async function handler(req, res) {
   enquiries.unshift({
     id: Date.now(),
     name, company: company || '', phone: phone || '',
-    email, location: location || '', message: message || '',
+    email, location: location || '',
+    type: type || '', stage: stage || '', scope: scope || '', area: area || '',
+    message: message || '',
     date: new Date().toISOString(),
     status: 'new'
   });
