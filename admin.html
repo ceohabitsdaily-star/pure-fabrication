@@ -358,6 +358,18 @@ function renderEnqDrawer(){
   document.getElementById('drawerCounter').textContent=(i+1)+' / '+total;
   document.getElementById('drawerPrev').disabled=i===0;
   document.getElementById('drawerNext').disabled=i===total-1;
+  // Parse legacy format: old enquiries had project details bundled inside the message field
+  let pType=e.type||'',pStage=e.stage||'',pScope=e.scope||'',pArea=e.area||'',rawMsg=e.message||e.brief||'';
+  if(!pType&&!pStage&&!pScope&&rawMsg.includes('Project Type:')){
+    const lines=rawMsg.split('\n');
+    const extract=prefix=>{const l=lines.find(x=>x.trim().startsWith(prefix));return l?l.trim().slice(prefix.length).trim():''};
+    pType=extract('Project Type:')||pType;
+    pStage=extract('Stage:')||pStage;
+    pScope=extract('Scope:')||pScope;
+    pArea=extract('Approx. Area:')||extract('Area:')||pArea;
+    const meta=['Project Type:','Stage:','Scope:','Approx. Area:','Area:'];
+    rawMsg=lines.filter(l=>!meta.some(p=>l.trim().startsWith(p))).join('\n').trim();
+  }
   const statusBadge=`<span style="font-size:0.6rem;padding:0.3rem 0.9rem;border:1px solid ${isNew?'#4a7a4a':'var(--border)'};color:${isNew?'#7aba7a':'var(--ts)'}">${isNew?'New':'Read'}</span>`;
   document.getElementById('enqDrawerBody').innerHTML=`
     <div style="margin-bottom:1.4rem">${statusBadge}<span style="font-size:0.6rem;color:var(--ts);margin-left:0.8rem">${new Date(e.date).toLocaleString()}</span></div>
@@ -374,15 +386,15 @@ function renderEnqDrawer(){
     <div class="enq-section">
       <p class="enq-section-title">Project</p>
       <div class="enq-dl" style="margin-bottom:1rem">
-        <div><p class="enq-dt">Project Type</p><p class="enq-dd">${e.type||'—'}</p></div>
-        <div><p class="enq-dt">Project Stage</p><p class="enq-dd">${e.stage||'—'}</p></div>
+        <div><p class="enq-dt">Project Type</p><p class="enq-dd">${pType||'—'}</p></div>
+        <div><p class="enq-dt">Project Stage</p><p class="enq-dd">${pStage||'—'}</p></div>
       </div>
-      <div style="margin-bottom:1rem"><p class="enq-dt">Scope of Work</p><p class="enq-dd">${e.scope||'—'}</p></div>
-      <div><p class="enq-dt">Approximate Facade Area</p><p class="enq-dd">${e.area?e.area+' sq ft':'—'}</p></div>
+      <div style="margin-bottom:1rem"><p class="enq-dt">Scope of Work</p><p class="enq-dd">${pScope||'—'}</p></div>
+      <div><p class="enq-dt">Approximate Facade Area</p><p class="enq-dd">${pArea?pArea+' sq ft':'—'}</p></div>
     </div>
     <div class="enq-section">
       <p class="enq-section-title">Message</p>
-      <p class="enq-dd" style="line-height:1.85;color:var(--ts);white-space:pre-wrap">${e.message||e.brief||'—'}</p>
+      <p class="enq-dd" style="line-height:1.85;color:var(--ts);white-space:pre-wrap">${rawMsg||'—'}</p>
     </div>`;
   document.getElementById('enqDrawerFoot').innerHTML=`${isNew?'<button class="btn btn-ghost btn-sm" onclick="markReadDrawer()">Mark as Read</button>':''}<button class="btn btn-danger btn-sm" onclick="deleteDrawer()">Delete</button>`;
 }
