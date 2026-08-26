@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /uncategorized/
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://purefabrication.ca/sitemap.xml
