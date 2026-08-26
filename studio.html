@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DY02XBQKB4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DY02XBQKB4');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio | Pure Fabrication — ACP Panel Catalog Toronto</title>
+<meta name="description" content="Pure Fabrication Studio — browse our ACP panel catalog, finishes, and material specifications. Coming soon.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
+a{text-decoration:none;color:inherit;cursor:crosshair}
+.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
+.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
+@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
+.back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
+.back-btn:hover{color:var(--tp)}
+.back-btn svg{transition:transform 0.25s}
+.back-btn:hover svg{transform:translateX(-3px)}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+
+/* Page header */
+.page-header{padding:0 5rem 5rem;border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:flex-end}
+.page-header-left .sec-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:0.8rem}
+.page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
+.page-header-right{font-size:0.74rem;color:var(--ts);max-width:340px;line-height:1.9}
+
+/* Coming soon section */
+.coming-soon{padding:10rem 5rem;border-bottom:1px solid var(--br);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:50vh}
+.cs-label{font-size:0.58rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--ts);margin-bottom:2rem}
+.cs-heading{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:400;color:var(--tp);line-height:1.1;margin-bottom:2rem}
+.cs-body{font-size:0.76rem;line-height:2.1;color:var(--ts);max-width:480px;margin-bottom:3.5rem}
+.cs-divider{width:40px;height:1px;background:var(--br);margin:0 auto 3.5rem}
+.cs-cta{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;padding:1rem 2.8rem;border:1px solid var(--tp);color:var(--tp);display:inline-block;transition:all 0.25s;cursor:crosshair}
+.cs-cta:hover{background:var(--tp);color:#fff}
+
+/* What to expect */
+.preview{padding:7rem 5rem;background:var(--surf);border-bottom:1px solid var(--br)}
+.preview-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1rem}
+.preview-heading{font-family:var(--serif);font-size:clamp(1.6rem,2.5vw,2.2rem);font-weight:400;line-height:1.1;margin-bottom:4rem}
+.preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
+.preview-card{background:var(--surf);padding:3rem 2.5rem;transition:background 0.25s}
+.preview-card:hover{background:var(--bg)}
+.preview-card-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);display:block;margin-bottom:1.8rem}
+.preview-card-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--tp);margin-bottom:0.9rem}
+.preview-card-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+
+/* CTA */
+.cta{padding:8rem 5rem;text-align:center}
+.cta-text{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--tp);margin-bottom:0.8rem;line-height:1.3}
+.cta-sub{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--ts);margin-bottom:3rem}
+.cta-btns{display:flex;gap:1.2rem;justify-content:center}
+.btn-fill{display:inline-block;padding:1rem 2.8rem;background:var(--tp);color:#fff;font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-fill:hover{background:#333}
+.btn-ghost{display:inline-block;padding:1rem 2.8rem;border:1px solid var(--tp);color:var(--tp);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;transition:all 0.25s;cursor:crosshair}
+.btn-ghost:hover{background:var(--tp);color:#fff}
+
+/* Footer */
+footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
+.foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
+.foot-tag{font-family:var(--serif);font-size:0.9rem;color:#3a3a3a;margin-top:0.5rem}
+.foot-nav{display:flex;gap:3rem}
+.foot-nav a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-nav a:hover{color:var(--bg)}
+.foot-bottom{border-top:1px solid #1a1a1a;padding-top:2rem;display:flex;justify-content:space-between;align-items:center}
+.foot-copy{font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#2e2e2e}
+.foot-ig{display:inline-flex;align-items:center;gap:0.45rem;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;color:#555;transition:color 0.25s}
+.foot-ig:hover{color:var(--bg)}
+
+/* Mobile */
+@media(max-width:768px){
+  .back-btn{padding:2rem 1.6rem 1rem}
+  .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
+  .page-header-right{max-width:100%}
+  .coming-soon{padding:6rem 1.6rem}
+  .preview{padding:4rem 1.6rem}
+  .preview-grid{grid-template-columns:1fr}
+  .cta{padding:5rem 1.6rem}
+  .cta-btns{flex-direction:column;align-items:center}
+  footer{padding:3rem 1.6rem 2rem}
+  .foot-top{flex-direction:column;gap:2rem}
+  .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
+}
+</style>
+<link rel="canonical" href="https://purefabrication.ca/studio.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pure Fabrication">
+<meta property="og:url" content="https://purefabrication.ca/studio.html">
+<meta property="og:title" content="Studio | Pure Fabrication — ACP Panel Catalog Toronto">
+<meta property="og:description" content="Pure Fabrication Studio — browse our ACP panel catalog, finishes, and material specifications. Coming soon.">
+<meta property="og:image" content="https://purefabrication.ca/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Studio | Pure Fabrication — ACP Panel Catalog Toronto">
+<meta name="twitter:description" content="Pure Fabrication Studio — browse our ACP panel catalog, finishes, and material specifications. Coming soon.">
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="ring"></div>
+
+<a href="index.html" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back to Home</a>
+
+<!-- Page Header -->
+<div class="page-header reveal">
+  <div class="page-header-left">
+    <p class="sec-label">Studio</p>
+    <h1 class="page-title">Panel catalog.<br>Every finish.</h1>
+  </div>
+  <p class="page-header-right">Our full ACP panel catalog — finishes, colours, textures, and specifications — all in one place. Browse, compare, and request samples directly.</p>
+</div>
+
+<!-- Coming Soon -->
+<section class="coming-soon">
+  <p class="cs-label reveal">Coming Soon</p>
+  <h2 class="cs-heading reveal">The catalog is<br>being prepared.</h2>
+  <div class="cs-divider"></div>
+  <p class="cs-body reveal">We are putting together a complete library of ACP panel finishes, colours, and technical data sheets. Check back soon — or reach out directly and we will send you what you need.</p>
+  <a href="index.html#contact" class="cs-cta reveal">Request Samples & Specs</a>
+</section>
+
+<!-- What to expect -->
+<section class="preview">
+  <p class="preview-label reveal">What's Coming</p>
+  <h2 class="preview-heading reveal">Everything you need<br>to specify a panel.</h2>
+  <div class="preview-grid">
+    <div class="preview-card reveal">
+      <span class="preview-card-num">01</span>
+      <p class="preview-card-name">Finish Library</p>
+      <p class="preview-card-desc">Matte, gloss, brushed, mirror, wood grain, stone grain — every finish we carry, with real photos and finish codes.</p>
+    </div>
+    <div class="preview-card reveal">
+      <span class="preview-card-num">02</span>
+      <p class="preview-card-name">Colour Reference</p>
+      <p class="preview-card-desc">Full colour swatches with RAL codes and custom colour matching options for bespoke facade projects.</p>
+    </div>
+    <div class="preview-card reveal">
+      <span class="preview-card-num">03</span>
+      <p class="preview-card-name">Technical Data Sheets</p>
+      <p class="preview-card-desc">Panel thickness, core type, fire rating certificates (ASTM E84), weight per sqft, and installation specs for each product.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <p class="cta-text reveal">Need specs now?<br>We can help.</p>
+  <p class="cta-sub reveal">Send us your project details and we'll send the right materials.</p>
+  <div class="cta-btns reveal">
+    <a href="index.html#contact" class="btn-fill">Contact Us</a>
+    <a href="services.html" class="btn-ghost">View Services</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-brand">Pure Fabrication</div>
+      <div class="foot-tag">Built with absolute intention.</div>
+    </div>
+    <nav class="foot-nav">
+      <a href="gallery.html">Work</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="studio.html">Studio</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="foot-bottom">
+    <span class="foot-copy">© 2026 Pure Fabrication. All rights reserved.</span>
+    <a href="https://www.instagram.com/purefabrication.ca" target="_blank" rel="noopener" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@purefabrication.ca</a>
+    <a href="mailto:sales@purefabrication.ca" class="foot-ig"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>sales@purefabrication.ca</a>
+    <span class="foot-copy">Aluminum Panel Cladding · Toronto</span>
+  </div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
+});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
