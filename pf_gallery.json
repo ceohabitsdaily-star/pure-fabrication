@@ -14,10 +14,10 @@
     "category": "commercial"
   },
   {
-    "id": "3",
-    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205046_1b406e1d-9cb0-4d18-9991-f6a758a74922.png",
-    "title": "Panel Detail & Reveals",
-    "subtitle": "Custom Fabrication - Architectural Detail",
+    "id": "1788037259767",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037241176-alex-quezada-rlfltdjocxi-unsplash.jpg",
+    "title": "Sculptural Panel Facade",
+    "subtitle": "Architectural ACM Cladding — Custom Geometric Fabrication",
     "category": "custom"
   },
   {
@@ -26,5 +26,26 @@
     "title": "White Panel Luxury Home",
     "subtitle": "ACM Cladding - Luxury Residence",
     "category": "residential"
+  },
+  {
+    "id": "1788037162095",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037136337-download--36-.jfif",
+    "title": "Mirror Finish Curtain Wall",
+    "subtitle": "Aluminum Panel Cladding — Commercial Office Building",
+    "category": "commercial"
+  },
+  {
+    "id": "1788037289547",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037270408-703756187813310.jfif",
+    "title": "Matte Taupe Facade System",
+    "subtitle": "ACM Cladding — Luxury Residential Entrance",
+    "category": "residential"
+  },
+  {
+    "id": "1788037314068",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037298207-180284791330871134.jfif",
+    "title": "Charcoal High-Rise Cladding",
+    "subtitle": "Aluminum Panel Cladding — Multi-Storey Commercial Tower",
+    "category": "commercial"
   }
 ]
