@@ -1,10 +1,10 @@
 [
   {
-    "id": "1",
-    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205034_4f9c4f9d-6e63-42b5-85b8-7785197620be.png",
-    "title": "Charcoal ACM Facade",
-    "subtitle": "Aluminum Panel Cladding - Private Residence",
-    "category": "residential"
+    "id": "1788037259767",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037241176-alex-quezada-rlfltdjocxi-unsplash.jpg",
+    "title": "Sculptural Panel Facade",
+    "subtitle": "Architectural ACM Cladding — Custom Geometric Fabrication",
+    "category": "custom"
   },
   {
     "id": "2",
@@ -14,24 +14,10 @@
     "category": "commercial"
   },
   {
-    "id": "1788037259767",
-    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037241176-alex-quezada-rlfltdjocxi-unsplash.jpg",
-    "title": "Sculptural Panel Facade",
-    "subtitle": "Architectural ACM Cladding — Custom Geometric Fabrication",
-    "category": "custom"
-  },
-  {
-    "id": "4",
-    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205052_368e72bf-2995-45d4-9396-831361fb4e97.png",
-    "title": "White Panel Luxury Home",
-    "subtitle": "ACM Cladding - Luxury Residence",
-    "category": "residential"
-  },
-  {
-    "id": "1788037162095",
-    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037136337-download--36-.jfif",
-    "title": "Mirror Finish Curtain Wall",
-    "subtitle": "Aluminum Panel Cladding — Commercial Office Building",
+    "id": "1788037314068",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037298207-180284791330871134.jfif",
+    "title": "Charcoal High-Rise Cladding",
+    "subtitle": "Aluminum Panel Cladding — Multi-Storey Commercial Tower",
     "category": "commercial"
   },
   {
@@ -42,10 +28,17 @@
     "category": "residential"
   },
   {
-    "id": "1788037314068",
-    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037298207-180284791330871134.jfif",
-    "title": "Charcoal High-Rise Cladding",
-    "subtitle": "Aluminum Panel Cladding — Multi-Storey Commercial Tower",
+    "id": "1788037162095",
+    "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037136337-download--36-.jfif",
+    "title": "Mirror Finish Curtain Wall",
+    "subtitle": "Aluminum Panel Cladding — Commercial Office Building",
     "category": "commercial"
+  },
+  {
+    "id": "4",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205052_368e72bf-2995-45d4-9396-831361fb4e97.png",
+    "title": "White Panel Luxury Home",
+    "subtitle": "ACM Cladding - Luxury Residence",
+    "category": "residential"
   }
 ]
