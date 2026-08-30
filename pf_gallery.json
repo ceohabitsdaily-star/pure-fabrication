@@ -14,6 +14,13 @@
     "category": "residential"
   },
   {
+    "id": "4",
+    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205052_368e72bf-2995-45d4-9396-831361fb4e97.png",
+    "title": "White Panel Luxury Home",
+    "subtitle": "ACM Cladding - Luxury Residence",
+    "category": "residential"
+  },
+  {
     "id": "1788037259767",
     "url": "https://raw.githubusercontent.com/ceohabitsdaily-star/pure-fabrication/main/gallery-images/1788037241176-alex-quezada-rlfltdjocxi-unsplash.jpg",
     "title": "Sculptural Panel Facade",
@@ -40,12 +47,5 @@
     "title": "Charcoal High-Rise Cladding",
     "subtitle": "Aluminum Panel Cladding — Multi-Storey Commercial Tower",
     "category": "commercial"
-  },
-  {
-    "id": "4",
-    "url": "https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260710_205052_368e72bf-2995-45d4-9396-831361fb4e97.png",
-    "title": "White Panel Luxury Home",
-    "subtitle": "ACM Cladding - Luxury Residence",
-    "category": "residential"
   }
 ]
