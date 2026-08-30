@@ -299,7 +299,7 @@ const DEFAULT_GALLERY=[{id:'1',url:'https://d8j0ntlcm91z4.cloudfront.net/user_38
 let _gallery=null;
 function getGallery(){return _gallery||DEFAULT_GALLERY}
 function setGallery(items){_gallery=items;markUnsaved()}
-function loadGalleryFromFile(){if(!_gallery){_gallery=JSON.parse(JSON.stringify(DEFAULT_GALLERY));renderGalleryAdmin();updateDashboard()}if(_unsaved)return;fetch(GH_FILE+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(items=>{if(Array.isArray(items)&&items.length&&!_unsaved){_gallery=items;renderGalleryAdmin();updateDashboard()}}).catch(()=>{})}
+function loadGalleryFromFile(){if(!_gallery){_gallery=JSON.parse(JSON.stringify(DEFAULT_GALLERY));renderGalleryAdmin();updateDashboard()}fetch(GH_FILE+'?v='+Date.now()).then(r=>{if(!r.ok)throw new Error();return r.json()}).then(items=>{if(Array.isArray(items)&&items.length&&!_unsaved){_gallery=items;renderGalleryAdmin();updateDashboard()}}).catch(()=>{})}
 let _unsaved=false;
 function markUnsaved(){_unsaved=true;document.getElementById('publishBtn').classList.add('visible');document.getElementById('publishStatus').textContent='Unsaved changes'}
 function markSaved(){_unsaved=false;document.getElementById('publishBtn').classList.remove('visible');document.getElementById('publishStatus').textContent=''}
