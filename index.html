@@ -114,9 +114,9 @@ body.menu-open{overflow:hidden}
 .gallery{padding:8rem 0}
 .gal-head{padding:0 5rem;margin-bottom:4rem}
 .gal-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:400;margin-top:0.5rem}
-.gal-grid{display:grid;grid-template-columns:2fr 1fr;gap:3px;background:var(--br)}
+.gal-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3px;background:var(--br)}
 .gal-item{background:var(--surf);overflow:hidden;position:relative}
-.gal-item:first-child{grid-row:span 2}
+.gal-item:first-child{aspect-ratio:3/2}
 .gal-item:not(:first-child){aspect-ratio:4/3}
 .gal-item:hover img{transform:scale(1.04)}
 .gal-caption{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.5rem;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 100%);opacity:0;transition:opacity 0.4s ease}
