@@ -589,7 +589,7 @@ document.getElementById('contactForm').addEventListener('submit',async function(
   btn.textContent='Sending…';btn.disabled=true;
   try{
     const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,phone,company,location,type,stage,scope,area,message:brief})});
-    if(r.ok){this.reset();document.getElementById('cf-success').style.display='block';setTimeout(()=>document.getElementById('cf-success').style.display='none',5000);}
+    if(r.ok){window.location.href='/thank-you';}
     else{alert('Something went wrong. Please email us directly.');}
   }catch(err){alert('Something went wrong. Please email us directly.');}
   btn.textContent='Send Enquiry';btn.disabled=false;
