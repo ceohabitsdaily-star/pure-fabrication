@@ -248,29 +248,83 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "GeneralContractor"],
-  "name": "Pure Fabrication",
-  "description": "Commercial ACP cladding contractor in Toronto, GTA. Design, fabrication and installation of aluminum composite panel facade systems.",
-  "url": "https://purefabrication.ca",
-  "telephone": "+16473678806",
-  "email": "hello@purefabrication.ca",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Toronto",
-    "addressRegion": "ON",
-    "addressCountry": "CA"
-  },
-  "areaServed": ["Toronto","Mississauga","Brampton","Vaughan","Markham","Etobicoke","Scarborough","North York","Oakville","Richmond Hill","Pickering","Ajax"],
-  "sameAs": ["https://www.instagram.com/purefabrication.ca"],
-  "hasOfferCatalog": {
-    "@type": "OfferCatalog",
-    "name": "Cladding Services",
-    "itemListElement": [
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "ACP Cladding Installation"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Facade System Design"}},
-      {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Panel Fabrication"}}
-    ]
-  }
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://purefabrication.ca/#website",
+      "url": "https://purefabrication.ca",
+      "name": "Pure Fabrication",
+      "description": "Commercial ACP Cladding Toronto & GTA",
+      "publisher": {"@id": "https://purefabrication.ca/#business"}
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://purefabrication.ca/#webpage",
+      "url": "https://purefabrication.ca",
+      "name": "Commercial ACP Cladding Toronto & GTA | Pure Fabrication",
+      "isPartOf": {"@id": "https://purefabrication.ca/#website"},
+      "about": {"@id": "https://purefabrication.ca/#business"},
+      "description": "Pure Fabrication is a Toronto-based aluminum panel cladding company. We design, fabricate, and install ACM facade systems for residential and commercial buildings across the GTA."
+    },
+    {
+      "@type": ["LocalBusiness", "GeneralContractor"],
+      "@id": "https://purefabrication.ca/#business",
+      "name": "Pure Fabrication",
+      "url": "https://purefabrication.ca",
+      "telephone": "+16478637072",
+      "email": "hello@purefabrication.ca",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://purefabrication.ca/logo-v3-upload2.png"
+      },
+      "image": "https://purefabrication.ca/logo-v3-upload2.png",
+      "description": "Toronto-based aluminum panel cladding company. We design, fabricate, and install ACM facade systems for residential and commercial buildings across the GTA.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Toronto",
+        "addressRegion": "ON",
+        "addressCountry": "CA"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Toronto"},
+        {"@type": "City", "name": "Mississauga"},
+        {"@type": "City", "name": "Brampton"},
+        {"@type": "City", "name": "Vaughan"},
+        {"@type": "City", "name": "Markham"},
+        {"@type": "City", "name": "Etobicoke"},
+        {"@type": "City", "name": "Scarborough"},
+        {"@type": "City", "name": "North York"},
+        {"@type": "City", "name": "Oakville"},
+        {"@type": "City", "name": "Richmond Hill"},
+        {"@type": "City", "name": "Pickering"},
+        {"@type": "City", "name": "Ajax"},
+        {"@type": "City", "name": "Aurora"},
+        {"@type": "AdministrativeArea", "name": "Greater Toronto Area"}
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+          "opens": "08:00",
+          "closes": "19:00"
+        }
+      ],
+      "priceRange": "$$",
+      "currenciesAccepted": "CAD",
+      "sameAs": ["https://www.instagram.com/purefabrication.ca"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "ACP Cladding & Facade Services",
+        "itemListElement": [
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "ACP Panel Cladding", "provider": {"@id": "https://purefabrication.ca/#business"}}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "ACM Facade Systems", "provider": {"@id": "https://purefabrication.ca/#business"}}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom Aluminum Fabrication", "provider": {"@id": "https://purefabrication.ca/#business"}}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Design Assist", "provider": {"@id": "https://purefabrication.ca/#business"}}},
+          {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Material Supply", "provider": {"@id": "https://purefabrication.ca/#business"}}}
+        ]
+      }
+    }
+  ]
 }
 </script>
 </head>

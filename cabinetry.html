@@ -86,6 +86,33 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
   .foot-nav{flex-wrap:wrap;justify-content:center;gap:1rem}
 }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "GeneralContractor"],
+      "@id": "https://purefabrication.ca/#business",
+      "name": "Pure Fabrication",
+      "url": "https://purefabrication.ca",
+      "telephone": "+16478637072",
+      "email": "hello@purefabrication.ca",
+      "logo": {"@type": "ImageObject", "url": "https://purefabrication.ca/logo-v3-upload2.png"},
+      "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
+      "areaServed": {"@type": "AdministrativeArea", "name": "Greater Toronto Area"},
+      "sameAs": ["https://www.instagram.com/purefabrication.ca"]
+    },
+    {
+      "@type": "Service",
+      "name": "Cabinetry & Millwork",
+      "provider": {"@id": "https://purefabrication.ca/#business"},
+      "areaServed": "Greater Toronto Area",
+      "description": "Custom cabinetry and millwork fabrication by Pure Fabrication in Toronto and the GTA.",
+      "url": "https://purefabrication.ca/cabinetry.html"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="cur" id="cur"></div>

@@ -111,13 +111,84 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {"@type": "Question", "name": "What is ACM cladding?", "acceptedAnswer": {"@type": "Answer", "text": "Aluminum composite material (ACM) cladding consists of two aluminum sheets bonded to a core material, used for building facades."}},
-    {"@type": "Question", "name": "How long does ACP cladding last?", "acceptedAnswer": {"@type": "Answer", "text": "With proper maintenance, ACP cladding lasts 20-40 years depending on the coating and core type."}},
-    {"@type": "Question", "name": "Is ACP cladding fire resistant?", "acceptedAnswer": {"@type": "Answer", "text": "FR core panels meet mid-rise commercial requirements under the Ontario Building Code. A2 mineral core panels offer the highest fire resistance for high-rise buildings."}},
-    {"@type": "Question", "name": "How much does ACP cladding cost in Toronto?", "acceptedAnswer": {"@type": "Answer", "text": "ACP cladding costs vary based on panel type, project size, and installation complexity. Contact Pure Fabrication for a project-specific quote."}},
-    {"@type": "Question", "name": "Do you serve areas outside Toronto?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, we serve the entire GTA including Mississauga, Brampton, Vaughan, Markham, Etobicoke, Scarborough, North York, Oakville, Richmond Hill, Pickering, and Ajax."}}
+  "@graph": [
+    {
+      "@type": ["LocalBusiness", "GeneralContractor"],
+      "@id": "https://purefabrication.ca/#business",
+      "name": "Pure Fabrication",
+      "url": "https://purefabrication.ca",
+      "telephone": "+16478637072",
+      "email": "hello@purefabrication.ca",
+      "logo": {"@type": "ImageObject", "url": "https://purefabrication.ca/logo-v3-upload2.png"},
+      "address": {"@type": "PostalAddress", "addressLocality": "Toronto", "addressRegion": "ON", "addressCountry": "CA"},
+      "areaServed": [
+        {"@type": "City", "name": "Toronto"}, {"@type": "City", "name": "Mississauga"},
+        {"@type": "City", "name": "Brampton"}, {"@type": "City", "name": "Vaughan"},
+        {"@type": "City", "name": "Markham"}, {"@type": "City", "name": "Richmond Hill"},
+        {"@type": "City", "name": "Oakville"}, {"@type": "City", "name": "Ajax"},
+        {"@type": "AdministrativeArea", "name": "Greater Toronto Area"}
+      ],
+      "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "19:00"}],
+      "sameAs": ["https://www.instagram.com/purefabrication.ca"]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://purefabrication.ca/faq.html#webpage",
+      "url": "https://purefabrication.ca/faq.html",
+      "name": "ACP Cladding FAQ | Pure Fabrication Toronto",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is aluminum panel cladding?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Aluminum panel cladding is an exterior wall covering system installed over a building's structure. The most common type is ACM — Aluminum Composite Material — which consists of two thin aluminum sheets bonded to a rigid core. The result is a lightweight, durable panel that can be cut, folded, and finished in almost any shape or colour. It's the material behind most modern building facades in the GTA today."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work on residential and commercial projects?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. We work on both. On the residential side we handle custom homes, infill builds, and renovation exteriors. On the commercial side we work with retail, office, and mid-rise projects. The material and systems are the same — the scale and coordination requirements differ."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do you fabricate the panels yourselves or source them pre-made?",
+          "acceptedAnswer": {"@type": "Answer", "text": "We fabricate every panel ourselves, starting from raw aluminum sheet. We don't buy pre-cut panels from a manufacturer and install them. We take the raw material, design the panel layout, cut, fold, and finish everything in-house — to the exact dimensions of your project. This means we control quality at every single stage, from the raw sheet to the finished facade."}
+        },
+        {
+          "@type": "Question",
+          "name": "What areas do you serve?",
+          "acceptedAnswer": {"@type": "Answer", "text": "We serve Toronto and the Greater Toronto Area, including Mississauga, Brampton, Vaughan, Markham, Richmond Hill, Oakville, North York, Scarborough, Etobicoke, Pickering, and Ajax. For larger commercial projects, contact us to discuss scope and location."}
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between ACM and solid aluminum plate?",
+          "acceptedAnswer": {"@type": "Answer", "text": "ACM (Aluminum Composite Material) is two thin aluminum sheets bonded to a core — lightweight, cost-effective, and ideal for large facade surfaces. Solid aluminum plate is a single piece of aluminum with no core — heavier, thicker, and more structurally rigid. It's used where the design calls for a bolder material presence, or in areas that take more impact like canopies, soffits, and ground-level feature walls."}
+        },
+        {
+          "@type": "Question",
+          "name": "What colours and finishes are available?",
+          "acceptedAnswer": {"@type": "Answer", "text": "The range is very wide. Standard finishes include matte, gloss, brushed, and metallic in hundreds of colours. Specialty finishes include wood-grain, stone-effect, mirror, perforated, and anodized aluminum. Custom RAL colour matching is also available for projects that need an exact colour specification."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a permit for aluminum cladding?",
+          "acceptedAnswer": {"@type": "Answer", "text": "In most cases, yes. Re-cladding an existing building or adding an exterior cladding system to a new build typically requires a building permit under the Ontario Building Code. We can advise on what's required for your specific project and work within OBC-compliant specifications."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can you supply materials only, without installation?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. We offer material supply for contractors and builders who handle their own installation. We fabricate the panels to your specifications and deliver them ready to install."}
+        },
+        {
+          "@type": "Question",
+          "name": "How much does aluminum cladding cost?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Cladding costs vary based on panel type, finish, project size, and installation complexity. We provide written quotes after reviewing your drawings or site. Contact us to discuss your project and we'll put together a detailed estimate."}
+        },
+        {
+          "@type": "Question",
+          "name": "Can a damaged panel be replaced without redoing the whole facade?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Yes. One of the advantages of panel cladding systems is that individual panels can be removed and replaced without disturbing the rest of the facade. We can fabricate replacement panels to match existing colour, finish, and dimensions."}
+        }
+      ]
+    }
   ]
 }
 </script>
