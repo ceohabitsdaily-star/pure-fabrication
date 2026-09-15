@@ -19,9 +19,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
-.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
-.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
-@media(hover:none),(pointer:coarse){.cur,.cur-ring{display:none}body,a{cursor:auto}}
 
 /* Back btn */
 .back-btn{display:inline-flex;align-items:center;gap:0.6rem;font-size:0.6rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--ts);padding:3rem 5rem 1.5rem;transition:color 0.25s}
@@ -176,8 +173,6 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 </script>
 </head>
 <body>
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="ring"></div>
 
 <a href="javascript:history.back()" class="back-btn"><svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M15 5H1M5 1L1 5l4 4"/></svg>Back</a>
 
@@ -443,15 +438,6 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 </footer>
 
 <script>
-// Custom cursor
-const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-if(cur&&ring){
-  document.addEventListener('mousemove',e=>{
-    cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
-    setTimeout(()=>{ring.style.left=e.clientX+'px';ring.style.top=e.clientY+'px'},80);
-  });
-}
-
 // Reveal on scroll
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})},{threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));

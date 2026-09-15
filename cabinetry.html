@@ -10,8 +10,6 @@
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;}
 a{text-decoration:none;color:inherit;}
-.cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
-.cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5rem;background-color:rgba(247,246,244,0.96);border-bottom:1px solid var(--br)}
 .nav-logo{font-size:0.7rem;font-weight:700;letter-spacing:0.35em;text-transform:uppercase;color:var(--tp)}
 .nav-links{display:flex;gap:3rem;list-style:none}
@@ -42,13 +40,13 @@ body.menu-open{overflow:hidden}
 .page-title em{font-style:italic}
 .page-desc{font-size:0.8rem;line-height:1.9;color:var(--ts);max-width:380px}
 .filter-bar{display:flex;padding:0 5rem;border-bottom:1px solid var(--br)}
-.filter-btn{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ts);padding:1.2rem 2rem;border-right:1px solid var(--br);background:none;border-top:none;border-left:none;border-bottom:none;cursor:crosshair;transition:color 0.25s;position:relative}
+.filter-btn{font-size:0.6rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--ts);padding:1.2rem 2rem;border-right:1px solid var(--br);background:none;border-top:none;border-left:none;border-bottom:none;cursor:pointer;transition:color 0.25s;position:relative}
 .filter-btn:first-child{padding-left:0}
 .filter-btn::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--ac);transform:scaleX(0);transition:transform 0.3s ease}
 .filter-btn.active,.filter-btn:hover{color:var(--tp)}
 .filter-btn.active::after{transform:scaleX(1)}
 .cab-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--br);margin-bottom:2px}
-.cab-item{position:relative;overflow:hidden;cursor:crosshair;aspect-ratio:4/3;background:var(--surf)}
+.cab-item{position:relative;overflow:hidden;cursor:default;aspect-ratio:4/3;background:var(--surf)}
 .cab-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease}
 .cab-item:hover img{transform:scale(1.05)}
 .cab-caption{position:absolute;bottom:0;left:0;right:0;padding:1.5rem 1.8rem;background:linear-gradient(to top,rgba(0,0,0,0.65) 0%,transparent 100%);opacity:0;transition:opacity 0.4s}
@@ -61,7 +59,7 @@ body.menu-open{overflow:hidden}
 .cta-strip{padding:6rem 5rem;background:var(--tp);color:var(--bg);display:flex;justify-content:space-between;align-items:center}
 .cta-strip h2{font-family:var(--serif);font-size:clamp(1.8rem,3vw,3rem);font-weight:400}
 .cta-strip h2 em{font-style:italic}
-.btn-light{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.9rem 2.5rem;border:1px solid var(--bg);color:var(--bg);transition:all 0.25s;cursor:crosshair;white-space:nowrap}
+.btn-light{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.9rem 2.5rem;border:1px solid var(--bg);color:var(--bg);transition:all 0.25s;cursor:pointer;white-space:nowrap}
 .btn-light:hover{background:var(--bg);color:var(--tp)}
 footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #222}
 .foot-brand{font-size:0.68rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
@@ -115,8 +113,6 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
 </script>
 </head>
 <body>
-<div class="cur" id="cur"></div>
-<div class="cur-ring" id="ring"></div>
 <nav id="nav">
   <a href="index.html" class="nav-logo">Pure Fabrication</a>
   <ul class="nav-links">
@@ -180,14 +176,6 @@ footer{background:var(--tp);padding:3rem 5rem;display:flex;justify-content:space
   <span class="foot-copy">© 2026 Pure Fabrication</span>
 </footer>
 <script>
-const cur=document.getElementById('cur'),ring=document.getElementById('ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-(function loop(){rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='14px';cur.style.height='14px';ring.style.width='46px';ring.style.height='46px'});
-  el.addEventListener('mouseleave',()=>{cur.style.width='8px';cur.style.height='8px';ring.style.width='30px';ring.style.height='30px'});
-});
 const btns=document.querySelectorAll('.filter-btn'),items=document.querySelectorAll('.cab-item');
 btns.forEach(btn=>{
   btn.addEventListener('click',()=>{
