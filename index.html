@@ -181,6 +181,16 @@ body.menu-open{overflow:hidden}
 .svc-head .btn-ghost:hover{background:var(--tp);color:#fff}
 .cf-btn-dark{border-color:var(--tp)!important;color:var(--tp)!important}
 .cf-btn-dark:hover{background:var(--tp)!important;color:#fff!important}
+.learn-band{padding:7rem 5rem;border-top:1px solid var(--br);background:var(--surf)}
+.learn-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:3rem}
+.learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br)}
+.learn-card{background:var(--surf);padding:3rem 2.5rem;display:flex;flex-direction:column;gap:0;transition:background 0.25s;text-decoration:none;color:inherit;cursor:crosshair}
+.learn-card:hover{background:var(--bg)}
+.learn-card-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);margin-bottom:1.5rem}
+.learn-card-title{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--tp);margin-bottom:0.9rem;line-height:1.25}
+.learn-card-desc{font-size:0.7rem;line-height:1.9;color:var(--ts);flex:1}
+.learn-card-arrow{font-size:0.9rem;color:var(--ts);margin-top:2rem;transition:transform 0.25s;display:inline-block}
+.learn-card:hover .learn-card-arrow{transform:translateX(4px)}
 footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 .foot-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4rem}
 .foot-brand{font-size:0.7rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--bg);font-weight:700}
@@ -232,6 +242,8 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
   footer{padding:3rem 1.6rem 2rem}
   .foot-top{flex-direction:column;gap:2rem}
   .foot-nav{flex-wrap:wrap;gap:1.2rem}
+  .learn-band{padding:4rem 1.6rem}
+  .learn-grid{grid-template-columns:1fr}
   .foot-bottom{flex-direction:column;gap:0.8rem;text-align:center}
 }
 </style>
@@ -560,6 +572,29 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
     <p id="cf-success" style="display:none;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ac);margin-top:0.5rem">Enquiry sent — we'll be in touch.</p>
   </form>
 </div>
+<div class="learn-band reveal">
+  <p class="learn-label">Learn</p>
+  <div class="learn-grid">
+    <a href="what-is-acp-cladding.html" class="learn-card">
+      <span class="learn-card-num">01</span>
+      <p class="learn-card-title">What is ACP Cladding?</p>
+      <p class="learn-card-desc">The material, the finishes, the systems — everything you need to know about aluminum composite panel before specifying it.</p>
+      <span class="learn-card-arrow">→</span>
+    </a>
+    <a href="commercial-facade-systems-toronto.html" class="learn-card">
+      <span class="learn-card-num">02</span>
+      <p class="learn-card-title">Commercial Facade Systems Toronto</p>
+      <p class="learn-card-desc">Rainscreen, cassette, direct-fix — the six facade systems we install across the GTA and how to choose between them.</p>
+      <span class="learn-card-arrow">→</span>
+    </a>
+    <a href="acp-cladding-project-toronto.html" class="learn-card">
+      <span class="learn-card-num">03</span>
+      <p class="learn-card-title">How a Project Gets Done</p>
+      <p class="learn-card-desc">A ground-level walkthrough of a real ACP facade renovation — from site measure and shop drawings to the final punch list.</p>
+      <span class="learn-card-arrow">→</span>
+    </a>
+  </div>
+</div>
 <footer>
   <div class="foot-top">
     <div>
@@ -572,6 +607,9 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <a href="about.html">About</a>
       <a href="faq.html">FAQ</a>
       <a href="#contact">Contact</a>
+      <a href="what-is-acp-cladding.html">What is ACP?</a>
+      <a href="commercial-facade-systems-toronto.html">Commercial Facades</a>
+      <a href="acp-cladding-project-toronto.html">Project Walkthrough</a>
     </nav>
   </div>
   <div class="foot-bottom">
