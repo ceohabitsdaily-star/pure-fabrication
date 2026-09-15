@@ -8,8 +8,8 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#F7F6F4;--surf:#ECEAE6;--tp:#1C1C1C;--ts:#8C8C8C;--ac:#2B3A4A;--ach:#3D4F5F;--br:#D4D2CC;--serif:'Georgia',serif;--sans:'Helvetica Neue',Helvetica,Arial,sans-serif}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;cursor:crosshair}
-a{text-decoration:none;color:inherit;cursor:crosshair}
+body{background:var(--bg);color:var(--tp);font-family:var(--sans);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
 .cur{width:8px;height:8px;background:var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s}
 .cur-ring{width:30px;height:30px;border:1px solid var(--ac);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);opacity:0.5;transition:width 0.3s,height 0.3s}
 #nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 5rem;background-color:rgba(247,246,244,0.96);border-bottom:1px solid var(--br)}
@@ -17,7 +17,7 @@ a{text-decoration:none;color:inherit;cursor:crosshair}
 .nav-links{display:flex;gap:3rem;list-style:none}
 .nav-links a{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ts);transition:color 0.25s}
 .nav-links a:hover,.nav-links a.active{color:var(--tp)}
-.nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;cursor:crosshair}
+.nav-cta{font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;padding:0.6rem 1.6rem;border:1px solid var(--ac);color:var(--ac);transition:all 0.25s;}
 .nav-cta:hover{background:var(--ac);color:#fff}
 .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:32px;height:32px;background:none;border:none;cursor:pointer;z-index:2100;position:relative}
 .nav-toggle span{display:block;width:100%;height:2px;background:var(--tp);transition:transform 0.3s ease,opacity 0.3s ease}
