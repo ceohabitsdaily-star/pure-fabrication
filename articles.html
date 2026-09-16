@@ -66,12 +66,16 @@ a{text-decoration:none;color:inherit}
 .page-title{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4.5rem);font-weight:400;line-height:0.9}
 .page-header-right{font-size:0.74rem;color:var(--ts);max-width:340px;line-height:1.9}
 .articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--br);border-bottom:1px solid var(--br)}
-.art-card{background:var(--bg);padding:3rem 2.5rem;display:flex;flex-direction:column;gap:1.2rem;transition:background 0.25s;text-decoration:none;color:inherit}
+.art-card{background:var(--bg);display:flex;flex-direction:column;transition:background 0.25s;text-decoration:none;color:inherit}
 .art-card:hover{background:var(--surf)}
+.art-card-img{width:100%;height:220px;overflow:hidden;flex-shrink:0}
+.art-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease}
+.art-card:hover .art-card-img img{transform:scale(1.04)}
+.art-card-body{padding:2.5rem 2.5rem 3rem;display:flex;flex-direction:column;gap:1.2rem;flex:1}
 .art-card-cat{font-size:0.56rem;letter-spacing:0.38em;text-transform:uppercase;color:var(--ts)}
 .art-card-title{font-family:var(--serif);font-size:1.35rem;font-weight:400;line-height:1.25;color:var(--tp)}
 .art-card-excerpt{font-size:0.7rem;line-height:1.9;color:var(--ts);flex:1}
-.art-card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--br)}
+.art-card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:1.5rem;border-top:1px solid var(--br);}
 .art-card-date{font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ts)}
 .art-card-arrow{font-size:0.95rem;color:var(--ac);transition:transform 0.25s}
 .art-card:hover .art-card-arrow{transform:translateX(5px)}
@@ -91,7 +95,8 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
   .page-header{padding:0 1.6rem 3rem;flex-direction:column;align-items:flex-start;gap:1.5rem}
   .page-header-right{max-width:100%}
   .articles-grid{grid-template-columns:1fr}
-  .art-card{padding:2.5rem 1.6rem}
+  .art-card-body{padding:2rem 1.6rem 2.5rem}
+  .art-card-img{height:180px}
   footer{padding:4rem 1.6rem 2rem}
   .foot-top{flex-direction:column;gap:2rem}
   .foot-nav{flex-wrap:wrap;gap:1.5rem}
@@ -113,30 +118,39 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
 </div>
 <div class="articles-grid">
   <a href="acp-cladding-cost-toronto.html" class="art-card reveal">
-    <span class="art-card-cat">Cost Guide</span>
-    <p class="art-card-title">ACP Cladding Cost in Toronto: What to Expect in 2026</p>
-    <p class="art-card-excerpt">What aluminum composite panel cladding actually costs in Toronto — broken down by system type, material spec, and project complexity. Includes typical price ranges for supply and install across the GTA.</p>
-    <div class="art-card-foot">
-      <span class="art-card-date">Sep 2026</span>
-      <span class="art-card-arrow">→</span>
+    <div class="art-card-img"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260916_011025_e1083f61-a99f-4a5a-8f66-0e7a2677e4a6.png" alt="ACP cladding installation Toronto commercial building" loading="lazy"></div>
+    <div class="art-card-body">
+      <span class="art-card-cat">Cost Guide</span>
+      <p class="art-card-title">ACP Cladding Cost in Toronto: What to Expect in 2026</p>
+      <p class="art-card-excerpt">What aluminum composite panel cladding actually costs in Toronto — broken down by system type, material spec, and project complexity. Includes typical price ranges for supply and install across the GTA.</p>
+      <div class="art-card-foot">
+        <span class="art-card-date">Sep 2026</span>
+        <span class="art-card-arrow">→</span>
+      </div>
     </div>
   </a>
   <a href="what-is-acp-cladding.html" class="art-card reveal" style="transition-delay:0.1s">
-    <span class="art-card-cat">Material Guide</span>
-    <p class="art-card-title">What is ACP Cladding? A Complete Guide to Aluminum Composite Panels</p>
-    <p class="art-card-excerpt">Everything you need to know about aluminum composite panels — the material, core types, available finishes, fire ratings, and why it's the dominant facade material on Toronto's commercial buildings.</p>
-    <div class="art-card-foot">
-      <span class="art-card-date">Sep 2026</span>
-      <span class="art-card-arrow">→</span>
+    <div class="art-card-img"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260916_011032_9e2cc012-5bde-4d71-8a76-ee1371b462dd.png" alt="Aluminum composite panel material cross-section detail" loading="lazy"></div>
+    <div class="art-card-body">
+      <span class="art-card-cat">Material Guide</span>
+      <p class="art-card-title">What is ACP Cladding? A Complete Guide to Aluminum Composite Panels</p>
+      <p class="art-card-excerpt">Everything you need to know about aluminum composite panels — the material, core types, available finishes, fire ratings, and why it's the dominant facade material on Toronto's commercial buildings.</p>
+      <div class="art-card-foot">
+        <span class="art-card-date">Sep 2026</span>
+        <span class="art-card-arrow">→</span>
+      </div>
     </div>
   </a>
   <a href="commercial-facade-systems-toronto.html" class="art-card reveal" style="transition-delay:0.2s">
-    <span class="art-card-cat">Facade Systems</span>
-    <p class="art-card-title">Commercial Facade Systems in Toronto: Which System Is Right for Your Build?</p>
-    <p class="art-card-excerpt">Rainscreen, cassette, direct-fix, plate, soffit, and canopy systems explained — how each one works, when to use it, and what architects and GCs specify for Ontario's commercial buildings.</p>
-    <div class="art-card-foot">
-      <span class="art-card-date">Sep 2026</span>
-      <span class="art-card-arrow">→</span>
+    <div class="art-card-img"><img src="https://d8j0ntlcm91z4.cloudfront.net/user_38KNSbB5Cj5Bo8GP7eaYNDDegXU/hf_20260916_011035_80f2b8d6-d344-47f0-b10a-f643a7f38143.png" alt="Modern Toronto commercial building rainscreen facade system" loading="lazy"></div>
+    <div class="art-card-body">
+      <span class="art-card-cat">Facade Systems</span>
+      <p class="art-card-title">Commercial Facade Systems in Toronto: Which System Is Right for Your Build?</p>
+      <p class="art-card-excerpt">Rainscreen, cassette, direct-fix, plate, soffit, and canopy systems explained — how each one works, when to use it, and what architects and GCs specify for Ontario's commercial buildings.</p>
+      <div class="art-card-foot">
+        <span class="art-card-date">Sep 2026</span>
+        <span class="art-card-arrow">→</span>
+      </div>
     </div>
   </a>
 </div>
