@@ -74,12 +74,12 @@ a{text-decoration:none;color:inherit}
 .intro{padding:8rem 5rem;border-bottom:1px solid var(--br);display:grid;grid-template-columns:1fr 1fr;gap:8rem;align-items:start}
 .intro-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--ts);margin-bottom:1.5rem}
 .intro-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.1;margin-bottom:2.5rem}
-.intro-body{font-size:0.76rem;line-height:2.1;color:var(--ts)}
+.intro-body{font-size:0.92rem;line-height:1.95;color:var(--tp)}
 .intro-body p+p{margin-top:1.4rem}
 .intro-facts{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--br)}
 .intro-fact{padding:2rem 0;border-bottom:1px solid var(--br)}
 .intro-fact-title{font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--tp);margin-bottom:0.5rem;font-weight:500}
-.intro-fact-desc{font-size:0.72rem;line-height:1.8;color:var(--ts)}
+.intro-fact-desc{font-size:0.92rem;line-height:1.95;color:var(--tp)}
 
 /* Types */
 .types{padding:7rem 5rem;background:var(--surf);border-bottom:1px solid var(--br)}
@@ -90,7 +90,7 @@ a{text-decoration:none;color:inherit}
 .type-card:hover{background:var(--bg)}
 .type-card-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);display:block;margin-bottom:1.8rem}
 .type-card-name{font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--tp);margin-bottom:0.9rem}
-.type-card-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+.type-card-desc{font-size:0.92rem;line-height:1.95;color:var(--tp)}
 
 /* Benefits */
 .benefits{padding:7rem 5rem;border-bottom:1px solid var(--br)}
@@ -100,20 +100,20 @@ a{text-decoration:none;color:inherit}
 .ben-item{background:var(--bg);padding:3rem;transition:background 0.25s}
 .ben-item:hover{background:var(--surf)}
 .ben-item-title{font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--tp);margin-bottom:0.8rem;font-weight:500}
-.ben-item-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+.ben-item-desc{font-size:0.92rem;line-height:1.95;color:var(--tp)}
 
 /* Applications */
 .applications{padding:8rem 5rem;background:var(--tp);border-bottom:1px solid #1a1a1a}
 .app-label{font-size:0.6rem;letter-spacing:0.4em;text-transform:uppercase;color:#3a3a3a;margin-bottom:1rem}
 .app-heading{font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:400;color:var(--bg);margin-bottom:1.5rem;line-height:1.1}
-.app-sub{font-size:0.74rem;line-height:1.9;color:#5a5a5a;max-width:580px;margin-bottom:5rem}
+.app-sub{font-size:0.92rem;line-height:1.95;color:#9a9a9a;max-width:580px;margin-bottom:5rem}
 .app-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #252525}
 .app-item{padding:2.5rem 2rem 2.5rem 0;border-right:1px solid #252525}
 .app-item:last-child{border-right:none}
 .app-item:not(:first-child){padding-left:2rem}
 .app-item-n{font-size:0.58rem;letter-spacing:0.3em;color:#2e2e2e;display:block;margin-bottom:1.2rem}
 .app-item-name{font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--bg);margin-bottom:0.5rem}
-.app-item-desc{font-size:0.68rem;line-height:1.8;color:#5a5a5a}
+.app-item-desc{font-size:0.92rem;line-height:1.95;color:#9a9a9a}
 
 /* Process */
 .process{padding:7rem 5rem;border-bottom:1px solid var(--br)}
@@ -124,7 +124,11 @@ a{text-decoration:none;color:inherit}
 .proc-num{font-size:0.58rem;letter-spacing:0.3em;color:var(--ts);flex-shrink:0;padding-top:0.2rem;min-width:2rem}
 .proc-content{}
 .proc-name{font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--tp);margin-bottom:0.6rem}
-.proc-desc{font-size:0.72rem;line-height:1.9;color:var(--ts)}
+.proc-desc{font-size:0.92rem;line-height:1.95;color:var(--tp)}
+
+/* Internal links */
+.ilink{color:#4a0006;text-decoration:underline;text-decoration-color:rgba(74,0,6,0.35);text-underline-offset:3px;font-weight:500;transition:text-decoration-color 0.2s}
+.ilink:hover{text-decoration-color:#4a0006}
 
 /* CTA */
 .cta-band{padding:7rem 5rem;background:var(--surf);border-bottom:1px solid var(--br);display:flex;justify-content:space-between;align-items:center;gap:4rem}
@@ -204,7 +208,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
     </div>
     <div class="intro-fact">
       <p class="intro-fact-title">Lifespan</p>
-      <p class="intro-fact-desc">With proper installation and basic maintenance, ACP cladding lasts 20–40 years. PVDF-coated panels retain colour and finish for decades without fading or chalking.</p>
+      <p class="intro-fact-desc">With proper installation and basic maintenance, ACP cladding <a href="how-long-does-acp-cladding-last.html" class="ilink">lasts 20–40 years</a>. PVDF-coated panels retain colour and finish for decades without fading or chalking.</p>
     </div>
     <div class="intro-fact">
       <p class="intro-fact-title">Code compliance</p>
@@ -268,7 +272,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
     </div>
     <div class="ben-item">
       <p class="ben-item-title">Weather Performance</p>
-      <p class="ben-item-desc">ACP is inherently weather-resistant — aluminum does not rust, rot, or warp. When properly installed with a vented rainscreen system, it performs well in freeze-thaw cycles and the full range of Ontario climate conditions.</p>
+      <p class="ben-item-desc">ACP is inherently weather-resistant — aluminum does not rust, rot, or warp. When properly installed with a <a href="commercial-facade-systems-toronto.html" class="ilink">vented rainscreen system</a>, it performs well in freeze-thaw cycles and the full range of Ontario climate conditions.</p>
     </div>
   </div>
 </section>
@@ -330,7 +334,7 @@ footer{background:var(--tp);padding:5rem 5rem 3rem;border-top:1px solid #1a1a1a}
       <span class="proc-num">03</span>
       <div class="proc-content">
         <p class="proc-name">In-House Fabrication</p>
-        <p class="proc-desc">We start from raw aluminum sheet — not pre-cut panels from a supplier. Every panel is cut, folded, and finished in-house to the exact dimensions of your project. We control quality at every stage with no outsourcing and no middlemen.</p>
+        <p class="proc-desc">We start from raw aluminum sheet — not pre-cut panels from a supplier. Every panel is cut, folded, and finished <a href="capabilities.html" class="ilink">in-house</a> to the exact dimensions of your project. We control quality at every stage with no outsourcing and no middlemen.</p>
       </div>
     </div>
     <div class="proc-item">
